@@ -1,0 +1,13 @@
+.noScrollbar::-webkit-scrollbar {
+  display: none;
+}
+a.active button {
+  @apply text-text-primary;
+}
+a.active span {
+  @apply font-semibold;
+}
+
+#city.active {
+  @apply border bg-transparent;
+}

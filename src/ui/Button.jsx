@@ -1,7 +1,9 @@
-export function Button() {
-    return (
-        <button className="bg-primary w-fit text-white rounded-xl px-5 text-sm font-semibold  py-2">
-            Get Started
-        </button>
-    );
+export default function Button({ children, className }) {
+  return (
+    <button
+      className={`w-fit rounded-xl bg-primary px-5 py-2 text-sm  font-semibold text-white transition-colors duration-300  hover:bg-primary-hover ${className}`}
+    >
+      {children}
+    </button>
+  );
 }

@@ -1,9 +1,11 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --color-primary: #0095ff;
+  --color-primary: #0072e6;
+  --color-primary-hover: #0095ff;
   --color-text-secondary: #9399a2;
 }
 
@@ -14,6 +16,7 @@
   --color-text-tertiary: #b9c0ca;
   --color-settings-active: #35455e;
   --color-settings-inactive: #0b131e;
+  --color-border : #35455e;
 }
 
 .light {
@@ -23,16 +26,26 @@
   --color-text-tertiary: #35455e;
   --color-settings-active: #dde0e4;
   --color-settings-inactive: #c4cad3;
+  --color-border : #9399a2;
 }
 
 * {
   box-sizing: border-box;
 }
 body {
-  font-family: "Rubik", sans-serif;
-  height: 100dvh;
-  background-color: var(--color-background-primary);
+  font-family: 'Rubik', sans-serif;
+  @apply h-[100dvh] overflow-hidden bg-background-primary;
 }
 #root {
   height: 100%;
+}
+
+::-webkit-scrollbar {
+  @apply h-[3px] w-[3px];
+}
+::-webkit-scrollbar-track {
+  @apply rounded-md bg-background-secondary;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-md bg-primary;
 }
