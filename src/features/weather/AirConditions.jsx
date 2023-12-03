@@ -7,7 +7,7 @@ export default function AirConditions() {
 
   return (
     <>
-      <div className={`rounded-xl p-5 ${seeMore ? '' : 'bg-background-secondary'} `}>
+      <div className={`rounded-xl p-3 sm:p-5 ${seeMore ? '' : 'bg-background-secondary'} `}>
         <div className='mb-5 flex items-center justify-between'>
           <h3 className='text-sm font-medium text-text-secondary '>AIR CONDITIONS</h3>
           <Button className='px-3 py-1 text-xs' onClick={() => setSeeMore(!seeMore)}>

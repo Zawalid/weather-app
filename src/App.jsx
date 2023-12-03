@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AppLayout from './ui/AppLayout';
+import ThemeProvider from './contexts/ThemeContext';
 import HomePage from './pages/HomePage';
 import PageNotFound from './pages/PageNotFound';
 import Weather from './features/weather/Weather';
@@ -8,7 +9,6 @@ import Map from './features/map/Map';
 import Settings from './features/settings/Settings';
 
 import '@/styles/App.css';
-import ThemeProvider from './contexts/ThemeContext';
 
 export default function App() {
   return (

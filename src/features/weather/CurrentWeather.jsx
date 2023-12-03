@@ -4,7 +4,7 @@ export default function CurrentWeather({ transparent, imageClass }) {
   return (
     <div
       className={`flex items-center justify-between ${
-        transparent ? "px-0" : "px-5 sm:px-8"
+        transparent ? "px-0" : "px-3 sm:px-8"
       } `}
     >
       <div className="flex flex-col gap-5 sm:gap-8 justify-between">
