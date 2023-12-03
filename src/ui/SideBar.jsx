@@ -1,5 +1,6 @@
 import Logo from '@/ui/Logo';
 import { NavLink } from 'react-router-dom';
+import ThemeSwitch from './ThemeSwitch';
 
 export default function SideBar() {
   return (
@@ -12,13 +13,14 @@ export default function SideBar() {
         <NavLink to='cities'>
           <Button icon='fa-list' text='Cities' />
         </NavLink>
-        <NavLink to="map">
-        <Button icon='fa-map' text='Map' />
+        <NavLink to='map'>
+          <Button icon='fa-map' text='Map' />
         </NavLink>
         <NavLink to='settings'>
           <Button icon='fa-sliders' text='Settings' />
         </NavLink>
       </div>
+     <ThemeSwitch />
     </aside>
   );
 }

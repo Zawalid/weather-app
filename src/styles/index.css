@@ -20,8 +20,8 @@
 }
 
 .light {
-  --color-background-primary: #f5f5f5;
-  --color-background-secondary: #eaecef;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f3f4f5;
   --color-text-primary: #202b3b;
   --color-text-tertiary: #35455e;
   --color-settings-active: #dde0e4;
@@ -31,10 +31,11 @@
 
 * {
   box-sizing: border-box;
+  @apply transition-colors duration-300
 }
 body {
   font-family: 'Rubik', sans-serif;
-  @apply h-[100dvh] overflow-hidden bg-background-primary;
+  @apply h-[100dvh] overflow-hidden bg-background-primary
 }
 #root {
   height: 100%;
@@ -49,3 +50,4 @@ body {
 ::-webkit-scrollbar-thumb {
   @apply rounded-md bg-primary;
 }
+
