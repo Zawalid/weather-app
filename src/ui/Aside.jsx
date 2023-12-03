@@ -8,11 +8,11 @@ import WeekForecast from '../features/weather/WeekForecast';
 import ThreeDaysForecast from '../features/weather/ThreeDaysForeCast';
 import Cities from '../features/cities/Cities';
 
-export default function Aside() {
+export default function Aside({ seeMore }) {
   const currentTab = useLocation().pathname.split('/')[2];
   return currentTab === 'weather' ? (
     <>
-      <TodayForecast className='noScrollbar justify-start overflow-auto' />
+      {seeMore && <TodayForecast className='noScrollbar justify-start overflow-auto' />}
       <WeekForecast />
     </>
   ) : currentTab === 'cities' ? (
@@ -28,7 +28,7 @@ export default function Aside() {
     </>
   ) : (
     <>
-    <Cities type={3} />
+      <Cities type={3} />
     </>
   );
 }
