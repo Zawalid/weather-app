@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import SearchInput from './SearchInput';
+import SearchInput from '../features/search/SearchInput';
 import SideBar from './SideBar';
 import Aside from './Aside';
 
@@ -26,7 +26,7 @@ export default function AppLayout() {
         </button>
       </div>
       <div
-        className='col-start-2 grid h-[calc(100vh-80px)] overflow-auto pr-3 lg:h-[calc(100vh-96px)]'
+        className='col-start-2  h-[calc(100vh-80px)] overflow-auto pr-3 lg:h-[calc(100vh-96px)]'
         ref={parent}
       >
         <Outlet

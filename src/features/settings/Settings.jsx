@@ -55,4 +55,9 @@ export default function Settings() {
   );
 }
 
+/*
+ Todo :
+       Add setting to change the number of hours in the today forecast
+       Add setting to change the number of days in the daily forecast
 
+*/

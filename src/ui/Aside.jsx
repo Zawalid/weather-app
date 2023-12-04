@@ -1,34 +1,20 @@
 import { useLocation } from 'react-router-dom';
 
-import Plan from '../features/settings/Plan';
-import SignUp from '../features/settings/SignUp';
-import TodayForecast from '../features/weather/TodayForecast';
-import CurrentWeather from '../features/weather/CurrentWeather';
-import WeekForecast from '../features/weather/WeekForecast';
-import ThreeDaysForecast from '../features/weather/ThreeDaysForeCast';
-import Cities from '../features/cities/Cities';
+import { Aside as SettingsAside } from '../features/settings/Aside';
+import { Aside as WeatherAside } from '../features/weather/Aside';
+import CityWeather from '../features/weather/CityWeather';
 
 export default function Aside({ seeMore }) {
   const currentTab = useLocation().pathname.split('/')[2];
   return currentTab === 'weather' ? (
-    <>
-      {seeMore && <TodayForecast className='noScrollbar justify-start overflow-auto' />}
-      <WeekForecast />
-    </>
+    <WeatherAside seeMore={seeMore} />
   ) : currentTab === 'cities' ? (
-    <>
-      <CurrentWeather transparent={true} imageClass='w-28' />
-      <TodayForecast transparent={true} className='justify-start bg-transparent' />
-      <ThreeDaysForecast />
-    </>
+    <CityWeather />
   ) : currentTab === 'settings' ? (
-    <>
-      <Plan />
-      <SignUp />
-    </>
+    <SettingsAside />
+  ) : currentTab === 'search' ? (
+    <CityWeather />
   ) : (
-    <>
-      <Cities type={3} />
-    </>
+    <p>Map</p>
   );
 }

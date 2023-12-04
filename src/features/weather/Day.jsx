@@ -8,10 +8,10 @@ export default function Day({ day, icon, weather, temperature }) {
       </div>
       <p className="justify-self-end">
         <span className="text-text-primary font-semibold ">
-          {temperature.day}
+          {temperature.max}
         </span>
         <span className="text-text-secondary  text-sm">
-          /{temperature.night}
+          /{temperature.min}
         </span>
       </p>
     </div>

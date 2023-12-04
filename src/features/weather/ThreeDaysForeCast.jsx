@@ -1,31 +1,29 @@
-import Sun from "@/assets/sun.png";
-import Day from "./Day";
+import Sun from '@/assets/sun.png';
+import Day from './Day';
+import { checkIfToday, formatDay } from '../../utils/helpers';
 
-export default function ThreeDaysForecast() {
+export default function ThreeDaysForecast({ days }) {
   return (
-    <div className="bg-transparent rounded-xl py-5">
-      <h3 className="text-text-secondary text-sm font-medium mb-5">
-        3-DAY FORECAST
-      </h3>
-      <div className="flex flex-col justify-center gap-5 ">
-        <Day
-          day="Today"
-          icon={Sun}
-          weather="Sunny"
-          temperature={{ day: 30, night: 20 }}
-        />
-        <Day
-          day="Tue"
-          icon={Sun}
-          weather="Sunny"
-          temperature={{ day: 30, night: 20 }}
-        />
-        <Day
-          day="Wed"
-          icon={Sun}
-          weather="Sunny"
-          temperature={{ day: 30, night: 20 }}
-        />
+    <div className='rounded-xl bg-transparent py-5'>
+      <h3 className='mb-5 text-sm font-medium text-text-secondary'>3-DAY FORECAST</h3>
+      <div className='flex flex-col justify-center gap-5 '>
+        {days.map((day) => {
+          const {
+            time,
+            weatherCode,
+            temperature: { max, min },
+          } = day;
+
+          return (
+            <Day
+              key={day.time}
+              day={checkIfToday(time) ? 'Today' : formatDay(time)}
+              icon={Sun} // icon={getWeatherIcon(weatherCode)}
+              weather='Sunny' // weather={getWeather(weatherCode)}
+              temperature={{ max, min }}
+            />
+          );
+        })}
       </div>
     </div>
   );
