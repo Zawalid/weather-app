@@ -31,6 +31,7 @@ export default function CityWeather() {
     <>
       <CurrentWeather
         city={city}
+        country='hide'
         temperature={`${temperature}${temperatureUnit}`}
         precipitationProbability={precipitationProbability}
         weatherCode={weatherCode}

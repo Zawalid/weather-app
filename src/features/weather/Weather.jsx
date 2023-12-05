@@ -13,6 +13,7 @@ export default function Weather() {
   });
 
   const {
+    location,
     locationLoading,
     locationError,
     dataLoading,
@@ -46,7 +47,11 @@ export default function Weather() {
   return (
     <div className='flex flex-col gap-5 ' ref={parent}>
       <CurrentWeather
-        city={'Sale'}
+        city={location?.city}
+        country={{
+          name: location?.country,
+          code: location?.countryCode,
+        }}
         temperature={`${temperature}${temperatureUnit}`}
         precipitationProbability={precipitationProbability}
         weatherCode={weatherCode}
@@ -54,7 +59,7 @@ export default function Weather() {
         transparent={true}
         imageClass='w-28 sm:w-48'
       />
-      {!seeMore && <TodayForecast hours={hourlyForecast} transparent={true} />}
+      {!seeMore && <TodayForecast hours={hourlyForecast} />}
       <AirConditions />
     </div>
   );

@@ -7,17 +7,24 @@ const weatherContext = createContext();
 
 export default function WeatherProvider({ children }) {
   const {
-    position,
+    location,
     isLoading: locationLoading,
     error: locationError,
     getPosition,
   } = useGeolocation();
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  const fallBackTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
   const {
     isLoading: dataLoading,
     error: dataError,
     data,
-  } = useWeather(position?.lat, position?.lng, timezone, 7);
+  } = useWeather(
+    location?.latitude,
+    location?.longitude,
+    location?.timezone || fallBackTimezone,
+    7,
+  );
 
   const {
     temperature,
@@ -27,7 +34,7 @@ export default function WeatherProvider({ children }) {
     daysForecast,
     hourlyForecast,
     precipitationProbability,
-  } = useGetWeatherData(data, timezone, 7);
+  } = useGetWeatherData(data, location?.timezone || fallBackTimezone, 7);
 
   useEffect(() => {
     getPosition();
@@ -36,10 +43,9 @@ export default function WeatherProvider({ children }) {
   return (
     <weatherContext.Provider
       value={{
-        position,
+        location,
         locationLoading,
         locationError,
-        timezone,
         dataLoading,
         dataError,
         temperature,
