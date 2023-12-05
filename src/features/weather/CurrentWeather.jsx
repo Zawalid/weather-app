@@ -9,6 +9,8 @@ export default function CurrentWeather({
   transparent,
   imageClass,
 }) {
+  if ([city, temperature, weatherCode, isDay].some((prop) => prop === undefined)) return;
+
   return (
     <div className={`flex items-center justify-between ${transparent ? 'px-0' : 'px-3 sm:px-8'} `}>
       <div className='flex flex-col justify-between gap-5 sm:gap-8'>

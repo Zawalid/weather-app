@@ -11,7 +11,7 @@ export default function TodayForecast({ hours = [], transparent, className }) {
       }`}
     >
       <h3 className='mb-5 text-sm font-medium text-text-secondary'>TODAY’S FORECAST</h3>
-      <div className={`noScrollbar flex gap-5 overflow-auto ${className}`}>
+      <div className={`noScrollbar flex justify-start gap-5 overflow-auto ${className}`}>
         {hours.map((hour) => (
           <Hour
             key={hour.time}

@@ -13,7 +13,7 @@ export default function AppLayout() {
   });
 
   return (
-    <main className='grid h-full grid-cols-[60px_1fr] gap-3 bg-background-primary p-3 sm:grid-cols-[80px_1fr] sm:gap-5 lg:grid-cols-[80px_2fr_1fr] lg:grid-rows-[40px_1fr] lg:p-5'>
+    <main className='grid h-full grid-cols-[60px_1fr]  bg-background-primary p-3 sm:grid-cols-[80px_1fr] gap-5 lg:grid-cols-[80px_2fr_1fr] lg:grid-rows-[40px_1fr] lg:p-5'>
       <SideBar />
       <div className='flex h-fit items-center'>
         <SearchInput />

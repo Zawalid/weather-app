@@ -1,58 +1,28 @@
-import Sun from "@/assets/sun.png";
-import  Day  from "./Day";
+import Day from './Day';
+import { checkIfToday, formatDay } from '../../utils/helpers';
 
-export default function WeekForecast() {
+export default function WeekForecast({ days,daysNumber }) {
   return (
-    <div className="bg-background-secondary rounded-xl p-5">
-      <h3 className="text-text-secondary text-sm font-medium mb-5">
-        7-DAY FORECAST
-      </h3>
-      <div className="flex flex-col justify-center gap-5 ">
-        <Day
-          day="Today"
-          icon={Sun}
-          weather="Sunny"
-          temperature={{ day: 30, night: 20 }}
-        />
-        <Day
-          day="Tue"
-          icon={Sun}
-          weather="Sunny"
-          temperature={{ day: 30, night: 20 }}
-        />
-        <Day
-          day="Wed"
-          icon={Sun}
-          weather="Sunny"
-          temperature={{ day: 30, night: 20 }}
-        />
-        <Day
-          day="Thu"
-          icon={Sun}
-          weather="Sunny"
-          temperature={{ day: 30, night: 20 }}
-        />
-        <Day
-          day="Fri"
-          icon={Sun}
-          weather="Sunny"
-          temperature={{ day: 30, night: 20 }}
-        />
-        <Day
-          day="Sat"
-          icon={Sun}
-          weather="Sunny"
-          temperature={{ day: 30, night: 20 }}
-        />
-        <Day
-          day="Sun"
-          icon={Sun}
-          weather="Sunny"
-          temperature={{ day: 30, night: 20 }}
-        />
+    <div className='rounded-xl bg-background-secondary p-5'>
+      <h3 className='mb-5 text-sm font-medium text-text-secondary'>{daysNumber}-DAY FORECAST</h3>
+      <div className='flex flex-col noScrollbar overflow-auto justify-center gap-5 '>
+        {days?.map((day) => {
+          const {
+            time,
+            weatherCode,
+            temperature: { max, min },
+          } = day;
+
+          return (
+            <Day
+              key={day.time}
+              day={checkIfToday(time) ? 'Today' : formatDay(time)}
+              weatherCode={weatherCode}
+              temperature={{ max, min }}
+            />
+          );
+        })}
       </div>
     </div>
   );
 }
-
-

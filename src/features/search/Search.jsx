@@ -1,13 +1,13 @@
 import { useSearchParams } from 'react-router-dom';
 import Cities from '../cities/Cities';
-import { useCities } from '@/hooks/useCities';
+import { useCity } from '@/hooks/useCity';
 import NoResults from '@/ui/NoResults';
 import Loader from '@/ui/Loader';
 
 export default function Search() {
   const [searchParams] = useSearchParams();
 
-  const { isLoading, error, cities } = useCities(searchParams.get('city'));
+  const { isLoading, error, cities } = useCity(searchParams.get('city'));
 
   if (isLoading)
     return (

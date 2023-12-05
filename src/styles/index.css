@@ -35,12 +35,12 @@
 }
 body {
   font-family: 'Rubik', sans-serif;
-  @apply h-[100dvh] overflow-hidden bg-background-primary 
-  /* xl:grid; */
+  @apply /* xl:grid; */ 
+  h-[100dvh] overflow-hidden bg-background-primary;
 }
 #root {
-  @apply h-full 
-  /* xl:m-auto xl:h-[700px] xl:w-[1400px]; */
+  @apply /* 
+  xl:w-[1400px]; */ h-full xl:m-auto xl:h-[700px];
 }
 
 ::-webkit-scrollbar {
