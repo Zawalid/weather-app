@@ -15,11 +15,13 @@ export default function Cities({ type, cities }) {
             key={id}
             city={{
               name,
-              timezone,
               country,
               country_code,
               time: getTimeBaseOnTimezone(timezone, true), // Todo Use Hour-12 based on user preference
               temperature: '20',
+              timezone,
+              latitude,
+              longitude,
             }}
             isCurrentCity={
               +searchParams.get('lat') === latitude && +searchParams.get('lon') === longitude

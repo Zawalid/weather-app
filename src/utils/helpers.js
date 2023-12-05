@@ -1,3 +1,6 @@
+import { formatInTimeZone } from 'date-fns-tz';
+import { weatherData } from './constants';
+
 export function formatDay(dateStr) {
   return new Intl.DateTimeFormat('en', {
     weekday: 'short',
@@ -26,20 +29,31 @@ export function getTimeBaseOnTimezone(timezone, hour12) {
   });
 }
 
-export function getWeatherIcon(wmoCode) {
-  const icons = new Map([
-    [[0], '☀️'],
-    [[1], '🌤'],
-    [[2], '⛅️'],
-    [[3], '☁️'],
-    [[45, 48], '🌫'],
-    [[51, 56, 61, 66, 80], '🌦'],
-    [[53, 55, 63, 65, 57, 67, 81, 82], '🌧'],
-    [[71, 73, 75, 77, 85, 86], '🌨'],
-    [[95], '🌩'],
-    [[96, 99], '⛈'],
-  ]);
-  const arr = [...icons.keys()].find((key) => key.includes(wmoCode));
-  if (!arr) return 'NOT FOUND';
-  return icons.get(arr);
+export function getClosestTime(times, timezone) {
+  // const hours = times.map((time) => new Date(time));
+  // const currentDate = new Date();
+
+  // return hours.find((time) => {
+  //   return currentDate.getMinutes() > 30
+  //     ? time.getHours() === currentDate.getHours() + 1
+  //     : time.getHours() === currentDate.getHours();
+  // });
+
+  const hours = times
+    .map((time) => formatInTimeZone(new Date(time), timezone, 'yyyy-MM-dd HH:mm'))
+    .map((time) => new Date(time));
+  const currentDate = new Date(formatInTimeZone(new Date(), timezone, 'yyyy-MM-dd HH:mm'));
+
+  const closest = hours.find((time) => {
+    return currentDate.getMinutes() > 30
+      ? time.getHours() === currentDate.getHours() + 1
+      : time.getHours() === currentDate.getHours();
+  });
+  return closest;
+}
+
+export function getWeatherImageAndDescription(wmoCode, isDay) {
+  const weather = weatherData.get(wmoCode);
+  if (weather === undefined) return;
+  return isDay ? weather.day : weather.night;
 }

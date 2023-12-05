@@ -1,4 +1,3 @@
-import Sun from '@/assets/sun.png';
 import Day from './Day';
 import { checkIfToday, formatDay } from '../../utils/helpers';
 
@@ -18,8 +17,7 @@ export default function ThreeDaysForecast({ days }) {
             <Day
               key={day.time}
               day={checkIfToday(time) ? 'Today' : formatDay(time)}
-              icon={Sun} // icon={getWeatherIcon(weatherCode)}
-              weather='Sunny' // weather={getWeather(weatherCode)}
+              weatherCode={weatherCode}
               temperature={{ max, min }}
             />
           );

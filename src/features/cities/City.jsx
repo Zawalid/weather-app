@@ -1,7 +1,14 @@
-import Sun from '@/assets/sun.png';
+import { useWeather } from '../../hooks/useWeather';
+import { getWeatherImageAndDescription } from '../../utils/helpers';
 
 export default function City({ city, isCurrentCity, type, onClick }) {
-  const { name, country, country_code, time, temperature } = city;
+  const { name, country, country_code, time, latitude, longitude, timezone } = city;
+  const { data = {} } = useWeather(latitude, longitude, timezone, 3);
+
+  const {
+    current: { temperature_2m: temperature, weather_code, is_day } = {},
+    current_units: { temperature_2m: unit } = {},
+  } = data;
 
   return (
     <div
@@ -13,7 +20,12 @@ export default function City({ city, isCurrentCity, type, onClick }) {
       id='city'
       onClick={onClick}
     >
-      <img src={Sun} alt='sun' className={type === 3 ? 'w-16' : 'w-20'} />
+      <img
+        src={getWeatherImageAndDescription(weather_code, is_day)?.image}
+        alt={getWeatherImageAndDescription(weather_code, is_day)?.description}
+        className={type === 3 ? 'w-16' : 'w-20'}
+      />
+
       <div className='flex-1'>
         <div className='flex items-center gap-2'>
           <h3 className={`font-semibold text-text-primary ${type === 3 ? 'text-xl' : 'text-2xl'}`}>
@@ -37,7 +49,8 @@ export default function City({ city, isCurrentCity, type, onClick }) {
         )}
       </div>
       <span className={` font-medium text-text-primary ${type === 3 ? 'text-3xl' : 'text-2xl'} `}>
-        {temperature}°
+        {temperature}
+        {unit}
       </span>
     </div>
   );

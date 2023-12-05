@@ -3,6 +3,7 @@ import CurrentWeather from './CurrentWeather';
 import ThreeDaysForecast from './ThreeDaysForeCast';
 import TodayForecast from './TodayForecast';
 import { useWeather } from '../../hooks/useWeather';
+import { getClosestTime } from '../../utils/helpers';
 
 export default function CityWeather() {
   const [searchParams] = useSearchParams();
@@ -23,12 +24,14 @@ export default function CityWeather() {
       temperature_2m_max,
       temperature_2m_min,
     },
-    current: { temperature_2m, weather_code: currentWeatherCode },
+    current: { temperature_2m, weather_code: currentWeatherCode, is_day: currentIsDay },
     current_units: { temperature_2m: unit },
     hourly: {
       time: hourlyTime,
       weather_code: hourlyWeatherCode,
       temperature_2m: hourlyTemperature,
+      precipitation_probability,
+      is_day: hourlyIsDay,
     },
   } = data;
 
@@ -48,15 +51,26 @@ export default function CityWeather() {
       time: hourlyTime[i],
       weatherCode: hourlyWeatherCode[i],
       temperature: hourlyTemperature[i],
+      precipitationProbability: precipitation_probability[i],
+      isDay: hourlyIsDay[i],
     };
   });
+
+  // Find the precipitation probability of the current day based on the closes hour to the current time because the api doesn't provide the precipitation probability for the current day endpoint
+  const precipitationProbability = hours.find(
+    (hour) =>
+      new Date(hour.time).toDateString() ===
+      new Date(getClosestTime(hourlyTime, timezone)).toDateString(),
+  )?.precipitationProbability;
 
   return (
     <>
       <CurrentWeather
         city={city}
         temperature={`${temperature_2m}${unit}`}
+        precipitationProbability={precipitationProbability}
         weatherCode={currentWeatherCode}
+        isDay={currentIsDay}
         transparent={true}
         imageClass='w-28'
       />
