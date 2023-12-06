@@ -26,15 +26,8 @@ export default function WeatherProvider({ children }) {
     7,
   );
 
-  const {
-    temperature,
-    weatherCode,
-    isDay,
-    temperatureUnit,
-    daysForecast,
-    hourlyForecast,
-    precipitationProbability,
-  } = useGetWeatherData(data, location?.timezone || fallBackTimezone, 7);
+  const { weatherCode, isDay, currentForecast, dailyForecast, hourlyForecast } =
+    useGetWeatherData(data, location?.timezone || fallBackTimezone, 7);
 
   useEffect(() => {
     getPosition();
@@ -48,13 +41,11 @@ export default function WeatherProvider({ children }) {
         locationError,
         dataLoading,
         dataError,
-        temperature,
         weatherCode,
         isDay,
-        temperatureUnit,
-        daysForecast,
+        currentForecast,
         hourlyForecast,
-        precipitationProbability,
+        dailyForecast,
       }}
     >
       {children}

@@ -3,12 +3,12 @@ import TodayForecast from './TodayForecast';
 import { useWeatherContext } from '../../contexts/WeatherContext';
 
 export function Aside({ seeMore }) {
-  const { hourlyForecast, daysForecast } = useWeatherContext();
-  if (!hourlyForecast || !daysForecast) return;
+  const { hourlyForecast, dailyForecast } = useWeatherContext();
+  if (!hourlyForecast || !dailyForecast) return;
   return (
     <>
       {seeMore && <TodayForecast hours={hourlyForecast} />}
-      <WeekForecast days={daysForecast} daysNumber={7} />
+      <WeekForecast days={dailyForecast} daysNumber={7} />
     </>
   );
 }

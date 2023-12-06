@@ -14,15 +14,11 @@ export default function CityWeather() {
 
   const { isLoading, error, data } = useWeather(lat, lon, timezone, 3);
 
-  const {
-    temperature,
-    weatherCode,
-    isDay,
-    temperatureUnit,
-    daysForecast,
-    hourlyForecast,
-    precipitationProbability,
-  } = useGetWeatherData(data, timezone, 3);
+  const { weatherCode, isDay, dailyForecast, hourlyForecast, currentForecast } = useGetWeatherData(
+    data,
+    timezone,
+    3,
+  );
 
   if (isLoading || (!lat && !lon && !timezone)) return;
   if (error) return <div>Something went wrong</div>; // Todo Add a custom error component
@@ -32,15 +28,15 @@ export default function CityWeather() {
       <CurrentWeather
         city={city}
         country='hide'
-        temperature={`${temperature}${temperatureUnit}`}
-        precipitationProbability={precipitationProbability}
+        temperature={currentForecast.temperature}
+        precipitationProbability={currentForecast.precipitationProbability}
         weatherCode={weatherCode}
         isDay={isDay}
         transparent={true}
         imageClass='w-28'
       />
       <TodayForecast hours={hourlyForecast} transparent={true} className='bg-transparent' />
-      <WeekForecast days={daysForecast} daysNumber={3} />
+      <WeekForecast days={dailyForecast} daysNumber={3} />
     </>
   );
 }

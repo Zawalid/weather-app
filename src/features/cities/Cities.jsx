@@ -9,19 +9,15 @@ export default function Cities({ type, cities }) {
   return (
     <div className={`flex gap-3 ${type === 2 ? 'flex-wrap' : 'flex-col'}`}>
       {cities?.map((city) => {
-        const { id, name, country, country_code, timezone, latitude, longitude } = city;
+        const { id, name, timezone, latitude, longitude, admin1: province } = city;
+
         return (
           <City
             key={id}
             city={{
-              name,
-              country,
-              country_code,
+              ...city,
+              province,
               time: getTimeBaseOnTimezone(timezone, true), // Todo Use Hour-12 based on user preference
-              temperature: '20',
-              timezone,
-              latitude,
-              longitude,
             }}
             isCurrentCity={
               +searchParams.get('lat') === latitude && +searchParams.get('lon') === longitude

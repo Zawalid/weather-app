@@ -16,6 +16,9 @@ a.active span {
   @apply rounded-xl border-none bg-settings-active font-medium text-text-primary;
 }
 
+#province-country {
+  text-wrap: nowrap;
+}
 .loader {
   background-image: radial-gradient(
       circle 25px at 25px 25px,
@@ -47,31 +50,31 @@ a.active span {
 @keyframes loader {
   0% {
     box-shadow:
-      25px 0 white,
-      50px 0 white,
-      75px 0 white,
-      100px 0 white,
-      125px 0 white,
-      150px 0 white,
-      25px 0 white,
-      50px 0 white,
-      75px 0 white,
-      100px 0 white,
-      125px 0 white,
-      150px 0 white;
+      25px 0 var(--color-text-primary),
+      50px 0 var(--color-text-primary),
+      75px 0 var(--color-text-primary),
+      100px 0 var(--color-text-primary),
+      125px 0 var(--color-text-primary),
+      150px 0 var(--color-text-primary),
+      25px 0 var(--color-text-primary),
+      50px 0 var(--color-text-primary),
+      75px 0 var(--color-text-primary),
+      100px 0 var(--color-text-primary),
+      125px 0 var(--color-text-primary),
+      150px 0 var(--color-text-primary);
   }
   50% {
     box-shadow:
-      25px 20px white,
+      25px 20px var(--color-text-primary),
       50px 60px rgba(255, 255, 255, 0),
       75px 30px rgba(255, 255, 255, 0),
       100px 70px rgba(255, 255, 255, 0),
-      125px 40px white,
+      125px 40px var(--color-text-primary),
       150px 60px rgba(255, 255, 255, 0),
-      25px 20px white,
-      50px 30px white,
-      75px 10px white,
-      100px 30px white,
+      25px 20px var(--color-text-primary),
+      50px 30px var(--color-text-primary),
+      75px 10px var(--color-text-primary),
+      100px 30px var(--color-text-primary),
       125px 30px rgba(255, 255, 255, 0),
       150px 30px rgba(255, 255, 255, 0);
   }
