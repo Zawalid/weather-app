@@ -1,17 +1,25 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 export default function SearchInput() {
   const [searchParams] = useSearchParams();
   const [city, setCity] = useState(searchParams.get('city') || '');
+  const currentTab = useLocation().pathname.split('/')[2];
+
   const navigate = useNavigate();
 
   useEffect(() => {
     setCity(searchParams.get('city') ?? '');
   }, [searchParams]);
 
+  useEffect(() => {
+    if (currentTab === 'search' && !city) navigate('/app');
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function searchCity(city) {
-    if (!city) return navigate('weather');
+    if (!city) return currentTab === 'search' ? navigate('/app') : null;
     if (city.length > 2) navigate(`search?city=${city}`);
   }
 

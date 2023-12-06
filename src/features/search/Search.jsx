@@ -6,6 +6,7 @@ import Loader from '@/ui/Loader';
 
 export default function Search() {
   const [searchParams] = useSearchParams();
+  
 
   const { isLoading, error, cities } = useCity(searchParams.get('city'));
 

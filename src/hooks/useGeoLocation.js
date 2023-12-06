@@ -8,9 +8,10 @@ export function useGeolocation(defaultPosition = null) {
   const getPosition = useCallback(async () => {
     // Use the IP address to get the location if there is something wrong with the api use the browser geolocation
     try {
+      setIsLoading(true);
       const location = await getLocationFromIp();
       setLocation(location);
-      return;
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
       if (!navigator.geolocation) return setError('Your browser does not support geolocation');

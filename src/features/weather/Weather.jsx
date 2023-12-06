@@ -1,4 +1,4 @@
-import AirConditions from './AirConditions';
+import OtherConditions from './OtherConditions';
 import TodayForecast from './TodayForecast';
 import CurrentWeather from './CurrentWeather';
 import { useOutletContext } from 'react-router-dom';
@@ -17,12 +17,10 @@ export default function Weather() {
     locationLoading,
     locationError,
     dataLoading,
-    temperature,
     weatherCode,
     isDay,
-    temperatureUnit,
     hourlyForecast,
-    precipitationProbability,
+    currentForecast,
   } = useWeatherContext();
 
   if (locationError)
@@ -44,6 +42,8 @@ export default function Weather() {
       </div>
     );
 
+  if (!location) return;
+
   return (
     <div className='flex flex-col gap-5 ' ref={parent}>
       <CurrentWeather
@@ -52,15 +52,14 @@ export default function Weather() {
           name: location?.country,
           code: location?.countryCode,
         }}
-        temperature={`${temperature}${temperatureUnit}`}
-        precipitationProbability={precipitationProbability}
+        temperature={currentForecast.temperature}
         weatherCode={weatherCode}
         isDay={isDay}
         transparent={true}
         imageClass='w-28 sm:w-48'
       />
       {!seeMore && <TodayForecast hours={hourlyForecast} />}
-      <AirConditions />
+      <OtherConditions otherConditions={currentForecast} />
     </div>
   );
 }

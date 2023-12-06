@@ -39,8 +39,8 @@ body {
   h-[100dvh] overflow-hidden bg-background-primary;
 }
 #root {
-  @apply /* 
-  xl:w-[1400px]; */ h-full xl:m-auto xl:h-[700px];
+  @apply h-full;
+  /* xl:m-auto xl:h-[700px] xl:w-[1400px]; */
 }
 
 ::-webkit-scrollbar {

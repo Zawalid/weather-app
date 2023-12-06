@@ -19,22 +19,28 @@ export default function CurrentWeather({
           <h2 className='mb-2 text-4xl font-bold text-text-primary sm:text-5xl'>
             {city || 'Unknown'}
           </h2>
-         {country !== 'hide' && <span className='mb-3 flex items-center gap-2  text-text-tertiary '>
-            {country?.name || 'Unknown'}
-            <img
-              src={`https://flagsapi.com/${country?.code}/flat/64.png`}
-              alt={country?.code}
-              className='w-5'
-            />
-          </span>}
-        </div>
-        <div className='flex flex-col'>
-          <h1 className='mb-2 text-3xl font-bold text-text-primary sm:text-4xl'>{temperature}</h1>
           {precipitationProbability !== undefined && (
-            <p className='text-sm font-medium text-text-secondary '>
+            <p className='text-sm  text-text-secondary'>
               Chance of rain: {precipitationProbability}%
             </p>
           )}
+
+          {country !== 'hide' && (
+            <span className='mb-3 flex items-center gap-2  text-text-tertiary '>
+              {country?.name || 'Unknown'} 
+              <img
+                src={`https://flagsapi.com/${country?.code}/flat/64.png`}
+                alt={country?.code}
+                className='w-5'
+              />
+            </span>
+          )}
+        </div>
+        <div className='flex flex-col'>
+          <h1 className='mb-2 text-3xl font-bold text-text-primary sm:text-4xl'>{temperature}</h1>
+          <span className=' font-medium text-text-tertiary'>
+            {getWeatherImageAndDescription(weatherCode, isDay)?.description}
+          </span>
         </div>
       </div>
       <img
