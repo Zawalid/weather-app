@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getCoordinates } from '../services/apiGeoCoding';
+import { getCoordinates } from '../services/geoCodingApi';
 
 export function useCity(city) {
   const { isLoading, data, error } = useQuery({

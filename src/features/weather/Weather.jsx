@@ -26,12 +26,18 @@ export default function Weather() {
   if (locationError)
     return (
       <div className='flex h-full flex-col items-center justify-center gap-3 text-center '>
-        <h3 className='text-2xl font-semibold text-text-primary'>
-          Our weather app is a bit clueless without your location.
-        </h3>
-        <p className='font-semibold  text-text-secondary'>
-          Enable location access and refresh the page to see the weather in your area.
-        </p>
+        {locationError === 'Your browser does not support geolocation' ? (
+          <p className='font-semibold  text-text-secondary'>{locationError}</p>
+        ) : (
+          <>
+            <h3 className='text-2xl font-semibold text-text-primary'>
+              Our weather app is a bit clueless without your location.
+            </h3>
+            <p className='font-semibold  text-text-secondary'>
+              Enable location access and refresh the page to see the weather in your area.
+            </p>
+          </>
+        )}
       </div>
     ); // Todo Add a custom error component
 
@@ -47,11 +53,7 @@ export default function Weather() {
   return (
     <div className='flex flex-col gap-5 ' ref={parent}>
       <CurrentWeather
-        city={location?.city}
-        country={{
-          name: location?.country,
-          code: location?.countryCode,
-        }}
+        location={location}
         temperature={currentForecast.temperature}
         weatherCode={weatherCode}
         isDay={isDay}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
+import { useLocalStorageState } from '../hooks/useLocalStorageState'
 import SearchInput from '../features/search/SearchInput';
 import SideBar from './SideBar';
 import Aside from './Aside';
@@ -8,12 +9,13 @@ import Aside from './Aside';
 export default function AppLayout() {
   const [isAsideOpen, setIsAsideOpen] = useState(false);
   const [seeMore, setSeeMore] = useState(false);
+  const [myCities, setMyCities] = useLocalStorageState('myCities', []);
   const [parent] = useAutoAnimate({
     duration: 400,
   });
 
   return (
-    <main className='grid h-full grid-cols-[60px_1fr]  bg-background-primary p-3 sm:grid-cols-[80px_1fr] gap-5 lg:grid-cols-[80px_2fr_1fr] lg:grid-rows-[40px_1fr] lg:p-5'>
+    <main className='grid h-full grid-cols-[75px_1fr]  gap-5 bg-background-primary p-3 sm:grid-cols-[80px_1fr] lg:grid-cols-[90px_2fr_1fr] lg:grid-rows-[40px_1fr] lg:p-5'>
       <SideBar />
       <div className='flex h-fit items-center'>
         <SearchInput />
@@ -33,6 +35,8 @@ export default function AppLayout() {
           context={{
             seeMore,
             setSeeMore,
+            myCities,
+            setMyCities,
           }}
         />
       </div>

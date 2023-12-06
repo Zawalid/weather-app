@@ -7,13 +7,13 @@ import ThemeProvider from './contexts/ThemeContext';
 import HomePage from './pages/HomePage';
 import PageNotFound from './pages/PageNotFound';
 import Weather from './features/weather/Weather';
-import Cities from './features/cities/Cities';
 import Map from './features/map/Map';
 import Settings from './features/settings/Settings';
 import Search from './features/search/Search';
 
 import '@/styles/App.css';
 import WeatherProvider from './contexts/WeatherContext';
+import MyCities from './features/mycities/MyCities';
 
 const client = new QueryClient();
 
@@ -29,7 +29,9 @@ export default function App() {
               <Route path='app' element={<AppLayout />}>
                 <Route index element={<Navigate to='weather' />} />
                 <Route path='weather' element={<Weather />} />
-                <Route path='cities' element={<Cities type={1} />} />
+                <Route path='mycities' element={<MyCities />}>
+                  <Route path=':city' element={<MyCities />} />
+                </Route>
                 <Route path='Map' element={<Map />} />
                 <Route path='settings' element={<Settings />} />
                 <Route path='search' element={<Search />}>

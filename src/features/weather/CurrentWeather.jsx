@@ -1,8 +1,7 @@
 import { getWeatherImageAndDescription } from '../../utils/helpers';
 
 export default function CurrentWeather({
-  city,
-  country,
+  location: { city, country, regionName, countryCode },
   temperature,
   precipitationProbability,
   weatherCode,
@@ -25,15 +24,20 @@ export default function CurrentWeather({
             </p>
           )}
 
-          {country !== 'hide' && (
-            <span className='mb-3 flex items-center gap-2  text-text-tertiary '>
-              {country?.name || 'Unknown'} 
-              <img
-                src={`https://flagsapi.com/${country?.code}/flat/64.png`}
-                alt={country?.code}
-                className='w-5'
-              />
-            </span>
+          {country && (
+            <div className='mb-3 flex gap-1 flex-col sm:flex-row'>
+              <span className='flex items-center gap-2 text-sm text-text-tertiary sm:mr-2 sm:border-r sm:border-text-secondary sm:pr-2 sm:text-base '>
+                {regionName}
+              </span>
+              <span className=' flex items-center gap-2 text-sm text-text-tertiary sm:text-base '>
+                {country || 'Unknown'}
+                <img
+                  src={`https://flagsapi.com/${countryCode}/flat/64.png`}
+                  alt={countryCode}
+                  className='w-5'
+                />
+              </span>
+            </div>
           )}
         </div>
         <div className='flex flex-col'>

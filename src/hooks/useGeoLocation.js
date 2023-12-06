@@ -1,5 +1,22 @@
 import { useCallback, useState } from 'react';
 
+// Get the user ip address
+async function getIp() {
+  const res = await fetch('https://api64.ipify.org');
+  const ip = await res.text();
+  return ip;
+}
+
+// Get the location from the ip address
+async function getLocationFromIp() {
+  const ip = await getIp();
+  const res = await fetch(`http://ip-api.com/json/${ip}`);
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message);
+  const { country, countryCode, regionName, city, lat: latitude, lon: longitude, timezone } = data;
+  return { country, countryCode, regionName, city, latitude, longitude, timezone };
+}
+
 export function useGeolocation(defaultPosition = null) {
   const [isLoading, setIsLoading] = useState(false);
   const [location, setLocation] = useState(defaultPosition);
@@ -13,8 +30,8 @@ export function useGeolocation(defaultPosition = null) {
       setLocation(location);
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
-      if (!navigator.geolocation) return setError('Your browser does not support geolocation');
+      console.error(error);
+      if (!navigator.geolocation) setError('Your browser does not support geolocation');
       setIsLoading(true);
       navigator.geolocation.getCurrentPosition(
         (pos) => {
@@ -33,21 +50,4 @@ export function useGeolocation(defaultPosition = null) {
   }, []);
 
   return { isLoading, location, error, getPosition };
-}
-
-async function getLocationFromIp() {
-  const res = await fetch('https://ip.guide');
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.message);
-  const {
-    location,
-    network: {
-      autonomous_system: { country: countryCode },
-    },
-  } = data;
-
-  return {
-    ...location,
-    countryCode,
-  };
 }

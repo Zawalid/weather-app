@@ -10,8 +10,8 @@ export default function SideBar() {
         <NavLink to='weather'>
           <Button icon='fa-cloud-sun-rain' text='Weather' />
         </NavLink>
-        <NavLink to='cities'>
-          <Button icon='fa-list' text='Cities' />
+        <NavLink to='mycities'>
+          <Button icon='fa-list' text='My Cities' />
         </NavLink>
         <NavLink to='map'>
           <Button icon='fa-map' text='Map' />

@@ -4,7 +4,7 @@ import { useLocalStorageState } from '@/hooks/useLocalStorageState';
 const ThemeContext = createContext();
 
 export default function ThemeProvider({ children }) {
-  const [theme, setTheme] = useLocalStorageState('dark', 'theme');
+  const [theme, setTheme] = useLocalStorageState( 'theme','dark');
 
   useEffect(() => {
     if (theme) {

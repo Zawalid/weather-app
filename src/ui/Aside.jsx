@@ -8,7 +8,7 @@ export default function Aside({ seeMore }) {
   const currentTab = useLocation().pathname.split('/')[2];
   return currentTab === 'weather' ? (
     <WeatherAside seeMore={seeMore} />
-  ) : currentTab === 'cities' ? (
+  ) : currentTab === 'mycities' ? (
     <CityWeather />
   ) : currentTab === 'settings' ? (
     <SettingsAside />
