@@ -30,10 +30,10 @@ export default function Weather() {
           <p className='font-semibold  text-text-secondary'>{locationError}</p>
         ) : (
           <>
-            <h3 className='text-2xl font-semibold text-text-primary'>
+            <h3 className='text-lg font-semibold text-text-primary sm:text-2xl'>
               Our weather app is a bit clueless without your location.
             </h3>
-            <p className='font-semibold  text-text-secondary'>
+            <p className='text-xs font-semibold text-text-secondary  sm:text-base'>
               Enable location access and refresh the page to see the weather in your area.
             </p>
           </>

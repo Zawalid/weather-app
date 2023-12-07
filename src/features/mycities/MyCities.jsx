@@ -25,10 +25,10 @@ export default function MyCities() {
     </div>
   ) : (
     <div className='flex h-full flex-col items-center justify-center gap-3 text-center '>
-      <h3 className='text-2xl font-semibold text-text-primary'>
+      <h3 className='text-lg sm:text-2xl font-semibold text-text-primary'>
         You don&apos;t have any cities in your list.
       </h3>
-      <p className='font-semibold  text-text-secondary'>Add a city to see its weather forecast.</p>
+      <p className='font-semibold text-xs sm:text-base text-text-secondary'>Add a city to see its weather forecast.</p>
     </div>
   );
 }
