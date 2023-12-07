@@ -12,7 +12,6 @@ export default function Cities({ type, cities, isMyCities, onAdd, onRemove }) {
   });
   const { myCities } = useOutletContext();
 
-
   return (
     <div className={`flex gap-3 ${type === 2 ? 'flex-wrap' : 'flex-col'}`} ref={parent}>
       {cities?.map((city) => {

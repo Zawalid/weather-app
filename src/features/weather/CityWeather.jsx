@@ -1,9 +1,10 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import CurrentWeather from './CurrentWeather';
 import TodayForecast from './TodayForecast';
 import { useWeather } from '../../hooks/useWeather';
 import { useGetWeatherData } from '../../hooks/useGetWeatherData';
 import WeekForecast from './WeekForecast';
+import IconButton from '../../ui/IconButton';
 
 export default function CityWeather() {
   //? Alternative
@@ -13,8 +14,9 @@ export default function CityWeather() {
   // const timezone = searchParams.get('timezone');
 
   const { city } = useParams();
-  const location = useLocation().state;
-  const { latitude, longitude, timezone } = location || {};
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { latitude, longitude, timezone } = location.state || {};
 
   const { isLoading, error, data } = useWeather(latitude, longitude, timezone, 3);
   const { weatherCode, isDay, dailyForecast, hourlyForecast, currentForecast } = useGetWeatherData(
@@ -39,6 +41,14 @@ export default function CityWeather() {
       />
       <TodayForecast hours={hourlyForecast} transparent={true} className='bg-transparent' />
       <WeekForecast days={dailyForecast} daysNumber={3} />
+      <IconButton
+        className='absolute right-2 top-0 hidden lg:grid'
+        onClick={() =>
+          navigate(location.pathname + location.search, { replace: true, state: null })
+        }
+      >
+        <i className='fa-solid fa-xmark duration-100'></i>
+      </IconButton>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { useWeatherContext } from '../../contexts/WeatherContext';
 import { useWeather } from '../../hooks/useWeather';
+import IconButton from '../../ui/IconButton';
 import { getWeatherImageAndDescription } from '../../utils/helpers';
 
 export default function City({
@@ -87,26 +88,26 @@ export default function City({
             isSearched ? (
               <span className='text-sm text-text-secondary'>Added </span>
             ) : (
-              <button
-                className='grid h-6 w-6 place-content-center rounded-full border border-text-secondary font-bold text-text-secondary hover:border-none  hover:bg-primary hover:text-white'
+              <IconButton
+                className='text-text-secondary'
                 onClick={(e) => {
                   e.stopPropagation();
                   onClick();
                 }}
               >
-                -
-              </button>
+                <i className='fa-solid fa-minus text-xs'></i>
+              </IconButton>
             )
           ) : (
-            <button
-              className='grid h-6 w-6 place-content-center rounded-full border border-text-secondary font-bold text-text-secondary hover:border-none  hover:bg-primary hover:text-white'
+            <IconButton
+              className='text-text-secondary'
               onClick={(e) => {
                 e.stopPropagation();
                 onClick();
               }}
             >
-              +
-            </button>
+              <i className='fa-solid fa-plus text-xs'></i>
+            </IconButton>
           )}
         </div>
       </div>

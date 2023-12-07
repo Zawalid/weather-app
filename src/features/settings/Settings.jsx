@@ -6,26 +6,11 @@ export default function Settings() {
     <div className='flex flex-col gap-5'>
       <h2 className='text-lg font-semibold text-text-primary '>Units</h2>
       <div className='flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
-        <div className='space-y-3'>
-          <h3 className='text-sm font-medium text-text-secondary '>TEMPERATURE</h3>
-          <Options options={['Celsius', 'Fahrenheit']} />
-        </div>
-        <div className='space-y-3'>
-          <h3 className='text-sm font-medium text-text-secondary '>WIND SPEED</h3>
-          <Options options={['Km/h', 'm/s', 'Knots']} />
-        </div>
-        <div className='space-y-3'>
-          <h3 className='text-sm font-medium text-text-secondary '>PRESSURE</h3>
-          <Options options={['hPa', 'Inches', 'KPa', 'mm']} />
-        </div>
-        <div className='space-y-3'>
-          <h3 className='text-sm font-medium text-text-secondary '>PRECIPITATION</h3>
-          <Options options={['Millimeters', 'Inches']} />
-        </div>
-        <div className='space-y-3'>
-          <h3 className='text-sm font-medium text-text-secondary '>DISTANCE</h3>
-          <Options options={['Kilometers', 'Miles']} />
-        </div>
+        <Setting title='TEMPERATURE' options={['Celsius', 'Fahrenheit']} />
+        <Setting title='WIND SPEED' options={['Km/h', 'm/s', 'Knots']} />
+        <Setting title='PRESSURE' options={['hPa', 'Inches', 'KPa', 'mm']} />
+        <Setting title='PRECIPITATION' options={['Millimeters', 'Inches']} />
+        <Setting title='DISTANCE' options={['Kilometers', 'Miles']} />
       </div>
 
       <h2 className='text-lg font-semibold text-text-primary '>Notifications</h2>
@@ -55,9 +40,21 @@ export default function Settings() {
   );
 }
 
+function Setting({ title, options }) {
+  return (
+    <div className='space-y-3'>
+      <h3 className='text-sm font-medium text-text-secondary '>{title}</h3>
+      <Options options={options} />
+    </div>
+  );
+}
+
 /*
  Todo :
        Add setting to change the number of hours in the today forecast
        Add setting to change the number of days in the daily forecast
+       Add setting to change the theme
+       Add setting to change the language (Maybe)
+       
 
 */

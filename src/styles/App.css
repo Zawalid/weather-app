@@ -19,6 +19,8 @@ a.active span {
 #province-country {
   text-wrap: nowrap;
 }
+
+/* Loader */
 .loader {
   background-image: radial-gradient(
       circle 25px at 25px 25px,
@@ -93,4 +95,19 @@ a.active span {
       125px 30px rgba(255, 255, 255, 0),
       150px 30px rgba(255, 255, 255, 0);
   }
+}
+
+/* Tippy */
+
+.tippy-box[data-theme~='custom'][data-placement^='top'] > .tippy-arrow::before {
+  border-top-color: var(--color-primary);
+}
+.tippy-box[data-theme~='custom'][data-placement^='bottom'] > .tippy-arrow::before {
+  border-bottom-color: var(--color-primary);
+}
+.tippy-box[data-theme~='custom'][data-placement^='left'] > .tippy-arrow::before {
+  border-left-color: var(--color-primary);
+}
+.tippy-box[data-theme~='custom'][data-placement^='right'] > .tippy-arrow::before {
+  border-right-color: var(--color-primary);
 }

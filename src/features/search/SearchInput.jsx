@@ -25,7 +25,7 @@ export default function SearchInput() {
 
   return (
     <form
-      className='flex-1 pr-3'
+      className='flex-1'
       onSubmit={(e) => {
         e.preventDefault();
         searchCity(city);
