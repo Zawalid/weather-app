@@ -2,6 +2,7 @@ import Button from '@/ui/Button';
 import Condition from './Condition';
 import { useOutletContext } from 'react-router-dom';
 import { formatTime } from '../../utils/helpers';
+import { useSettings } from '@/hooks/useSettings';
 
 export default function OtherConditions({ otherConditions }) {
   const { seeMore, setSeeMore } = useOutletContext();
@@ -18,6 +19,7 @@ export default function OtherConditions({ otherConditions }) {
     sunset,
   } = otherConditions;
 
+  const { pressureUnit, distanceUnit, is12HourFormat } = useSettings();
   const conditions = [
     {
       separate: seeMore,
@@ -60,7 +62,12 @@ export default function OtherConditions({ otherConditions }) {
       show: seeMore,
       icon: 'fa-eye',
       name: 'Visibility',
-      value: visibility < 1000 ? `${visibility} m` : `${visibility / 1000} km`,
+      value:
+        visibility < 1000
+          ? `${visibility.toFixed(2)} m`
+          : `${(distanceUnit === 'Km' ? visibility / 1000 : visibility / 1609.344)
+              .toFixed(2)
+              .replace(/\.00$/, '')} ${distanceUnit === 'Km' ? 'Km' : 'Miles'}`,
     },
     {
       separate: seeMore,
@@ -74,28 +81,36 @@ export default function OtherConditions({ otherConditions }) {
       show: seeMore,
       icon: 'fa-gauge-high',
       name: 'Pressure',
-      value: pressure,
+      value: `${(pressureUnit === 'KPa'
+        ? pressure / 10
+        : pressureUnit === 'Bar'
+          ? pressure / 1000
+          : pressure
+      )
+        .toFixed(2)
+        .replace(/\.00$/, '')} ${pressureUnit}
+      `,
     },
     {
       separate: seeMore,
       show: seeMore,
       icon: 'fa-sun',
       name: 'Sunrise',
-      value: formatTime(sunrise),
+      value: formatTime(sunrise, is12HourFormat),
     },
     {
       separate: seeMore,
       show: seeMore,
       icon: 'fa-cloud-sun',
       name: 'Sunset',
-      value: formatTime(sunset),
+      value: formatTime(sunset, is12HourFormat),
     },
   ];
 
   return (
     <>
       <div className={`rounded-xl ${seeMore ? '' : 'bg-background-secondary p-5'} `}>
-        <div className='mb-5 flex items-center gap-5 justify-between'>
+        <div className='mb-5 flex items-center justify-between gap-5'>
           <h3 className='text-sm font-medium text-text-secondary '>OTHER CONDITIONS</h3>
           <Button className='px-3 py-1 text-xs' onClick={() => setSeeMore(!seeMore)}>
             {seeMore ? 'See Less' : 'See More'}

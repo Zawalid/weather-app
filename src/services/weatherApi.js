@@ -22,13 +22,32 @@ const HOURLY = [
 ];
 const DAILY = ['weather_code', 'temperature_2m_min', 'temperature_2m_max', 'sunrise', 'sunset'];
 
-export async function getWeatherData(latitude, longitude, timezone, days) {
+export async function getWeatherData(
+  latitude,
+  longitude,
+  timezone,
+  days,
+  hours,
+  temperatureUnit,
+  windSpeedUnit,
+  precipitationUnit,
+) {
+  if (!latitude || !longitude || !timezone) return {};
+
+  const OPTIONS = [
+    { name: 'temperature_unit', value: temperatureUnit },
+    { name: 'wind_speed_unit', value: windSpeedUnit },
+    { name: 'precipitation_unit', value: precipitationUnit },
+    { name: 'forecast_hours', value: hours },
+    { name: 'forecast_days', value: days },
+    { name: 'models', value: 'best_match' },
+  ];
   try {
     const url = `${BASE_URL}?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&current=${CURRENT.join(
       ',',
-    )}&hourly=${HOURLY.join(',')}&daily=${DAILY.join(
-      ',',
-    )}&forecast_days=${days}&forecast_hours=12&models=best_match`;
+    )}&hourly=${HOURLY.join(',')}&daily=${DAILY.join(',')}&${OPTIONS.map(
+      (option) => `${option.name}=${option.value}`,
+    ).join('&')}`;
 
     const res = await fetch(url);
     const data = await res.json();

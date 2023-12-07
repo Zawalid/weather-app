@@ -4,7 +4,7 @@ import CurrentWeather from './CurrentWeather';
 import { useOutletContext } from 'react-router-dom';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Loader from '@/ui/Loader';
-import { useWeatherContext } from '../../contexts/WeatherContext';
+import { useWeatherContext } from '../../hooks/useWeatherContext';
 
 export default function Weather() {
   const { seeMore } = useOutletContext();

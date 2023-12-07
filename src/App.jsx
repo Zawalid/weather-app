@@ -14,6 +14,7 @@ import Search from './features/search/Search';
 import '@/styles/App.css';
 import WeatherProvider from './contexts/WeatherContext';
 import MyCities from './features/mycities/MyCities';
+import SettingsProvider from './contexts/SettingsContext';
 
 const client = new QueryClient();
 
@@ -21,28 +22,30 @@ export default function App() {
   return (
     <QueryClientProvider client={client}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <ThemeProvider>
-        <WeatherProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path='/' element={<HomePage />} />
-              <Route path='app' element={<AppLayout />}>
-                <Route index element={<Navigate to='weather' />} />
-                <Route path='weather' element={<Weather />} />
-                <Route path='mycities' element={<MyCities />}>
-                  <Route path=':city' element={<MyCities />} />
+      <SettingsProvider>
+        <ThemeProvider>
+          <WeatherProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path='/' element={<HomePage />} />
+                <Route path='app' element={<AppLayout />}>
+                  <Route index element={<Navigate to='weather' />} />
+                  <Route path='weather' element={<Weather />} />
+                  <Route path='mycities' element={<MyCities />}>
+                    <Route path=':city' element={<MyCities />} />
+                  </Route>
+                  <Route path='Map' element={<Map />} />
+                  <Route path='settings' element={<Settings />} />
+                  <Route path='search' element={<Search />}>
+                    <Route path=':city' element={<Search />} />
+                  </Route>
                 </Route>
-                <Route path='Map' element={<Map />} />
-                <Route path='settings' element={<Settings />} />
-                <Route path='search' element={<Search />}>
-                  <Route path=':city' element={<Search />} />
-                </Route>
-              </Route>
-              <Route path='*' element={<PageNotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </WeatherProvider>
-      </ThemeProvider>
+                <Route path='*' element={<PageNotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </WeatherProvider>
+        </ThemeProvider>
+      </SettingsProvider>
     </QueryClientProvider>
   );
 }

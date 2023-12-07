@@ -1,4 +1,4 @@
-export function useGetWeatherData(data, timezone, daysNumber) {
+export function useGetWeatherData(data, daysNumber) {
   if (!data) return {};
 
   const {
@@ -28,9 +28,9 @@ export function useGetWeatherData(data, timezone, daysNumber) {
       apparent_temperature,
       visibility,
       uv_index,
-      surface_pressure
+      surface_pressure,
     },
-    hourly_units: { temperature_2m: temperatureUnit, wind_speed_10m: windSpeedUnit,surface_pressure : pressureUnit },
+    hourly_units: { temperature_2m: temperatureUnit, wind_speed_10m: windSpeedUnit },
   } = data;
 
   const dailyForecast = getItems(daysNumber, (day, i) => {
@@ -44,12 +44,12 @@ export function useGetWeatherData(data, timezone, daysNumber) {
     };
   });
 
-  const hourlyForecast = getItems(12, (hour, i) => {
+  const hourlyForecast = getItems(24, (hour, i) => {
     // Todo : Make the 12 dynamic
     return {
       time: hourlyTime[i],
       weatherCode: hourlyWeatherCode[i],
-      temperature: hourlyTemperature[i] + temperatureUnit,
+      temperature: `${hourlyTemperature[i]} ${temperatureUnit}`,
       precipitationProbability: precipitation_probability[i],
       isDay: hourlyIsDay[i],
       windSpeed: hourlyWindSpeed[i] + windSpeedUnit,
@@ -59,17 +59,16 @@ export function useGetWeatherData(data, timezone, daysNumber) {
   const currentForecast = {
     precipitationProbability: precipitation_probability[0],
     humidity: relative_humidity_2m[0],
-    realFeel: apparent_temperature[0],
+    realFeel: `${apparent_temperature[0]} ${temperatureUnit}`,
     visibility: visibility[0],
     uvIndex: uv_index[0],
-    pressure: surface_pressure[0] + pressureUnit,
-    temperature: temperature_2m + temperatureUnit,
-    windSpeed : windSpeed + windSpeedUnit,
-    windGusts : windGusts + windSpeedUnit,
-    sunrise : sunrise[0],
-    sunset : sunset[0],
+    pressure: surface_pressure[0],
+    temperature: `${temperature_2m} ${temperatureUnit}`,
+    windSpeed: `${windSpeed} ${windSpeedUnit}`,
+    windGusts: `${windGusts} ${windSpeedUnit}`,
+    sunrise: sunrise[0],
+    sunset: sunset[0],
   };
-
 
   return {
     weatherCode: currentWeatherCode,

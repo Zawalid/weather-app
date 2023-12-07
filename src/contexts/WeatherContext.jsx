@@ -1,9 +1,9 @@
-import { createContext, useContext, useEffect } from 'react';
+import { createContext, useEffect } from 'react';
 import { useGeolocation } from '../hooks/useGeoLocation';
 import { useWeather } from '../hooks/useWeather';
 import { useGetWeatherData } from '../hooks/useGetWeatherData';
 
-const weatherContext = createContext();
+export const weatherContext = createContext();
 
 export default function WeatherProvider({ children }) {
   const {
@@ -27,7 +27,7 @@ export default function WeatherProvider({ children }) {
   );
 
   const { weatherCode, isDay, currentForecast, dailyForecast, hourlyForecast } =
-    useGetWeatherData(data, location?.timezone || fallBackTimezone, 7);
+    useGetWeatherData(data, 7);
 
   useEffect(() => {
     getPosition();
@@ -53,8 +53,3 @@ export default function WeatherProvider({ children }) {
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-export function useWeatherContext() {
-  const context = useContext(weatherContext);
-  return context;
-}

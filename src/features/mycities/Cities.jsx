@@ -2,6 +2,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { getTimeBaseOnTimezone } from '../../utils/helpers';
 import City from './City';
 import { useLocation, useNavigate, useOutletContext, useSearchParams } from 'react-router-dom';
+import { useSettings } from '../../hooks/useSettings';
 
 export default function Cities({ type, cities, isMyCities, onAdd, onRemove }) {
   const navigate = useNavigate();
@@ -11,15 +12,16 @@ export default function Cities({ type, cities, isMyCities, onAdd, onRemove }) {
     duration: 400,
   });
   const { myCities } = useOutletContext();
+  const { is12HourFormat } = useSettings();
 
   return (
     <div className={`flex gap-3 ${type === 2 ? 'flex-wrap' : 'flex-col'}`} ref={parent}>
       {cities?.map((city) => {
-        const { id, name, timezone, latitude, longitude, admin1: province } = city;
+        const { id, name, timezone, latitude, longitude, admin1: regionName } = city;
         const updatedCity = {
           ...city,
-          province,
-          time: getTimeBaseOnTimezone(timezone, true), // Todo Use Hour-12 based on user preference
+          regionName,
+          time: getTimeBaseOnTimezone(timezone, is12HourFormat),
         };
         return (
           <City
@@ -47,6 +49,7 @@ export default function Cities({ type, cities, isMyCities, onAdd, onRemove }) {
                   timezone,
                   city: searchParams.get('city'),
                 },
+                replace: true,
               });
             }}
             onClick={() => (isMyCities ? onRemove(id) : onAdd(city))}

@@ -7,12 +7,13 @@ export function formatDay(dateStr) {
   }).format(new Date(dateStr));
 }
 
-export function formatTime(dateStr, hour12) {
+export function formatTime(timeStr, hour12) {
+  if (!timeStr) return;
   return new Intl.DateTimeFormat('en', {
     hour: 'numeric',
     minute: 'numeric',
     hour12,
-  }).format(new Date(dateStr));
+  }).format(new Date(timeStr));
 }
 
 export function checkIfToday(dateStr) {

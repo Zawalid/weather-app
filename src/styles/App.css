@@ -16,7 +16,7 @@ a.active span {
   @apply rounded-xl border-none bg-settings-active font-medium text-text-primary;
 }
 
-#province-country {
+.noTextWrap {
   text-wrap: nowrap;
 }
 
@@ -110,4 +110,7 @@ a.active span {
 }
 .tippy-box[data-theme~='custom'][data-placement^='right'] > .tippy-arrow::before {
   border-right-color: var(--color-primary);
+}
+.tippy-box[data-theme~='custom'] .tippy-content {
+  padding: 0;
 }

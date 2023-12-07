@@ -1,4 +1,4 @@
-import { useWeatherContext } from '../../contexts/WeatherContext';
+import { useWeatherContext } from '../../hooks/useWeatherContext';
 import { useWeather } from '../../hooks/useWeather';
 import IconButton from '../../ui/IconButton';
 import { getWeatherImageAndDescription } from '../../utils/helpers';
@@ -12,7 +12,9 @@ export default function City({
   onSelect,
   onClick,
 }) {
-  const { name, country, country_code, province, time, latitude, longitude, timezone } = city;
+
+
+  const { name, country, country_code, regionName, time, latitude, longitude, timezone } = city;
   const { data = {} } = useWeather(latitude, longitude, timezone, 3);
   const { location } = useWeatherContext();
 
@@ -60,8 +62,8 @@ export default function City({
           </div>
           {[1, 3].includes(type) && (
             <p className='mt-1 flex flex-col gap-1 text-sm sm:flex-row sm:items-center sm:gap-2'>
-              <span className='flex items-center gap-2 text-text-tertiary' id='province-country'>
-                {province} {' - '}
+              <span className='noTextWrap flex items-center gap-2 text-text-tertiary'>
+                {regionName} {' - '}
                 {country}
                 <img
                   src={`https://flagsapi.com/${country_code}/flat/64.png`}

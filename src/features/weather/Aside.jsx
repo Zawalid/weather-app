@@ -1,6 +1,6 @@
 import WeekForecast from './WeekForecast';
 import TodayForecast from './TodayForecast';
-import { useWeatherContext } from '../../contexts/WeatherContext';
+import { useWeatherContext } from '../../hooks/useWeatherContext';
 
 export function Aside({ seeMore }) {
   const { hourlyForecast, dailyForecast } = useWeatherContext();

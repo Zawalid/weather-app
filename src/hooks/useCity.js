@@ -6,6 +6,7 @@ export function useCity(city) {
     queryKey: ['city', city],
     queryFn: () => getCoordinates(city),
     enabled: city?.length > 2,
+    staleTime : 0,
   });
 
   return { isLoading, error, cities: data?.results || [] };

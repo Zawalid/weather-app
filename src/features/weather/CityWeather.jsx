@@ -21,7 +21,6 @@ export default function CityWeather() {
   const { isLoading, error, data } = useWeather(latitude, longitude, timezone, 3);
   const { weatherCode, isDay, dailyForecast, hourlyForecast, currentForecast } = useGetWeatherData(
     data,
-    timezone,
     3,
   );
 

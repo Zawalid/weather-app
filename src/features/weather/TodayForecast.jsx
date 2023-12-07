@@ -1,7 +1,9 @@
+import { useSettings } from '../../hooks/useSettings';
 import { checkIfCurrentHour, formatTime } from '../../utils/helpers';
 import Hour from './Hour';
 
 export default function TodayForecast({ hours = [], transparent, className }) {
+  const { is12HourFormat } = useSettings();
   return (
     <div
       className={`py-5 ${
@@ -16,14 +18,11 @@ export default function TodayForecast({ hours = [], transparent, className }) {
         {hours.map((hour) => (
           <Hour
             key={hour.time}
-            time={
-              checkIfCurrentHour(hour.time) ? 'Now' : formatTime(hour.time, false) // Todo set the 12-hour based on the user's preference
-            }
-            isDay={hour.isDay} // Temporary
+            time={checkIfCurrentHour(hour.time) ? 'Now' : formatTime(hour.time, is12HourFormat)}
+            isDay={hour.isDay}
             weatherCode={hour.weatherCode}
             temperature={hour.temperature}
             windSpeed={hour.windSpeed}
-            
           />
         ))}
       </div>
