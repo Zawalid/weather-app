@@ -23,7 +23,7 @@ export default function Weather() {
     currentForecast,
   } = useWeatherContext();
 
-  if (locationError)
+  if (!locationError)
     return (
       <div className='flex h-full flex-col items-center justify-center gap-3 text-center '>
         {locationError === 'Your browser does not support geolocation' ? (
