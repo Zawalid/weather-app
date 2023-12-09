@@ -6,7 +6,7 @@ import FontSize from './settings-components/FontSize';
 import SwitchSetting from './settings-components/SwitchSetting';
 import DaysForecast from './settings-components/DaysForecast';
 import HoursForecast from './settings-components/HoursForecast';
-import CitiesDropDown from '../../ui/CitiesDropDown';
+import CitiesDropDown from './settings-components/CitiesDropDown';
 
 export default function Settings() {
   const {
@@ -41,10 +41,7 @@ export default function Settings() {
 
         <SwitchSetting
           checked={isLocationAccess}
-          onChange={() => {
-            setIsLocationAccess(!isLocationAccess);
-            // window.location.reload();
-          }}
+          onChange={() => setIsLocationAccess(!isLocationAccess)}
           title='Location'
           description='Get weather of your location'
         />

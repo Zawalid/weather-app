@@ -8,7 +8,7 @@ import Aside from './Aside';
 import Actions from '../features/mycities/Actions';
 import IconButton from './IconButton';
 import { useSettings } from '../hooks/useSettings';
-import { Toaster, toast } from 'sonner';
+import { Toaster  } from 'sonner';
 
 export default function AppLayout() {
   const [isAsideOpen, setIsAsideOpen] = useState(false);
@@ -65,14 +65,11 @@ export default function AppLayout() {
         }
         toastOptions={{
           className: 'sonner-toast',
-          duration: 500000,
+          duration: 5000,
         }}
       />
     </>
   );
 }
 
-toast('Hello World!');
-toast.success('Hello World!');
-toast.error('Hello World!');
-toast.loading('Hello World!');
+

@@ -1,5 +1,5 @@
-import Logo from '@/ui/Logo';
 import { NavLink } from 'react-router-dom';
+import Logo from '@/ui/Logo';
 
 export default function SideBar() {
   return (

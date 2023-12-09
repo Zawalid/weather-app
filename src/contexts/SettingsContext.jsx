@@ -1,25 +1,16 @@
 import { createContext, useCallback, useEffect, useState } from 'react';
 import { useLocalStorageState } from '../hooks/useLocalStorageState';
 import { useQueryClient } from '@tanstack/react-query';
-import { FONT_SIZES } from '../utils/constants';
-import { checkIfDayOrNight } from '../utils/helpers';
+import { DEFAULT_SETTINGS, FONT_SIZES } from '../utils/constants';
+import { checkIfDayOrNight, isDeepEqual } from '../utils/helpers';
 
 export const settingsContext = createContext();
 
 export default function SettingsProvider({ children }) {
-  // Todo set a default settings constant in constants.js and a reset function
-  const [settings, setSettings] = useLocalStorageState('settings', {
-    temperatureUnit: 'celsius',
-    windSpeedUnit: 'kmh',
-    pressureUnit: 'hPa',
-    precipitationUnit: 'mm',
-    distanceUnit: 'Km',
-    is12HourFormat: true,
-    isLocationAccess: true,
-    defaultLocation: null,
-    daysForeCast: '7 Days',
-    hoursForeCast: '12 Hours',
-  });
+  const { settings: st, appearance: ap } = DEFAULT_SETTINGS;
+  const [isChanged, setIsChanged] = useState(false);
+
+  const [settings, setSettings] = useLocalStorageState('settings', st);
   const [temperatureUnit, setTemperatureUnit] = useState(settings.temperatureUnit);
   const [windSpeedUnit, setWindSpeedUnit] = useState(settings.windSpeedUnit);
   const [pressureUnit, setPressureUnit] = useState(settings.pressureUnit);
@@ -31,13 +22,7 @@ export default function SettingsProvider({ children }) {
   const [daysForeCast, setDaysForeCast] = useState(settings.daysForeCast);
   const [hoursForeCast, setHoursForeCast] = useState(settings.hoursForeCast);
 
-  const [appearance, setAppearance] = useLocalStorageState('appearance', {
-    theme: 'System',
-    fontSize: 'Default',
-    enableAnimations: true,
-    autoDayNightMode: false,
-  });
-
+  const [appearance, setAppearance] = useLocalStorageState('appearance', ap);
   const [theme, setTheme] = useState(appearance.theme);
   const [fontSize, setFontSize] = useState(appearance.fontSize);
   const [enableAnimations, setEnableAnimations] = useState(appearance.enableAnimations);
@@ -46,35 +31,12 @@ export default function SettingsProvider({ children }) {
   const queryClient = useQueryClient();
 
   const changeTheme = useCallback(() => {
-    if (theme !== 'System') {
-      document.documentElement.className = ['System Dark', 'Dark'].includes(theme)
-        ? 'dark'
-        : 'light';
-    } else {
+    if (theme === 'System')
       window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? setTheme('System Dark')
-        : setTheme('System Light');
-    }
-  }, [theme]);
-
-  // Set theme
-  useEffect(() => {
-    changeTheme();
-  }, [changeTheme]);
-
-  // Set auto day night mode
-  useEffect(() => {
-    if (autoDayNightMode) {
-      checkIfDayOrNight() === 'night'
         ? (document.documentElement.className = 'dark')
         : (document.documentElement.className = 'light');
-    } else changeTheme();
-  }, [autoDayNightMode, changeTheme]);
-
-  // Set font size
-  useEffect(() => {
-    document.documentElement.style.fontSize = FONT_SIZES[fontSize];
-  }, [fontSize]);
+    else document.documentElement.className = theme === 'Dark' ? 'dark' : 'light';
+  }, [theme]);
 
   // Update settings
   useEffect(() => {
@@ -111,6 +73,52 @@ export default function SettingsProvider({ children }) {
     setAppearance({ theme, fontSize, enableAnimations, autoDayNightMode });
   }, [theme, fontSize, enableAnimations, autoDayNightMode, setAppearance]);
 
+  // Set theme
+  useEffect(() => {
+    changeTheme();
+  }, [changeTheme]);
+
+  // Set auto day night mode
+  useEffect(() => {
+    if (autoDayNightMode) {
+      checkIfDayOrNight() === 'night'
+        ? (document.documentElement.className = 'dark')
+        : (document.documentElement.className = 'light');
+    } else changeTheme();
+  }, [autoDayNightMode, changeTheme]);
+
+  // Set font size
+  useEffect(() => {
+    document.documentElement.style.fontSize = FONT_SIZES[fontSize];
+  }, [fontSize]);
+
+  // Check if settings changed
+  useEffect(() => {
+    if (isDeepEqual(settings, st) && isDeepEqual(appearance, ap)) {
+      setIsChanged(false);
+    } else {
+      setIsChanged(true);
+    }
+  }, [settings, st, appearance, ap]);
+
+  // Reset all settings
+  function resetAllSettings() {
+    setTemperatureUnit(st.temperatureUnit);
+    setWindSpeedUnit(st.windSpeedUnit);
+    setPressureUnit(st.pressureUnit);
+    setPrecipitationUnit(st.precipitationUnit);
+    setDistanceUnit(st.distanceUnit);
+    setIs12HourFormat(st.is12HourFormat);
+    setIsLocationAccess(st.isLocationAccess);
+    setDefaultLocation(st.defaultLocation);
+    setDaysForeCast(st.daysForeCast);
+    setHoursForeCast(st.hoursForeCast);
+    setTheme(ap.theme);
+    setFontSize(ap.fontSize);
+    setEnableAnimations(ap.enableAnimations);
+    setAutoDayNightMode(ap.autoDayNightMode);
+  }
+
   return (
     <settingsContext.Provider
       value={{
@@ -143,6 +151,9 @@ export default function SettingsProvider({ children }) {
         setEnableAnimations,
         autoDayNightMode,
         setAutoDayNightMode,
+        // -------------------
+        isChanged,
+        resetAllSettings,
       }}
     >
       {children}

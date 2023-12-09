@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import CustomTippy from './CustomTippy';
+import CustomTippy from '../../../ui/CustomTippy';
 import { useCity } from '@/hooks/useCity';
 
 const popularCities = [
@@ -89,7 +89,7 @@ const popularCities = [
 export default function CitiesDropDown({ className, currentCity, onChange }) {
   const [searchedCity, setSearchedCity] = useState('');
 
-  const { isLoading, error, cities } = useCity(searchedCity);
+  const { isLoading, cities } = useCity(searchedCity);
 
   function formatCityName(city) {
     if (!city) return;
@@ -108,7 +108,7 @@ export default function CitiesDropDown({ className, currentCity, onChange }) {
             isLoading ? 'grid grid-rows-[auto_1fr] ' : 'flex flex-col'
           } `}
         >
-          <div className='mb-2 flex items-center gap-1'>
+          <div className='mb-2 flex items-center gap-2'>
             <input
               type='text'
               className=' w-full justify-self-start rounded-md bg-background-secondary p-2 pl-3 text-sm text-text-primary focus:outline-none'

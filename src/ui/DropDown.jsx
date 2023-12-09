@@ -4,14 +4,12 @@ export default function DropDown({ options, currentOption = '', className, toggl
   return (
     <CustomTippy
       content={
-        <div className='flex min-w-[110px] gap-1 flex-col p-2 '>
+        <div className='flex min-w-[110px] flex-col gap-1 p-2 '>
           {options.map((option) => (
             <button
               key={option.name}
               className={`rounded-md px-3 py-2 text-center font-medium text-text-primary last:mb-0 hover:bg-settings-active ${
-                (currentOption.includes('System') ? 'System' : currentOption) === option.name
-                  ? 'bg-settings-active'
-                  : ''
+                currentOption === option.name ? 'bg-settings-active' : ''
               }`}
               onClick={option.onclick}
             >

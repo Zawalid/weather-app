@@ -44,26 +44,24 @@ export function getWeatherImageAndDescription(wmoCode, isDay) {
   return isDay ? weather.day : weather.night;
 }
 
-//? It was useful thought
-// export function getClosestTime(times, timezone) {
-//   // const hours = times.map((time) => new Date(time));
-//   // const currentDate = new Date();
+export function isDeepEqual(object1, object2) {
+  const objKeys1 = Object.keys(object1);
+  const objKeys2 = Object.keys(object2);
 
-//   // return hours.find((time) => {
-//   //   return currentDate.getMinutes() > 30
-//   //     ? time.getHours() === currentDate.getHours() + 1
-//   //     : time.getHours() === currentDate.getHours();
-//   // });
+  if (objKeys1.length !== objKeys2.length) return false;
 
-//   const hours = times
-//     .map((time) => formatInTimeZone(new Date(time), timezone, 'yyyy-MM-dd HH:mm'))
-//     .map((time) => new Date(time));
-//   const currentDate = new Date(formatInTimeZone(new Date(), timezone, 'yyyy-MM-dd HH:mm'));
+  for (const key of objKeys1) {
+    const value1 = object1[key];
+    const value2 = object2[key];
+    const isObjects = isObject(value1) && isObject(value2);
 
-//   const closest = hours.find((time) => {
-//     return currentDate.getMinutes() > 30
-//       ? time.getHours() === currentDate.getHours() + 1
-//       : time.getHours() === currentDate.getHours();
-//   });
-//   return closest;
-// }
+    if ((isObjects && !isDeepEqual(value1, value2)) || (!isObjects && value1 !== value2)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+const isObject = (object) => {
+  return object != null && typeof object === 'object';
+};
