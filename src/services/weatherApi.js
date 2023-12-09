@@ -26,8 +26,6 @@ export async function getWeatherData(
   latitude,
   longitude,
   timezone,
-  days,
-  hours,
   temperatureUnit,
   windSpeedUnit,
   precipitationUnit,
@@ -38,8 +36,8 @@ export async function getWeatherData(
     { name: 'temperature_unit', value: temperatureUnit },
     { name: 'wind_speed_unit', value: windSpeedUnit },
     { name: 'precipitation_unit', value: precipitationUnit },
-    { name: 'forecast_hours', value: hours },
-    { name: 'forecast_days', value: days },
+    { name: 'forecast_hours', value: 24 }, // Using the max value then controlling just using length instead of refetch
+    { name: 'forecast_days', value: 16 }, // Using the max value then controlling just using length instead of refetch
     { name: 'models', value: 'best_match' },
   ];
   try {

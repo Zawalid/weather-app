@@ -369,3 +369,10 @@ export const weatherData = new Map([
     },
   ],
 ]);
+
+export const FONT_SIZES = {
+  Default: '16px',
+  Small: '14px',
+  Medium: '18px',
+  Large: '20px',
+};

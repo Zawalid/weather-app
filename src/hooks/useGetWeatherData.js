@@ -1,4 +1,8 @@
+import { useSettings } from './useSettings';
+
 export function useGetWeatherData(data, daysNumber) {
+  const { hoursForeCast } = useSettings();
+
   if (!data) return {};
 
   const {
@@ -44,8 +48,7 @@ export function useGetWeatherData(data, daysNumber) {
     };
   });
 
-  const hourlyForecast = getItems(24, (hour, i) => {
-    // Todo : Make the 12 dynamic
+  const hourlyForecast = getItems(parseInt(hoursForeCast), (hour, i) => {
     return {
       time: hourlyTime[i],
       weatherCode: hourlyWeatherCode[i],

@@ -12,10 +12,13 @@ export default function Cities({ type, cities, isMyCities, onAdd, onRemove }) {
     duration: 400,
   });
   const { myCities } = useOutletContext();
-  const { is12HourFormat } = useSettings();
+  const { is12HourFormat, enableAnimations } = useSettings();
 
   return (
-    <div className={`flex gap-3 ${type === 2 ? 'flex-wrap' : 'flex-col'}`} ref={parent}>
+    <div
+      className={`flex gap-3 ${type === 2 ? 'flex-wrap' : 'flex-col'}`}
+      ref={enableAnimations ? parent : null}
+    >
       {cities?.map((city) => {
         const { id, name, timezone, latitude, longitude, admin1: regionName } = city;
         const updatedCity = {

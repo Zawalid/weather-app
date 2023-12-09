@@ -18,7 +18,7 @@ export default function CityWeather() {
   const location = useLocation();
   const { latitude, longitude, timezone } = location.state || {};
 
-  const { isLoading, error, data } = useWeather(latitude, longitude, timezone, 3);
+  const { isLoading, error, data } = useWeather(latitude, longitude, timezone);
   const { weatherCode, isDay, dailyForecast, hourlyForecast, currentForecast } = useGetWeatherData(
     data,
     3,

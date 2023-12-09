@@ -3,7 +3,7 @@ import { checkIfCurrentHour, formatTime } from '../../utils/helpers';
 import Hour from './Hour';
 
 export default function TodayForecast({ hours = [], transparent, className }) {
-  const { is12HourFormat } = useSettings();
+  const { is12HourFormat ,hoursForeCast} = useSettings();
   return (
     <div
       className={`py-5 ${
@@ -12,8 +12,7 @@ export default function TodayForecast({ hours = [], transparent, className }) {
           : 'rounded-xl bg-background-secondary px-5'
       }`}
     >
-      <h3 className='mb-5 text-sm font-medium text-text-secondary'>12-HOUR FORECAST</h3>
-      {/* // Todo : Make the 12 dynamic */}
+      <h3 className='mb-5 text-sm font-medium text-text-secondary'>{parseInt(hoursForeCast)}-HOUR FORECAST</h3>
       <div className={`noScrollbar flex justify-start gap-5 overflow-auto ${className}`}>
         {hours.map((hour) => (
           <Hour

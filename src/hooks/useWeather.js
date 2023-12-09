@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getWeatherData } from '../services/weatherApi';
 import { useSettings } from './useSettings';
 
-export function useWeather(lat, long, timezone, days) {
+export function useWeather(lat, long, timezone) {
   const { temperatureUnit, windSpeedUnit, precipitationUnit } = useSettings();
 
   const { isLoading, data, error } = useQuery({
@@ -12,8 +12,6 @@ export function useWeather(lat, long, timezone, days) {
         lat,
         long,
         timezone,
-        days,
-        24,
         temperatureUnit,
         windSpeedUnit,
         precipitationUnit,

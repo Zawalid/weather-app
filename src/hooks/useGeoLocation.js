@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useSettings } from './useSettings';
 
 // Get the user ip address
 async function getIp() {
@@ -8,46 +9,90 @@ async function getIp() {
 }
 
 // Get the location from the ip address
-async function getLocationFromIp() {
-  const ip = await getIp();
-  const res = await fetch(`http://ip-api.com/json/${ip}`);
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.message);
-  const { country, countryCode, regionName, city, lat: latitude, lon: longitude, timezone } = data;
-  return { country, countryCode, regionName, city, latitude, longitude, timezone };
+async function getLocationFromIp(setIsLoading, setError, setLocation) {
+  try {
+    setIsLoading(true);
+    const ip = await getIp();
+    const res = await fetch(`http://ip-api.com/json/${ip}`);
+    const data = await res.json();
+    if (!res.ok) throw Error('Error');
+    const {
+      country,
+      countryCode,
+      regionName,
+      city,
+      lat: latitude,
+      lon: longitude,
+      timezone,
+    } = data;
+    setLocation({ country, countryCode, regionName, city, latitude, longitude, timezone });
+    setError(null);
+  } catch (err) {
+    setError(err);
+  } finally {
+    setIsLoading(false);
+  }
 }
 
-export function useGeolocation(defaultPosition = null) {
+async function getLocationFromBrowser(setIsLoading, setError, setLocation) {
+  if (!navigator.geolocation) setError('Your browser does not support geolocation');
+  setIsLoading(true);
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      setLocation({
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude,
+      });
+      setIsLoading(false);
+    },
+    (error) => {
+      setError(error.message);
+      setIsLoading(false);
+    },
+  );
+}
+
+export function useGeolocation() {
   const [isLoading, setIsLoading] = useState(false);
-  const [location, setLocation] = useState(defaultPosition);
+  const [location, setLocation] = useState();
   const [error, setError] = useState(null);
+  const { isLocationAccess, defaultLocation } = useSettings();
 
   const getPosition = useCallback(async () => {
-    // Use the IP address to get the location if there is something wrong with the api use the browser geolocation
     try {
-      setIsLoading(true);
-      const location = await getLocationFromIp();
-      setLocation(location);
-      setIsLoading(false);
+      isLocationAccess
+        ? await getLocationFromIp(setIsLoading, setError, setLocation)
+        : !defaultLocation && setError('No access granted');
     } catch (error) {
-      console.error(error);
-      if (!navigator.geolocation) setError('Your browser does not support geolocation');
-      setIsLoading(true);
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          setLocation({
-            latitude: pos.coords.latitude,
-            longitude: pos.coords.longitude,
-          });
-          setIsLoading(false);
-        },
-        (error) => {
-          setError(error.message);
-          setIsLoading(false);
-        },
-      );
+      console.error(error.message);
+      await getLocationFromBrowser(setIsLoading, setError, setLocation);
     }
-  }, []);
+  }, [isLocationAccess, defaultLocation]);
+
+  useEffect(() => {
+    if (!isLocationAccess && defaultLocation) {
+      const {
+        name: city,
+        latitude,
+        longitude,
+        timezone,
+        country,
+        country_code: countryCode,
+        admin1: regionName,
+      } = defaultLocation || {};
+
+      setLocation({
+        city,
+        latitude,
+        longitude,
+        timezone,
+        country,
+        countryCode,
+        regionName,
+      });
+      setError(null);
+    }
+  }, [isLocationAccess, defaultLocation]);
 
   return { isLoading, location, error, getPosition };
 }

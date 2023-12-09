@@ -5,12 +5,15 @@ import { useOutletContext } from 'react-router-dom';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Loader from '@/ui/Loader';
 import { useWeatherContext } from '../../hooks/useWeatherContext';
+import { useSettings } from '../../hooks/useSettings';
+import ErrorMessage from '../../ui/ErrorMessage';
 
 export default function Weather() {
   const { seeMore } = useOutletContext();
   const [parent] = useAutoAnimate({
     duration: 400,
   });
+  const { enableAnimations } = useSettings();
 
   const {
     location,
@@ -24,34 +27,18 @@ export default function Weather() {
   } = useWeatherContext();
 
   if (locationError)
-    return (
-      <div className='flex h-full flex-col items-center justify-center gap-3 text-center '>
-        {locationError === 'Your browser does not support geolocation' ? (
-          <p className='font-semibold  text-text-secondary'>{locationError}</p>
-        ) : (
-          <>
-            <h3 className='text-lg font-semibold text-text-primary sm:text-2xl'>
-              Our weather app is a bit clueless without your location.
-            </h3>
-            <p className='text-xs font-semibold text-text-secondary  sm:text-base'>
-              Enable location access and refresh the page to see the weather in your area.
-            </p>
-          </>
-        )}
-      </div>
-    ); // Todo Add a custom error component
-
-  if (locationLoading || dataLoading)
-    return (
-      <div className='grid h-full'>
-        <Loader />
-      </div>
+    return locationError.includes('Network') ? (
+      <ErrorMessage type='internetError' />
+    ) : (
+      <ErrorMessage type='locationError' />
     );
+
+  if (locationLoading || dataLoading) return <Loader />;
 
   if (!location) return;
 
   return (
-    <div className='flex flex-col gap-5 ' ref={parent}>
+    <div className='flex flex-col gap-5 ' ref={enableAnimations ? parent : null}>
       <CurrentWeather
         location={location}
         temperature={currentForecast.temperature}

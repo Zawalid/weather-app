@@ -2,6 +2,7 @@ import { createContext, useEffect } from 'react';
 import { useGeolocation } from '../hooks/useGeoLocation';
 import { useWeather } from '../hooks/useWeather';
 import { useGetWeatherData } from '../hooks/useGetWeatherData';
+import { useSettings } from '../hooks/useSettings';
 
 export const weatherContext = createContext();
 
@@ -12,6 +13,8 @@ export default function WeatherProvider({ children }) {
     error: locationError,
     getPosition,
   } = useGeolocation();
+  const {daysForeCast} = useSettings();
+
 
   const fallBackTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -23,11 +26,10 @@ export default function WeatherProvider({ children }) {
     location?.latitude,
     location?.longitude,
     location?.timezone || fallBackTimezone,
-    7,
   );
 
   const { weatherCode, isDay, currentForecast, dailyForecast, hourlyForecast } =
-    useGetWeatherData(data, 7);
+    useGetWeatherData(data, parseInt(daysForeCast));
 
   useEffect(() => {
     getPosition();

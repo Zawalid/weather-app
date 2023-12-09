@@ -1,4 +1,3 @@
-import { formatInTimeZone } from 'date-fns-tz';
 import { weatherData } from './constants';
 
 export function formatDay(dateStr) {
@@ -20,9 +19,14 @@ export function checkIfToday(dateStr) {
   const today = new Date().toLocaleDateString('en-US');
   return new Date(dateStr).toLocaleDateString('en-US') === today;
 }
+
 export function checkIfCurrentHour(timeStr) {
   const currentHour = new Date().getHours();
   return new Date(timeStr).getHours() === currentHour;
+}
+export function checkIfDayOrNight() {
+  const currentHour = new Date().getHours();
+  return currentHour >= 6 && currentHour <= 18 ? 'day' : 'night';
 }
 
 export function getTimeBaseOnTimezone(timezone, hour12) {

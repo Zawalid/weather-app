@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Cities from './Cities';
+import { useSettings } from '../../hooks/useSettings';
+import ErrorMessage from '../../ui/ErrorMessage';
 
 export default function MyCities() {
   const { myCities, setMyCities } = useOutletContext();
@@ -9,26 +11,22 @@ export default function MyCities() {
   const [parent] = useAutoAnimate({
     duration: 400,
   });
+  const { enableAnimations } = useSettings();
 
   useEffect(() => {
     if (!myCities.length) navigate({ replace: true, state: null });
   }, [myCities, navigate]);
 
-  return myCities.length ? (
-    <div className='relative h-full' ref={parent}>
+  if (!myCities.length) return <ErrorMessage type='noCities' />;
+
+  return (
+    <div className='relative h-full' ref={enableAnimations ? parent : null}>
       <Cities
         type={1}
         cities={myCities}
         isMyCities={true}
         onRemove={(id) => setMyCities((prev) => prev.filter((city) => city.id !== id))}
       />
-    </div>
-  ) : (
-    <div className='flex h-full flex-col items-center justify-center gap-3 text-center '>
-      <h3 className='text-lg sm:text-2xl font-semibold text-text-primary'>
-        You don&apos;t have any cities in your list.
-      </h3>
-      <p className='font-semibold text-xs sm:text-base text-text-secondary'>Add a city to see its weather forecast.</p>
     </div>
   );
 }

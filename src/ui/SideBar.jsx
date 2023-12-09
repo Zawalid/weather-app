@@ -1,6 +1,5 @@
 import Logo from '@/ui/Logo';
 import { NavLink } from 'react-router-dom';
-import ThemeSwitch from './ThemeSwitch';
 
 export default function SideBar() {
   return (
@@ -20,7 +19,6 @@ export default function SideBar() {
           <Button icon='fa-sliders' text='Settings' />
         </NavLink>
       </div>
-     <ThemeSwitch />
     </aside>
   );
 }
