@@ -36,6 +36,7 @@ export default function AppLayout() {
           </IconButton>
         </div>
         <div
+        id='main'
           className='col-start-2  h-[calc(100vh-80px)] overflow-auto pr-3 lg:h-[calc(100vh-96px)]'
           ref={enableAnimations ? parent : null}
         >

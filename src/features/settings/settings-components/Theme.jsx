@@ -6,7 +6,7 @@ export default function Theme() {
   return (
     <div
       className={`flex items-center transition-opacity duration-300  justify-between gap-5 ${
-        autoDayNightMode ? 'pointer-events-none opacity-40' : ''
+        autoDayNightMode ? 'disabled' : ''
       }`}
     >
       <h4 className='mb-1 text-sm font-medium text-text-tertiary'>Theme</h4>

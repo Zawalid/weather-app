@@ -8,6 +8,10 @@ a.active span {
   @apply font-semibold;
 }
 
+#sidebar li:is(.active, :hover) {
+  @apply font-medium text-text-primary;
+}
+
 #city.active {
   @apply border bg-transparent;
 }
@@ -18,6 +22,16 @@ a.active span {
 
 .noTextWrap {
   text-wrap: nowrap;
+}
+.disabled {
+  @apply pointer-events-none opacity-40;
+}
+#main {
+  scroll-snap-type: y mandatory;
+}
+.settings_section {
+  scroll-snap-align: start;
+  @apply transition-opacity duration-300;
 }
 
 /* Loader */

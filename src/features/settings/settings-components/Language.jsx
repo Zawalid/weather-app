@@ -2,7 +2,7 @@ import DropDown from '@/ui/DropDown';
 
 export default function Language() {
   return (
-    <div className='flex items-center justify-between gap-5 '>
+    <div className='flex disabled items-center justify-between gap-5 '>
       <h4 className='mb-1 text-sm font-medium text-text-tertiary'>Language</h4>
       <DropDown
         options={[
