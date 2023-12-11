@@ -28,6 +28,7 @@ export default function SettingsProvider({ children }) {
   const [searchResultsCount, setSearchResultsCount] = useState(st.searchResultsCount);
   const [enableSearchHistory, setEnableSearchHistory] = useState(st.enableSearchHistory);
   const [searchHistory, setSearchHistory] = useLocalStorageState('history', []);
+  const [sortCriteria,setSortCriteria] = useState(st.sortCriteria)
 
   const [appearance, setAppearance] = useLocalStorageState('appearance', ap);
   const [theme, setTheme] = useState(appearance.theme);
@@ -62,6 +63,7 @@ export default function SettingsProvider({ children }) {
       enableSearch,
       searchResultsCount,
       enableSearchHistory,
+      sortCriteria
     });
     queryClient.invalidateQueries();
   }, [
@@ -81,6 +83,7 @@ export default function SettingsProvider({ children }) {
     enableSearch,
     searchResultsCount,
     enableSearchHistory,
+    sortCriteria
   ]);
 
   // Update appearance
@@ -177,6 +180,8 @@ export default function SettingsProvider({ children }) {
         setSearchResultsCount,
         enableSearchHistory,
         setEnableSearchHistory,
+        sortCriteria,
+        setSortCriteria,
         // -------------------
         theme,
         setTheme,

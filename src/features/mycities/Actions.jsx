@@ -5,7 +5,34 @@ import { confirmDeletion } from '../../utils/helpers';
 
 export default function Actions({ myCities, setMyCities }) {
   const [sortDir, setSortDir] = useLocalStorageState('sortDir', 'a-z');
-  const { enableDeleteConfirmations } = useSettings();
+  const { enableDeleteConfirmations, sortCriteria } = useSettings();
+
+  function sort(dir) {
+    switch (sortCriteria) {
+      case 'City Name':
+        setMyCities(
+          dir === 'a-z'
+            ? myCities.toSorted((a, b) => a.name.localeCompare(b.name))
+            : myCities.toSorted((a, b) => b.name.localeCompare(a.name)),
+        );
+        break;
+      case 'Country Name':
+        setMyCities(
+          dir === 'a-z'
+            ? myCities.toSorted((a, b) => a.country.localeCompare(b.country))
+            : myCities.toSorted((a, b) => b.country.localeCompare(a.country)),
+        );
+        break;
+      case 'Temperature':
+        setMyCities(
+          dir === 'a-z'
+            ? myCities.toSorted((a, b) => a.temperature - b.temperature)
+            : myCities.toSorted((a, b) => b.temperature - a.temperature),
+        );
+        break;
+    }
+  }
+
   return (
     <DropDown
       options={[
@@ -20,27 +47,31 @@ export default function Actions({ myCities, setMyCities }) {
               : setMyCities([]),
         },
         {
-          icon: 'fa-solid fa-arrow-down-a-z',
+          icon: `fa-solid fa-arrow-down-${sortCriteria === 'Temperature' ? '1-9' : 'a-z'}`,
           name: 'Sort ascending',
           onclick: () => {
             if (sortDir !== 'a-z') {
-              setMyCities(myCities.toSorted((a, b) => a.name.localeCompare(b.name)));
+              sort('a-z');
               setSortDir('a-z');
             }
           },
         },
         {
-          icon: 'fa-solid fa-arrow-down-z-a',
+          icon: `fa-solid fa-arrow-down-${sortCriteria === 'Temperature' ? '9-1' : 'z-a'}`,
           name: 'Sort descending',
           onclick: () => {
             if (sortDir !== 'z-a') {
-              setMyCities(myCities.toSorted((a, b) => b.name.localeCompare(a.name)));
+              sort('z-a');
               setSortDir('z-a');
             }
           },
         },
       ]}
-      toggler={<i className='fa-solid fa-ellipsis-v'></i>}
+      toggler={
+        <button className='grid focus:bg-settings-active place-content-center rounded-md bg-background-secondary px-3 py-2'>
+          <i className='fa-solid fa-ellipsis-v text=lg text-text-primary'></i>
+        </button>
+      }
       type='myCities'
     />
   );

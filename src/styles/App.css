@@ -151,7 +151,10 @@ a.active span {
   --error-text: hsl(358, 100%, 81%) !important;
 }
 
-
+.sonner-toast[data-type='warning'] {
+  height: auto !important;
+  padding: 8px 16px;
+}
 .sonner-toast [data-content] {
 }
 .sonner-toast:not([data-type='loading']) [data-content] {

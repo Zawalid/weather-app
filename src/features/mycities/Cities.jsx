@@ -9,10 +9,11 @@ export default function Cities({ type, cities, isMyCities, onAdd, onRemove }) {
   const location = useLocation().state;
   const [searchParams] = useSearchParams();
   const [parent] = useAutoAnimate({
-    duration: 400,
+    duration: 500,
   });
   const { myCities } = useOutletContext();
-  const { is12HourFormat, enableAnimations, addToSearchHistory ,enableSearchHistory} = useSettings();
+  const { is12HourFormat, enableAnimations, addToSearchHistory, enableSearchHistory } =
+    useSettings();
 
   return (
     <div
@@ -55,9 +56,9 @@ export default function Cities({ type, cities, isMyCities, onAdd, onRemove }) {
                 replace: true,
               });
 
-              if(!isMyCities && enableSearchHistory) addToSearchHistory(updatedCity);
+              if (!isMyCities && enableSearchHistory) addToSearchHistory(updatedCity);
             }}
-            onClick={() => (isMyCities ? onRemove(id) : onAdd(city))}
+            onClick={(temperature) => (isMyCities ? onRemove(id) : onAdd(city, temperature))}
           />
         );
       })}

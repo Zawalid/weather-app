@@ -2,6 +2,7 @@ import { useWeatherContext } from '../../hooks/useWeatherContext';
 import { useWeather } from '../../hooks/useWeather';
 import IconButton from '../../ui/IconButton';
 import { getWeatherImageAndDescription } from '../../utils/helpers';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 export default function City({
   city,
@@ -15,6 +16,9 @@ export default function City({
   const { name, country, country_code, regionName, time, latitude, longitude, timezone } = city;
   const { data = {} } = useWeather(latitude, longitude, timezone, 3);
   const { location } = useWeatherContext();
+  const [parent] = useAutoAnimate({
+    duration: 400,
+  });
 
   const {
     current: { temperature_2m: temperature, weather_code, is_day } = {},
@@ -23,7 +27,7 @@ export default function City({
 
   return (
     <div
-      className={`noScrollbar grid  cursor-pointer grid-cols-[80px_1fr_auto]  items-center overflow-auto rounded-xl border-primary bg-background-secondary p-3 transition-colors duration-300 hover:border  hover:bg-transparent ${
+      className={`noScrollbar grid  cursor-pointer grid-cols-[80px_1fr_auto]  items-center overflow-auto rounded-xl border-primary bg-background-secondary p-3 transition-all duration-300 hover:border  hover:bg-transparent ${
         type === 2
           ? 'min-w-[150px] grid-cols-none  place-items-center gap-3 px-5'
           : type === 3
@@ -33,6 +37,7 @@ export default function City({
       ${isCurrentCity ? 'active' : ''}
       `}
       id='city'
+      ref={parent}
       onClick={(e) => {
         e.stopPropagation();
         onSelect();
@@ -73,14 +78,14 @@ export default function City({
         )}
       </div>
       <div className={`flex flex-col gap-1 ${type === 2 ? 'items-center' : 'items-end'}`}>
-        <span
+        <h4
           className={`font-medium text-text-primary ${type === 3 ? 'text-3xl' : 'text-2xl'}
         ${type !== 2 ? 'ml-10 sm:ml-5' : ''}
         `}
         >
           {temperature}
           {unit}
-        </span>
+        </h4>
         {isInMyCities ? (
           isSearched ? (
             <span className='text-sm text-text-secondary'>Added </span>
@@ -100,7 +105,7 @@ export default function City({
             className='text-text-secondary'
             onClick={(e) => {
               e.stopPropagation();
-              onClick();
+              onClick(temperature);
             }}
           >
             <i className='fa-solid fa-plus text-xs'></i>

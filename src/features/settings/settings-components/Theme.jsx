@@ -29,7 +29,7 @@ export default function Theme() {
         className='bg-background-secondary'
         toggler={
             <span className='text-sm font-medium'>
-              {theme.includes('System') ? 'System' : theme}
+              {theme}
             </span>
         }
         disabled={autoDayNightMode}

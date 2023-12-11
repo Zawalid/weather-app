@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { useLocalStorageState } from '../hooks/useLocalStorageState';
 import SearchInput from '../features/search/SearchInput';
 import SideBar from './SideBar';
 import Aside from './Aside';
-import Actions from '../features/mycities/Actions';
 import IconButton from './IconButton';
 import { useSettings } from '../hooks/useSettings';
 import { Toaster  } from 'sonner';
@@ -18,7 +17,6 @@ export default function AppLayout() {
     duration: 400,
   });
   const { enableAnimations } = useSettings();
-  const currentTab = useLocation().pathname.split('/')[2];
 
   return (
     <>
@@ -26,7 +24,6 @@ export default function AppLayout() {
         <SideBar />
         <div className='flex h-fit items-center gap-2'>
           <SearchInput />
-          {currentTab === 'mycities' && <Actions myCities={myCities} setMyCities={setMyCities} />}
           <IconButton className='lg:hidden' onClick={() => setIsAsideOpen(!isAsideOpen)}>
             <i
               className={`fa-solid fa-angles-left transition-transform duration-500 ${

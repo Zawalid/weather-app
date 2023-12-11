@@ -19,7 +19,11 @@ export default function Search() {
     <div className='flex flex-col gap-5'>
       <div className='space-y-3'>
         <h3 className='text-sm font-medium text-text-secondary '>RESULTS</h3>
-        <Cities type={1} cities={cities} onAdd={(city) => setMyCities((prev) => [...prev, city])} />
+        <Cities
+          type={1}
+          cities={cities}
+          onAdd={(city,temperature) => setMyCities((prev) => [...prev, { ...city, temperature }])}
+        />
       </div>
       {enableSearchHistory && (
         <div className='space-y-3'>

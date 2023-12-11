@@ -9,6 +9,8 @@ import HoursForecast from './settings-components/HoursForecast';
 import CitiesDropDown from './settings-components/CitiesDropDown';
 import Button from '@/ui/Button';
 import SearchResultsCount from './settings-components/SearchResultsCount';
+import { toast } from 'sonner';
+import SortCriteria from './settings-components/SortCriteria';
 export default function Settings() {
   const {
     is12HourFormat,
@@ -97,7 +99,19 @@ export default function Settings() {
             checked={enableAnimations}
             onChange={() => {
               setEnableAnimations(!enableAnimations);
-              window.location.reload();
+              toast.warning('Please reload the page to apply changes.', {
+                action: {
+                  label: 'Reload',
+                  onClick: () => window.location.reload(),
+                },
+                actionButtonStyle: {
+                  backgroundColor: 'var(--color-primary)',
+                  color: 'white',
+                  boxShadow: '-1px 1px 1px 0px #0303033d',
+                  border: 'none',
+                  fontWeight: 'medium',
+                },
+              });
             }}
           />
           <SwitchSetting
@@ -149,6 +163,15 @@ export default function Settings() {
         </div>
       </div>
 
+      {/* My Cities */}
+      <div className='settings_section space-y-3'>
+        <h2 id='myCities' className=' text-lg font-semibold text-text-primary '>
+          My Cities
+        </h2>
+        <div className=' flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
+          <SortCriteria />
+        </div>
+      </div>
       {/* Notifications */}
       <div className='settings_section space-y-3'>
         <h2 id='notifications' className=' text-lg font-semibold text-text-primary '>

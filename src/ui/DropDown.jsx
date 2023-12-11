@@ -1,6 +1,7 @@
 import CustomTippy from './CustomTippy';
 
 export default function DropDown({ options, currentOption = '', className, toggler, type }) {
+  console.log(type);
   return (
     <CustomTippy
       content={
@@ -32,9 +33,7 @@ export default function DropDown({ options, currentOption = '', className, toggl
       className={`rounded-lg bg-background-primary shadow-[-5px_5px_10px_var(--color-shadow)] ${className}`}
     >
       {type === 'myCities' ? (
-        <button className='grid h-6 w-6 place-content-center rounded-full border text-sm text-text-tertiary  duration-100 hover:border-none hover:bg-primary-hover hover:text-white'>
-          <i className='fa-solid fa-ellipsis-v'></i>
-        </button>
+        toggler
       ) : (
         <button className='flex min-w-[110px] items-center justify-center gap-2 rounded-lg bg-settings-active px-3 py-2 text-text-primary'>
           {toggler}

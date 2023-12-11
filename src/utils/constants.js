@@ -393,6 +393,7 @@ export const DEFAULT_SETTINGS = {
     enableSearch: true,
     searchResultsCount: 5,
     enableSearchHistory: true,
+    sortCriteria : 'City Name'
   },
   appearance: {
     theme: 'System',
