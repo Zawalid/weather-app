@@ -40,16 +40,10 @@ const useIntersectionObserver = (setActiveId) => {
         );
 
         setActiveId(sortedVisibleHeadings[0].target.id);
-        document.getElementById('active-indicator').style.top = `${
-          getIndexFromId(sortedVisibleHeadings[0].target.id) * 33
-        }px`;
       }
     };
 
-    const observer = new IntersectionObserver(callback, {
-      root: null,
-      rootMargin: '56px',
-    });
+    const observer = new IntersectionObserver(callback);
 
     const headingElements = Array.from(document.querySelectorAll('#settings h2'));
 
@@ -60,7 +54,7 @@ const useIntersectionObserver = (setActiveId) => {
 };
 
 export default function NavigationSidebar() {
-  const [activeId, setActiveId] = useState();
+  const [activeId, setActiveId] = useState('units');
   const { headings } = useGetHeadings();
   useIntersectionObserver(setActiveId);
 
@@ -68,10 +62,15 @@ export default function NavigationSidebar() {
     const activeHeading = document.getElementById(activeId);
     document.querySelectorAll('#settings > div').forEach((div) => (div.style.opacity = 0.5));
     activeHeading && (activeHeading.parentElement.style.opacity = 1);
+
+    document.getElementById('active-indicator').style.top = `${
+      headings.map((el) => el.id).indexOf(activeId) * 33
+    }px`;
+
     return () => {
       document.querySelectorAll('#settings > div').forEach((div) => (div.style.opacity = 1));
     };
-  }, [activeId]);
+  }, [activeId, headings]);
 
   return (
     <div className='rounded-xl p-5' id='sidebar'>
@@ -81,12 +80,13 @@ export default function NavigationSidebar() {
           className='absolute -left-[2px] h-5 w-1 rounded-sm bg-primary transition-[top] duration-500'
           id='active-indicator'
         ></span>
-        {headings.slice(0, headings.length - 1).map((heading) => (
+        {headings.map((heading) => (
           <li
             key={heading.id}
             className={heading.id === activeId ? 'active' : 'text-text-secondary'}
+            onClick={() => heading.scrollIntoView()}
           >
-            <a href={`#${heading.id}`}>{heading.textContent}</a>
+            <button>{heading.textContent}</button>
           </li>
         ))}
       </ul>

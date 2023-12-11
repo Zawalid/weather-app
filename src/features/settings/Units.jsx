@@ -17,7 +17,7 @@ export default function Units() {
   return (
     <div className='flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
       <Unit
-        title='TEMPERATURE'
+        title='Temperature'
         options={[
           { name: 'Celsius', value: 'celsius' },
           { name: 'Fahrenheit', value: 'fahrenheit' },
@@ -26,7 +26,7 @@ export default function Units() {
         onChange={(option) => setTemperatureUnit(option)}
       />
       <Unit
-        title='WIND SPEED'
+        title='Wind speed'
         options={[
           { name: 'Km/h', value: 'kmh' },
           { name: 'm/s', value: 'ms' },
@@ -35,7 +35,7 @@ export default function Units() {
         onChange={(option) => setWindSpeedUnit(option)}
       />
       <Unit
-        title='PRESSURE'
+        title='Pressure'
         options={[
           { name: 'hPa', value: 'hPa' },
           { name: 'KPa', value: 'KPa' },
@@ -45,7 +45,7 @@ export default function Units() {
         onChange={(option) => setPressureUnit(option)}
       />
       <Unit
-        title='PRECIPITATION'
+        title='Precipitation'
         options={[
           { name: 'Millimeters', value: 'mm' },
           { name: 'Inches', value: 'inch' },
@@ -54,7 +54,7 @@ export default function Units() {
         onChange={(option) => setPrecipitationUnit(option)}
       />
       <Unit
-        title='DISTANCE'
+        title='Distance'
         options={[
           { name: 'Kilometers', value: 'Km' },
           { name: 'Miles', value: 'Mi' },

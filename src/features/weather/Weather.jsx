@@ -25,13 +25,13 @@ export default function Weather() {
     hourlyForecast,
     currentForecast,
   } = useWeatherContext();
-
-  if (locationError)
-    return locationError.includes('Network') ? (
+  if (locationError) 
+    return String(locationError)?.includes('Network') ? (
       <ErrorMessage type='internetError' />
     ) : (
       <ErrorMessage type='locationError' />
     );
+  
 
   if (locationLoading || dataLoading) return <Loader />;
 

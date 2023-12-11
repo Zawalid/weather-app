@@ -5,7 +5,7 @@
 
 :root {
   --color-primary: #0072e6;
-  --color-primary-hover: #0095ff;
+  --color-primary-hover: #005bb5;
   --color-text-secondary: #9399a2;
 }
 
@@ -34,7 +34,7 @@
 * {
   box-sizing: border-box;
   scroll-behavior: smooth;
-  @apply transition-colors duration-300;
+  @apply transition-all duration-300;
 }
 body {
   font-family: 'Rubik', sans-serif;

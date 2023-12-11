@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useSettings } from '../../hooks/useSettings';
 
 export default function SearchInput() {
   const [searchParams] = useSearchParams();
   const [city, setCity] = useState(searchParams.get('city') || '');
   const currentTab = useLocation().pathname.split('/')[2];
-
   const navigate = useNavigate();
+  const { enableSearch } = useSettings();
 
   useEffect(() => {
     setCity(searchParams.get('city') ?? '');
@@ -14,8 +15,8 @@ export default function SearchInput() {
 
   useEffect(() => {
     if (currentTab === 'search' && !city) navigate('/app');
-    
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function searchCity(city) {
@@ -25,7 +26,7 @@ export default function SearchInput() {
 
   return (
     <form
-      className='flex-1'
+      className={'flex-1  ' + (enableSearch ? '' : 'disabled')}
       onSubmit={(e) => {
         e.preventDefault();
         searchCity(city);
@@ -33,7 +34,7 @@ export default function SearchInput() {
     >
       <input
         type='text'
-        className='w-full rounded-xl  bg-background-secondary p-2 pl-3 text-sm text-text-primary focus:outline-none'
+        className='w-full rounded-xl  bg-background-secondary p-3 text-sm text-text-primary focus:outline-none'
         placeholder='Search for cities'
         value={city}
         onChange={(e) => {

@@ -377,9 +377,8 @@ export const FONT_SIZES = {
   Large: '20px',
 };
 
-
 export const DEFAULT_SETTINGS = {
-  settings : {
+  settings: {
     temperatureUnit: 'celsius',
     windSpeedUnit: 'kmh',
     pressureUnit: 'hPa',
@@ -390,11 +389,15 @@ export const DEFAULT_SETTINGS = {
     defaultLocation: null,
     daysForeCast: '7 Days',
     hoursForeCast: '12 Hours',
+    enableDeleteConfirmations : false,
+    enableSearch: true,
+    searchResultsCount: 5,
+    enableSearchHistory: true,
   },
-  appearance : {
+  appearance: {
     theme: 'System',
     fontSize: 'Default',
     enableAnimations: true,
     autoDayNightMode: false,
-  }
-}
+  },
+};

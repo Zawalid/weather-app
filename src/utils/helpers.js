@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import { weatherData } from './constants';
 
 export function formatDay(dateStr) {
@@ -65,3 +66,36 @@ export function isDeepEqual(object1, object2) {
 const isObject = (object) => {
   return object != null && typeof object === 'object';
 };
+
+export function confirmDeletion(message, confirmText, onconfirm) {
+  toast.warning(message, {
+    action: {
+      label: confirmText,
+      onClick: () => onconfirm(),
+    },
+    actionButtonStyle: {
+      backgroundColor: 'rgb(220 38 38)',
+      color: 'white',
+      boxShadow: '-1px 1px 1px 0px #0303033d',
+      border: 'none',
+      fontWeight: 'medium',
+    },
+    cancel: {
+      label: 'Cancel',
+      onClick: () => console.log('Cancel'),
+    },
+    cancelButtonStyle: {
+      backgroundColor: 'var(--color-background-secondary)',
+      color: 'var(--color-text-primary)',
+      boxShadow: '-1px 1px 1px 0px #0303033d',
+      border: 'none',
+      fontWeight: 'medium',
+    },
+    duration: Infinity,
+    position: 'top-right',
+    style: {
+      height: 'auto !important',
+      padding: '8px 16px',
+    },
+  });
+}

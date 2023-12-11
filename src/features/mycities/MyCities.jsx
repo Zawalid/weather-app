@@ -4,6 +4,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Cities from './Cities';
 import { useSettings } from '../../hooks/useSettings';
 import ErrorMessage from '../../ui/ErrorMessage';
+import { confirmDeletion } from '../../utils/helpers';
 
 export default function MyCities() {
   const { myCities, setMyCities } = useOutletContext();
@@ -25,7 +26,11 @@ export default function MyCities() {
         type={1}
         cities={myCities}
         isMyCities={true}
-        onRemove={(id) => setMyCities((prev) => prev.filter((city) => city.id !== id))}
+        onRemove={(id) =>
+          confirmDeletion('Are you sure you want to remove this city?', 'Remove', () =>
+            setMyCities((prev) => prev.filter((city) => city.id !== id)),
+          )
+        }
       />
     </div>
   );

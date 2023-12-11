@@ -2,7 +2,7 @@ import { createContext, useCallback, useEffect, useState } from 'react';
 import { useLocalStorageState } from '../hooks/useLocalStorageState';
 import { useQueryClient } from '@tanstack/react-query';
 import { DEFAULT_SETTINGS, FONT_SIZES } from '../utils/constants';
-import { checkIfDayOrNight, isDeepEqual } from '../utils/helpers';
+import { checkIfDayOrNight, isDeepEqual, confirmDeletion } from '../utils/helpers';
 
 export const settingsContext = createContext();
 
@@ -11,16 +11,23 @@ export default function SettingsProvider({ children }) {
   const [isChanged, setIsChanged] = useState(false);
 
   const [settings, setSettings] = useLocalStorageState('settings', st);
-  const [temperatureUnit, setTemperatureUnit] = useState(settings.temperatureUnit);
-  const [windSpeedUnit, setWindSpeedUnit] = useState(settings.windSpeedUnit);
-  const [pressureUnit, setPressureUnit] = useState(settings.pressureUnit);
-  const [precipitationUnit, setPrecipitationUnit] = useState(settings.precipitationUnit);
-  const [distanceUnit, setDistanceUnit] = useState(settings.distanceUnit);
-  const [is12HourFormat, setIs12HourFormat] = useState(settings.is12HourFormat);
-  const [isLocationAccess, setIsLocationAccess] = useState(settings.isLocationAccess);
-  const [defaultLocation, setDefaultLocation] = useState(settings.defaultLocation);
-  const [daysForeCast, setDaysForeCast] = useState(settings.daysForeCast);
-  const [hoursForeCast, setHoursForeCast] = useState(settings.hoursForeCast);
+  const [temperatureUnit, setTemperatureUnit] = useState(st.temperatureUnit);
+  const [windSpeedUnit, setWindSpeedUnit] = useState(st.windSpeedUnit);
+  const [pressureUnit, setPressureUnit] = useState(st.pressureUnit);
+  const [precipitationUnit, setPrecipitationUnit] = useState(st.precipitationUnit);
+  const [distanceUnit, setDistanceUnit] = useState(st.distanceUnit);
+  const [is12HourFormat, setIs12HourFormat] = useState(st.is12HourFormat);
+  const [isLocationAccess, setIsLocationAccess] = useState(st.isLocationAccess);
+  const [defaultLocation, setDefaultLocation] = useState(st.defaultLocation);
+  const [daysForeCast, setDaysForeCast] = useState(st.daysForeCast);
+  const [hoursForeCast, setHoursForeCast] = useState(st.hoursForeCast);
+  const [enableDeleteConfirmations, setEnableDeleteConfirmations] = useState(
+    st.enableDeleteConfirmations,
+  );
+  const [enableSearch, setEnableSearch] = useState(st.enableSearch);
+  const [searchResultsCount, setSearchResultsCount] = useState(st.searchResultsCount);
+  const [enableSearchHistory, setEnableSearchHistory] = useState(st.enableSearchHistory);
+  const [searchHistory, setSearchHistory] = useLocalStorageState('history', []);
 
   const [appearance, setAppearance] = useLocalStorageState('appearance', ap);
   const [theme, setTheme] = useState(appearance.theme);
@@ -51,6 +58,10 @@ export default function SettingsProvider({ children }) {
       defaultLocation,
       daysForeCast,
       hoursForeCast,
+      enableDeleteConfirmations,
+      enableSearch,
+      searchResultsCount,
+      enableSearchHistory,
     });
     queryClient.invalidateQueries();
   }, [
@@ -66,6 +77,10 @@ export default function SettingsProvider({ children }) {
     queryClient,
     daysForeCast,
     hoursForeCast,
+    enableDeleteConfirmations,
+    enableSearch,
+    searchResultsCount,
+    enableSearchHistory,
   ]);
 
   // Update appearance
@@ -119,6 +134,16 @@ export default function SettingsProvider({ children }) {
     setAutoDayNightMode(ap.autoDayNightMode);
   }
 
+  function addToSearchHistory(city) {
+    if (searchHistory.some((c) => c.id === city.id)) return;
+    setSearchHistory((prev) => (prev.length === 4 ? [city,...prev.slice(0,3)] : [city, ...prev]));
+  }
+  function clearSearchHistory() {
+    confirmDeletion('Are you sure you want to clear the history', 'Clear', () =>
+      setSearchHistory([]),
+    );
+  }
+
   return (
     <settingsContext.Provider
       value={{
@@ -142,6 +167,14 @@ export default function SettingsProvider({ children }) {
         setDaysForeCast,
         hoursForeCast,
         setHoursForeCast,
+        enableDeleteConfirmations,
+        setEnableDeleteConfirmations,
+        enableSearch,
+        setEnableSearch,
+        searchResultsCount,
+        setSearchResultsCount,
+        enableSearchHistory,
+        setEnableSearchHistory,
         // -------------------
         theme,
         setTheme,
@@ -154,6 +187,9 @@ export default function SettingsProvider({ children }) {
         // -------------------
         isChanged,
         resetAllSettings,
+        searchHistory,
+        addToSearchHistory,
+        clearSearchHistory,
       }}
     >
       {children}

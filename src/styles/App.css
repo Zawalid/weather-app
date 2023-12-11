@@ -31,7 +31,6 @@ a.active span {
 }
 .settings_section {
   scroll-snap-align: start;
-  @apply transition-opacity duration-300;
 }
 
 /* Loader */
@@ -151,6 +150,8 @@ a.active span {
   --error-border: hsl(357, 89%, 16%) !important;
   --error-text: hsl(358, 100%, 81%) !important;
 }
+
+
 .sonner-toast [data-content] {
 }
 .sonner-toast:not([data-type='loading']) [data-content] {
@@ -174,6 +175,9 @@ a.active span {
 }
 .sonner-toast[data-type='error'] [data-icon] {
   background-color: #ff0000;
+}
+.sonner-toast[data-type='warning'] [data-icon] {
+  background-color: #5896f3;
 }
 .sonner-toast [data-button] {
   background-color: #f4f4f4;

@@ -7,7 +7,8 @@ import SwitchSetting from './settings-components/SwitchSetting';
 import DaysForecast from './settings-components/DaysForecast';
 import HoursForecast from './settings-components/HoursForecast';
 import CitiesDropDown from './settings-components/CitiesDropDown';
-
+import Button from '@/ui/Button';
+import SearchResultsCount from './settings-components/SearchResultsCount';
 export default function Settings() {
   const {
     is12HourFormat,
@@ -20,6 +21,14 @@ export default function Settings() {
     setEnableAnimations,
     autoDayNightMode,
     setAutoDayNightMode,
+    isChanged,
+    resetAllSettings,
+    enableSearch,
+    setEnableSearch,
+    enableSearchHistory,
+    setEnableSearchHistory,
+    searchHistory,
+    clearSearchHistory,
   } = useSettings();
 
   return (
@@ -45,7 +54,12 @@ export default function Settings() {
           />
           <DaysForecast />
           <HoursForecast />
-
+          <SwitchSetting
+            checked={is12HourFormat}
+            onChange={() => setIs12HourFormat(!is12HourFormat)}
+            title='Deletion Confirmation'
+            description='Enable confirmation prompts for deletions.'
+          />
           <SwitchSetting
             checked={isLocationAccess}
             onChange={() => setIsLocationAccess(!isLocationAccess)}
@@ -54,7 +68,7 @@ export default function Settings() {
           />
           {/* Disable if location access is granted */}
           <div
-            className={`flex items-center justify-between gap-5 transition-opacity duration-300 ${
+            className={`flex items-center justify-between gap-5  ${
               isLocationAccess ? 'disabled' : ''
             }`}
           >
@@ -67,11 +81,10 @@ export default function Settings() {
         </div>
       </div>
 
-      {/* Appearance & Language  */}
-
+      {/* Appearance*/}
       <div className='settings_section space-y-3'>
         <h2 id='appearance' className=' text-lg font-semibold text-text-primary '>
-          Appearance 
+          Appearance
         </h2>
         <div className=' flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
           <Theme />
@@ -95,15 +108,58 @@ export default function Settings() {
         </div>
       </div>
 
+      {/* Search */}
+      <div className='settings_section space-y-3'>
+        <h2 id='search' className=' text-lg font-semibold text-text-primary '>
+          Search
+        </h2>
+        <div className=' flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
+          <SwitchSetting
+            title='Enable Search'
+            description='Search for cities'
+            checked={enableSearch}
+            onChange={() => setEnableSearch(!enableSearch)}
+          />
+          <SearchResultsCount />
+          <div className='flex flex-col gap-3'>
+            <SwitchSetting
+              title='Search History'
+              description='Save your search history'
+              checked={enableSearchHistory}
+              onChange={() => setEnableSearchHistory(!enableSearchHistory)}
+            />
+            <div
+              className={`ml-5  flex items-center justify-between
+              ${!enableSearchHistory || searchHistory.length === 0 ? 'disabled' : ''}
+              `}
+            >
+              <h4 className='1 text-sm font-medium text-text-tertiary'>Clear Search History</h4>
+              <button
+                className='disabled:hover:red-600 w-[110px] rounded-lg bg-red-600 px-5 py-2  text-sm font-semibold  text-white hover:bg-red-700
+                '
+                onClick={clearSearchHistory}
+                disabled={!enableSearchHistory || searchHistory.length === 0}
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Notifications */}
       <div className='settings_section space-y-3'>
         <h2 id='notifications' className=' text-lg font-semibold text-text-primary '>
           Notifications
         </h2>
-        <div className='disabled flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
-          <SwitchSetting title='Notifications' description='Be aware of the weather' />
+        <div className=' flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
+          <SwitchSetting title='Enable Notifications' description='Be aware of the weather' />
         </div>
       </div>
+
+      <Button className='w-full' disabled={!isChanged} onClick={resetAllSettings}>
+        Reset Settings
+      </Button>
     </div>
   );
 }

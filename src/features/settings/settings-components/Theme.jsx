@@ -5,7 +5,7 @@ export default function Theme() {
   const { theme, setTheme, autoDayNightMode } = useSettings();
   return (
     <div
-      className={`flex items-center transition-opacity duration-300  justify-between gap-5 ${
+      className={`flex items-center   justify-between gap-5 ${
         autoDayNightMode ? 'disabled' : ''
       }`}
     >
@@ -28,11 +28,9 @@ export default function Theme() {
         currentOption={theme}
         className='bg-background-secondary'
         toggler={
-          <>
             <span className='text-sm font-medium'>
               {theme.includes('System') ? 'System' : theme}
             </span>
-          </>
         }
         disabled={autoDayNightMode}
       />

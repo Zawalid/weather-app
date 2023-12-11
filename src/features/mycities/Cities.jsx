@@ -12,11 +12,11 @@ export default function Cities({ type, cities, isMyCities, onAdd, onRemove }) {
     duration: 400,
   });
   const { myCities } = useOutletContext();
-  const { is12HourFormat, enableAnimations } = useSettings();
+  const { is12HourFormat, enableAnimations, addToSearchHistory ,enableSearchHistory} = useSettings();
 
   return (
     <div
-      className={`flex gap-3 ${type === 2 ? 'flex-wrap' : 'flex-col'}`}
+      className={`gap-3 ${type === 2 ? 'grid grid-cols-4' : 'flex flex-col'}`}
       ref={enableAnimations ? parent : null}
     >
       {cities?.map((city) => {
@@ -54,6 +54,8 @@ export default function Cities({ type, cities, isMyCities, onAdd, onRemove }) {
                 },
                 replace: true,
               });
+
+              if(!isMyCities && enableSearchHistory) addToSearchHistory(updatedCity);
             }}
             onClick={() => (isMyCities ? onRemove(id) : onAdd(city))}
           />
