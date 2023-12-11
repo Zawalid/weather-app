@@ -29,6 +29,8 @@ export default function Settings() {
     setEnableSearchHistory,
     searchHistory,
     clearSearchHistory,
+    enableDeleteConfirmations,
+    setEnableDeleteConfirmations,
   } = useSettings();
 
   return (
@@ -55,8 +57,8 @@ export default function Settings() {
           <DaysForecast />
           <HoursForecast />
           <SwitchSetting
-            checked={is12HourFormat}
-            onChange={() => setIs12HourFormat(!is12HourFormat)}
+            checked={enableDeleteConfirmations}
+            onChange={() => setEnableDeleteConfirmations(!enableDeleteConfirmations)}
             title='Deletion Confirmation'
             description='Enable confirmation prompts for deletions.'
           />

@@ -136,12 +136,14 @@ export default function SettingsProvider({ children }) {
 
   function addToSearchHistory(city) {
     if (searchHistory.some((c) => c.id === city.id)) return;
-    setSearchHistory((prev) => (prev.length === 4 ? [city,...prev.slice(0,3)] : [city, ...prev]));
+    setSearchHistory((prev) => (prev.length === 4 ? [city, ...prev.slice(0, 3)] : [city, ...prev]));
   }
   function clearSearchHistory() {
-    confirmDeletion('Are you sure you want to clear the history', 'Clear', () =>
-      setSearchHistory([]),
-    );
+    enableDeleteConfirmations
+      ? confirmDeletion('Are you sure you want to clear the history', 'Clear', () =>
+          setSearchHistory([]),
+        )
+      : setSearchHistory([]);
   }
 
   return (

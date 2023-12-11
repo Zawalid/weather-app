@@ -12,7 +12,7 @@ export default function MyCities() {
   const [parent] = useAutoAnimate({
     duration: 400,
   });
-  const { enableAnimations } = useSettings();
+  const { enableAnimations, enableDeleteConfirmations } = useSettings();
 
   useEffect(() => {
     if (!myCities.length) navigate({ replace: true, state: null });
@@ -27,9 +27,11 @@ export default function MyCities() {
         cities={myCities}
         isMyCities={true}
         onRemove={(id) =>
-          confirmDeletion('Are you sure you want to remove this city?', 'Remove', () =>
-            setMyCities((prev) => prev.filter((city) => city.id !== id)),
-          )
+          enableDeleteConfirmations
+            ? confirmDeletion('Are you sure you want to remove this city?', 'Remove', () =>
+                setMyCities((prev) => prev.filter((city) => city.id !== id)),
+              )
+            : setMyCities((prev) => prev.filter((city) => city.id !== id))
         }
       />
     </div>
