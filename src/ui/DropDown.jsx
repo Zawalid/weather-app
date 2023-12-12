@@ -1,7 +1,6 @@
 import CustomTippy from './CustomTippy';
 
 export default function DropDown({ options, currentOption = '', className, toggler, type }) {
-  console.log(type);
   return (
     <CustomTippy
       content={

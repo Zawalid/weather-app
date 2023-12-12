@@ -2,7 +2,8 @@ import { useWeatherContext } from '../../hooks/useWeatherContext';
 import { useWeather } from '../../hooks/useWeather';
 import IconButton from '../../ui/IconButton';
 import { getWeatherImageAndDescription } from '../../utils/helpers';
-import { useAutoAnimate } from '@formkit/auto-animate/react';
+import { useDrag, useDrop } from 'react-dnd';
+import { useRef } from 'react';
 
 export default function City({
   city,
@@ -12,22 +13,58 @@ export default function City({
   isInMyCities,
   onSelect,
   onClick,
+  moveCity,
+  index,
 }) {
-  const { name, country, country_code, regionName, time, latitude, longitude, timezone } = city;
+  const { name, country, country_code, regionName, time, latitude, longitude, timezone, id } = city;
   const { data = {} } = useWeather(latitude, longitude, timezone, 3);
   const { location } = useWeatherContext();
-  const [parent] = useAutoAnimate({
-    duration: 400,
-  });
 
   const {
     current: { temperature_2m: temperature, weather_code, is_day } = {},
     current_units: { temperature_2m: unit } = {},
   } = data;
 
+  const ref = useRef(null);
+  const [{ handlerId }, drop] = useDrop({
+    accept: 'card',
+    collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      };
+    },
+    hover(item, monitor) {
+      if (!ref.current) return;
+      const dragIndex = item.index;
+      const hoverIndex = index;
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return;
+      moveCity(dragIndex, hoverIndex);
+      item.index = hoverIndex;
+    },
+  });
+  const [{ isDragging }, drag] = useDrag({
+    type: 'card',
+    item: () => {
+      return { id, index };
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+  const opacity = isDragging ? 0.5 : 1;
+  drag(drop(ref));
+
   return (
     <div
-      className={`noScrollbar grid  cursor-pointer grid-cols-[80px_1fr_auto]  items-center overflow-auto rounded-xl border-primary bg-background-secondary p-3 transition-all duration-300 hover:border  hover:bg-transparent ${
+      className={`noScrollbar  grid cursor-pointer  grid-cols-[80px_1fr_auto] items-center  overflow-auto rounded-xl border-primary bg-background-secondary p-3 transition-all duration-300 hover:border hover:bg-transparent ${
         type === 2
           ? 'min-w-[150px] grid-cols-none  place-items-center gap-3 px-5'
           : type === 3
@@ -37,7 +74,9 @@ export default function City({
       ${isCurrentCity ? 'active' : ''}
       `}
       id='city'
-      ref={parent}
+      ref={isSearched ? null : ref}
+      style={{ opacity }}
+      data-handler-id={handlerId}
       onClick={(e) => {
         e.stopPropagation();
         onSelect();

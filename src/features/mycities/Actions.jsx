@@ -50,25 +50,21 @@ export default function Actions({ myCities, setMyCities }) {
           icon: `fa-solid fa-arrow-down-${sortCriteria === 'Temperature' ? '1-9' : 'a-z'}`,
           name: 'Sort ascending',
           onclick: () => {
-            if (sortDir !== 'a-z') {
-              sort('a-z');
-              setSortDir('a-z');
-            }
+            sort('a-z');
+            setSortDir('a-z');
           },
         },
         {
           icon: `fa-solid fa-arrow-down-${sortCriteria === 'Temperature' ? '9-1' : 'z-a'}`,
           name: 'Sort descending',
           onclick: () => {
-            if (sortDir !== 'z-a') {
-              sort('z-a');
-              setSortDir('z-a');
-            }
+            sort('z-a');
+            setSortDir('z-a');
           },
         },
       ]}
       toggler={
-        <button className='grid focus:bg-settings-active place-content-center rounded-md bg-background-secondary px-3 py-2'>
+        <button className='grid place-content-center rounded-md bg-background-secondary px-3 py-2 focus:bg-settings-active'>
           <i className='fa-solid fa-ellipsis-v text=lg text-text-primary'></i>
         </button>
       }

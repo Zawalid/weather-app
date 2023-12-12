@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Cities from './Cities';
@@ -9,7 +9,7 @@ import Actions from './Actions';
 import { useLocalStorageState } from '../../hooks/useLocalStorageState';
 
 export default function MyCities() {
-  const [citiesView, setCitiesView] = useLocalStorageState('citiesView',1);
+  const [citiesView, setCitiesView] = useLocalStorageState('citiesView', 1);
   const { myCities, setMyCities } = useOutletContext();
   const navigate = useNavigate();
   const [parent] = useAutoAnimate({
@@ -46,9 +46,11 @@ export default function MyCities() {
         </div>
         <Actions myCities={myCities} setMyCities={setMyCities} />
       </div>
+
       <Cities
         type={citiesView}
         cities={myCities}
+        setCities={setMyCities}
         isMyCities={true}
         onRemove={(id) =>
           enableDeleteConfirmations
