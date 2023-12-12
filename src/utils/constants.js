@@ -390,7 +390,6 @@ export const DEFAULT_SETTINGS = {
     daysForeCast: '7 Days',
     hoursForeCast: '12 Hours',
     enableDeleteConfirmations : false,
-    enableSearch: true,
     searchResultsCount: 5,
     enableSearchHistory: true,
     sortCriteria : 'City Name'

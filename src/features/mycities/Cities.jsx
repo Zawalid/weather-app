@@ -33,7 +33,7 @@ export default function Cities({ type, cities, setCities, isMyCities, onAdd, onR
   return (
     <DndProvider backend={HTML5Backend}>
       <div
-        className={`gap-3 ${type === 2 ? 'grid grid-cols-4' : 'flex flex-col'}`}
+        className={`gap-3 ${type === 2 ? 'grid grid-cols-[repeat(auto-fit,minmax(170px,auto))]' : 'flex flex-col'}`}
         ref={enableAnimations ? parent : null}
       >
         {cities?.map((city, index) => {

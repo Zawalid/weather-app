@@ -4,7 +4,7 @@ import { useSettings } from '../../hooks/useSettings';
 import { confirmDeletion } from '../../utils/helpers';
 
 export default function Actions({ myCities, setMyCities }) {
-  const [sortDir, setSortDir] = useLocalStorageState('sortDir', 'a-z');
+  const [, setSortDir] = useLocalStorageState('sortDir', 'a-z');
   const { enableDeleteConfirmations, sortCriteria } = useSettings();
 
   function sort(dir) {

@@ -8,7 +8,6 @@ import DaysForecast from './settings-components/DaysForecast';
 import HoursForecast from './settings-components/HoursForecast';
 import CitiesDropDown from './settings-components/CitiesDropDown';
 import Button from '@/ui/Button';
-import SearchResultsCount from './settings-components/SearchResultsCount';
 import { toast } from 'sonner';
 import SortCriteria from './settings-components/SortCriteria';
 export default function Settings() {
@@ -25,8 +24,6 @@ export default function Settings() {
     setAutoDayNightMode,
     isChanged,
     resetAllSettings,
-    enableSearch,
-    setEnableSearch,
     enableSearchHistory,
     setEnableSearchHistory,
     searchHistory,
@@ -130,13 +127,6 @@ export default function Settings() {
           Search
         </h2>
         <div className=' flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
-          <SwitchSetting
-            title='Enable Search'
-            description='Search for cities'
-            checked={enableSearch}
-            onChange={() => setEnableSearch(!enableSearch)}
-          />
-          <SearchResultsCount />
           <div className='flex flex-col gap-3'>
             <SwitchSetting
               title='Search History'

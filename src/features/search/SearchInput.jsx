@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { useSettings } from '../../hooks/useSettings';
 
 export default function SearchInput() {
   const [searchParams] = useSearchParams();
   const [city, setCity] = useState(searchParams.get('city') || '');
   const currentTab = useLocation().pathname.split('/')[2];
   const navigate = useNavigate();
-  const { enableSearch } = useSettings();
 
   useEffect(() => {
     setCity(searchParams.get('city') ?? '');
@@ -26,7 +24,7 @@ export default function SearchInput() {
 
   return (
     <form
-      className={'flex-1  ' + (enableSearch ? '' : 'disabled')}
+      className='flex-1'
       onSubmit={(e) => {
         e.preventDefault();
         searchCity(city);

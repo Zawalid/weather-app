@@ -24,7 +24,6 @@ export default function SettingsProvider({ children }) {
   const [enableDeleteConfirmations, setEnableDeleteConfirmations] = useState(
     st.enableDeleteConfirmations,
   );
-  const [enableSearch, setEnableSearch] = useState(st.enableSearch);
   const [searchResultsCount, setSearchResultsCount] = useState(st.searchResultsCount);
   const [enableSearchHistory, setEnableSearchHistory] = useState(st.enableSearchHistory);
   const [searchHistory, setSearchHistory] = useLocalStorageState('history', []);
@@ -60,7 +59,6 @@ export default function SettingsProvider({ children }) {
       daysForeCast,
       hoursForeCast,
       enableDeleteConfirmations,
-      enableSearch,
       searchResultsCount,
       enableSearchHistory,
       sortCriteria
@@ -80,7 +78,6 @@ export default function SettingsProvider({ children }) {
     daysForeCast,
     hoursForeCast,
     enableDeleteConfirmations,
-    enableSearch,
     searchResultsCount,
     enableSearchHistory,
     sortCriteria
@@ -174,8 +171,6 @@ export default function SettingsProvider({ children }) {
         setHoursForeCast,
         enableDeleteConfirmations,
         setEnableDeleteConfirmations,
-        enableSearch,
-        setEnableSearch,
         searchResultsCount,
         setSearchResultsCount,
         enableSearchHistory,

@@ -4,8 +4,12 @@ import { useCity } from '@/hooks/useCity';
 import Loader from '@/ui/Loader';
 import ErrorMessage from '../../ui/ErrorMessage';
 import { useSettings } from '../../hooks/useSettings';
+import { useLocalStorageState } from '../../hooks/useLocalStorageState';
+import SearchResultsCount from './SearchResultsCount';
+import ViewController from '../../ui/ViewController';
 
 export default function Search() {
+  const [citiesView, setCitiesView] = useLocalStorageState('searchedCitiesView', 1);
   const { setMyCities } = useOutletContext();
   const [searchParams] = useSearchParams();
   const { isLoading, error, cities } = useCity(searchParams.get('city'));
@@ -19,10 +23,13 @@ export default function Search() {
     <div className='flex flex-col gap-5'>
       <div className='space-y-3'>
         <h3 className='text-sm font-medium text-text-secondary '>RESULTS</h3>
+        <ViewController view={citiesView} setView={setCitiesView}>
+          <SearchResultsCount />
+        </ViewController>
         <Cities
-          type={1}
+          type={citiesView}
           cities={cities}
-          onAdd={(city,temperature) => setMyCities((prev) => [...prev, { ...city, temperature }])}
+          onAdd={(city, temperature) => setMyCities((prev) => [...prev, { ...city, temperature }])}
         />
       </div>
       {enableSearchHistory && (
