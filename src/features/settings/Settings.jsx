@@ -10,6 +10,7 @@ import CitiesDropDown from './settings-components/CitiesDropDown';
 import Button from '@/ui/Button';
 import { toast } from 'sonner';
 import SortCriteria from './settings-components/SortCriteria';
+import SearchResultsCount from './settings-components/SearchResultsCount';
 export default function Settings() {
   const {
     is12HourFormat,
@@ -37,29 +38,32 @@ export default function Settings() {
       {/* Units */}
       <div className='settings_section space-y-3'>
         <h2 id='units' className='text-lg font-semibold text-text-primary '>
-          Units
+          Units & Measures
         </h2>
         <Units />
       </div>
 
-      {/* General */}
+      {/* Weather */}
       <div className='settings_section space-y-3'>
-        <h2 id='general' className=' text-lg font-semibold text-text-primary '>
-          General
+        <h2 id='weather' className=' text-lg font-semibold text-text-primary '>
+          Weather Data
+        </h2>
+        <div className='flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
+          <DaysForecast />
+          <HoursForecast />
+        </div>
+      </div>
+
+      {/* Location & Time */}
+      <div className='settings_section space-y-3'>
+        <h2 id='location' className=' text-lg font-semibold text-text-primary '>
+          Time & Location
         </h2>
         <div className='flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
           <SwitchSetting
             checked={is12HourFormat}
             onChange={() => setIs12HourFormat(!is12HourFormat)}
             title='12-Hour Time'
-          />
-          <DaysForecast />
-          <HoursForecast />
-          <SwitchSetting
-            checked={enableDeleteConfirmations}
-            onChange={() => setEnableDeleteConfirmations(!enableDeleteConfirmations)}
-            title='Deletion Confirmation'
-            description='Enable confirmation prompts for deletions.'
           />
           <SwitchSetting
             checked={isLocationAccess}
@@ -82,10 +86,10 @@ export default function Settings() {
         </div>
       </div>
 
-      {/* Appearance*/}
+      {/* Display*/}
       <div className='settings_section space-y-3'>
-        <h2 id='appearance' className=' text-lg font-semibold text-text-primary '>
-          Appearance
+        <h2 id='display' className=' text-lg font-semibold text-text-primary '>
+          Display & Theme{' '}
         </h2>
         <div className=' flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
           <Theme />
@@ -121,12 +125,21 @@ export default function Settings() {
         </div>
       </div>
 
-      {/* Search */}
+      {/* Preferences */}
       <div className='settings_section space-y-3'>
-        <h2 id='search' className=' text-lg font-semibold text-text-primary '>
-          Search
+        <h2 id='preferences' className=' text-lg font-semibold text-text-primary '>
+          Preferences
         </h2>
         <div className=' flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
+          <SwitchSetting
+            checked={enableDeleteConfirmations}
+            onChange={() => setEnableDeleteConfirmations(!enableDeleteConfirmations)}
+            title='Deletion Confirmation'
+            description='Enable confirmation prompts for deletions.'
+          />
+          <SortCriteria />
+          <SearchResultsCount />
+
           <div className='flex flex-col gap-3'>
             <SwitchSetting
               title='Search History'
@@ -153,25 +166,6 @@ export default function Settings() {
         </div>
       </div>
 
-      {/* My Cities */}
-      <div className='settings_section space-y-3'>
-        <h2 id='myCities' className=' text-lg font-semibold text-text-primary '>
-          My Cities
-        </h2>
-        <div className=' flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
-          <SortCriteria />
-        </div>
-      </div>
-      {/* Notifications */}
-      <div className='settings_section space-y-3'>
-        <h2 id='notifications' className=' text-lg font-semibold text-text-primary '>
-          Notifications
-        </h2>
-        <div className=' flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
-          <SwitchSetting title='Enable Notifications' description='Be aware of the weather' />
-        </div>
-      </div>
-
       <Button className='w-full' disabled={!isChanged} onClick={resetAllSettings}>
         Reset Settings
       </Button>
@@ -179,18 +173,4 @@ export default function Settings() {
   );
 }
 
-/*
-  Todo :
-      Add setting to change the number of hours in the today forecast
-      Add setting to change the number of days in the daily forecast
-      Add setting to change the theme
-      Add setting to change the language (Maybe)
-       
 
-  ? Features :
-      Add a sidebar with easy access to the settings categories
-      Add an observer to change the sidebar active link based on the current category
-      
-
-
-*/

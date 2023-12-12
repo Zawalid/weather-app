@@ -113,7 +113,7 @@ export default function City({
             )}
           </div>
           {[1, 3].includes(type) && (
-            <p className='mt-1 flex flex-col gap-1 text-sm sm:flex-row sm:items-center sm:gap-2'>
+            <p className='mt-1 flex flex-col items-start gap-1 text-sm sm:flex-row sm:items-center sm:gap-2'>
               <span className='noTextWrap flex items-center gap-2 text-text-tertiary'>
                 {regionName} {' - '}
                 {country}

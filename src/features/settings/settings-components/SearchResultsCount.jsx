@@ -1,10 +1,11 @@
-import { useSettings } from '../../hooks/useSettings';
-import DropDown from '../../ui/DropDown';
+import { useSettings } from '../../../hooks/useSettings';
+import DropDown from '../../../ui/DropDown';
 
 export default function SearchResultsCount() {
   const { searchResultsCount, setSearchResultsCount } = useSettings();
   return (
     <div className='flex items-center justify-between gap-5'>
+      <h4 className='mb-1 text-sm font-medium text-text-tertiary'>Search Results Count</h4>
       <DropDown
         options={[
           { name: '5', onclick: () => setSearchResultsCount(5) },
@@ -15,10 +16,7 @@ export default function SearchResultsCount() {
         currentOption={searchResultsCount}
         className='bg-background-secondary'
         toggler={
-          <>
-            <span className='text-sm font-medium'>Results Count</span>
             <span className='text-sm font-medium'>{searchResultsCount}</span>
-          </>
         }
       />
     </div>

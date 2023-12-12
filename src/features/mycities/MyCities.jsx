@@ -65,7 +65,7 @@ export default function MyCities() {
       <Cities
         type={citiesView}
         cities={filteredCities}
-        setCities={setMyCities}
+        setCities={setFilteredCities}
         isMyCities={true}
         onRemove={(id) =>
           enableDeleteConfirmations

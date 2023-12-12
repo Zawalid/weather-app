@@ -7,7 +7,7 @@ import SideBar from './SideBar';
 import Aside from './Aside';
 import IconButton from './IconButton';
 import { useSettings } from '../hooks/useSettings';
-import { Toaster  } from 'sonner';
+import { Toaster } from 'sonner';
 
 export default function AppLayout() {
   const [isAsideOpen, setIsAsideOpen] = useState(false);
@@ -24,16 +24,16 @@ export default function AppLayout() {
         <SideBar />
         <div className='flex h-fit items-center gap-2'>
           <SearchInput />
-          <IconButton className='lg:hidden' onClick={() => setIsAsideOpen(!isAsideOpen)}>
+          <IconButton className='lg:hidden' onClick={() => setIsAsideOpen(!isAsideOpen)} type={1}>
             <i
-              className={`fa-solid fa-angles-left transition-transform duration-500 ${
+              className={`fa-solid fa-angles-left text-text-primary transition-transform duration-500 ${
                 isAsideOpen ? 'rotate-180' : ''
               } `}
             ></i>
           </IconButton>
         </div>
         <div
-        id='main'
+          id='main'
           className='col-start-2  h-[calc(100vh-80px)] overflow-auto pr-3 lg:h-[calc(100vh-96px)]'
           ref={enableAnimations ? parent : null}
         >
@@ -69,5 +69,3 @@ export default function AppLayout() {
     </>
   );
 }
-
-

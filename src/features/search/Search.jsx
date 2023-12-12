@@ -5,7 +5,6 @@ import Loader from '@/ui/Loader';
 import ErrorMessage from '../../ui/ErrorMessage';
 import { useSettings } from '../../hooks/useSettings';
 import { useLocalStorageState } from '../../hooks/useLocalStorageState';
-import SearchResultsCount from './SearchResultsCount';
 import ViewController from '../../ui/ViewController';
 
 export default function Search() {
@@ -23,9 +22,7 @@ export default function Search() {
     <div className='flex flex-col gap-5'>
       <div className='space-y-3'>
         <h3 className='text-sm font-medium text-text-secondary '>RESULTS</h3>
-        <ViewController view={citiesView} setView={setCitiesView}>
-          <SearchResultsCount />
-        </ViewController>
+        <ViewController view={citiesView} setView={setCitiesView} />
         <Cities
           type={citiesView}
           cities={cities}

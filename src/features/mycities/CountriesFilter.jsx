@@ -44,7 +44,7 @@ export default function CountriesFilter({
       placement='bottom-end'
       className='rounded-lg bg-background-primary shadow-[-5px_5px_10px_var(--color-shadow)]'
     >
-      <button className='grid place-content-center rounded-md bg-background-secondary px-3 py-2 focus:bg-settings-active'>
+      <button className='grid place-content-center  rounded-md bg-background-secondary px-3 py-2 focus:bg-settings-active'>
         <i className='fa-solid fa-filter text=lg text-text-primary'></i>
       </button>
     </CustomTippy>
@@ -61,7 +61,7 @@ function Country({ country, onToggle, selected }) {
 
   return (
     <button
-      className={`flex items-center gap-3  rounded-md px-3 py-2 text-center hover:bg-settings-active
+      className={`flex items-center gap-3  rounded-md px-3 py-2 text-center
       ${selected ? 'bg-settings-active' : ''}
       `}
       key={country}
