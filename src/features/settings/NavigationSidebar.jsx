@@ -53,7 +53,7 @@ const useIntersectionObserver = (setActiveId) => {
   }, [setActiveId]);
 };
 
-export default function NavigationSidebar() {
+export default function NavigationSidebar({ setIsAsideOpen }) {
   const [activeId, setActiveId] = useState('units');
   const { headings } = useGetHeadings();
   useIntersectionObserver(setActiveId);
@@ -73,7 +73,7 @@ export default function NavigationSidebar() {
   }, [activeId, headings]);
 
   return (
-    <div className='rounded-xl pt-0 p-5' id='sidebar'>
+    <div className='rounded-xl p-5 pt-0' id='sidebar'>
       <h2 className='text-lg font-medium text-text-primary'>Quick Access</h2>
       <ul className='relative mt-5 space-y-2 border-l border-border  pl-3'>
         <span
@@ -84,7 +84,10 @@ export default function NavigationSidebar() {
           <li
             key={heading.id}
             className={heading.id === activeId ? 'active' : 'text-text-secondary'}
-            onClick={() => heading.scrollIntoView()}
+            onClick={() => {
+              heading.scrollIntoView();
+              setIsAsideOpen(false);
+            }}
           >
             <button>{heading.textContent}</button>
           </li>

@@ -16,7 +16,7 @@ export default function City({
   moveCity,
   index,
 }) {
-  const { name, country, country_code, regionName, time, latitude, longitude, timezone, id } = city;
+  const { name, country, country_code,  time, latitude, longitude, timezone, id } = city;
   const { data = {} } = useWeather(latitude, longitude, timezone, 3);
   const { location } = useWeatherContext();
 
@@ -75,12 +75,8 @@ export default function City({
         </button>
       )}
       <div
-        className={`noScrollbar grid flex-1 cursor-pointer grid-cols-[80px_1fr_auto]  items-center overflow-auto  rounded-xl border-primary bg-background-secondary p-3 text-center transition-all duration-300 hover:border hover:bg-transparent ${
-          type === 2
-            ? 'min-w-[150px] grid-cols-none  place-items-center gap-3 px-5'
-            : type === 3
-              ? 'py-1'
-              : 'gap-5'
+        className={`noScrollbar grid flex-1 cursor-pointer grid-cols-[50px_1fr_auto] items-center overflow-auto rounded-xl  border-primary bg-background-secondary p-3 text-center transition-all duration-300 hover:border gap-5 hover:bg-transparent sm:grid-cols-[80px_1fr_auto] ${
+          type === 2 ? 'cityType2' : ''
         } 
       ${isCurrentCity ? 'active' : ''}
       `}
@@ -93,18 +89,18 @@ export default function City({
           onSelect();
         }}
       >
-        <div className={type === 3 ? 'h-full w-16' : 'h-full w-20'}>
-          <img
-            src={getWeatherImageAndDescription(weather_code, is_day)?.image}
-            alt={getWeatherImageAndDescription(weather_code, is_day)?.description}
-            className='w-full'
-          />
-        </div>
+        <img
+          src={getWeatherImageAndDescription(weather_code, is_day)?.image}
+          alt={getWeatherImageAndDescription(weather_code, is_day)?.description}
+          className='w-[50px] h-[50px] sm:w-20 sm:h-20'
+        />
 
         <div>
           <div className='flex items-center gap-3'>
             <h3
-              className={`font-semibold text-text-primary ${type === 3 ? 'text-xl' : 'text-2xl'}`}
+              className={`text-xl font-semibold text-text-primary ${
+                type === 3 ? '' : 'sm:text-2xl'
+              }`}
             >
               {name}
             </h3>
@@ -115,7 +111,6 @@ export default function City({
           {[1, 3].includes(type) && (
             <p className='mt-1 flex flex-col items-start gap-1 text-sm sm:flex-row sm:items-center sm:gap-2'>
               <span className='noTextWrap flex items-center gap-2 text-text-tertiary'>
-                {regionName} {' - '}
                 {country}
                 <img
                   src={`https://flagsapi.com/${country_code}/flat/64.png`}

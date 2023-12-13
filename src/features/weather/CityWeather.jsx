@@ -6,13 +6,7 @@ import { useGetWeatherData } from '../../hooks/useGetWeatherData';
 import WeekForecast from './WeekForecast';
 import IconButton from '../../ui/IconButton';
 
-export default function CityWeather() {
-  //? Alternative
-  // const [searchParams] = useSearchParams();
-  // const latitude = searchParams.get('lat');
-  // const longitude = searchParams.get('lon');
-  // const timezone = searchParams.get('timezone');
-
+export default function CityWeather({ setIsAsideOpen }) {
   const { city } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -42,9 +36,10 @@ export default function CityWeather() {
       <WeekForecast days={dailyForecast} daysNumber={3} />
       <IconButton
         className='absolute right-2 top-0 grid'
-        onClick={() =>
-          navigate(location.pathname + location.search, { replace: true, state: null })
-        }
+        onClick={() => {
+          navigate(location.pathname + location.search, { replace: true, state: null });
+          setIsAsideOpen(false);
+        }}
       >
         <i className='fa-solid fa-xmark duration-100'></i>
       </IconButton>

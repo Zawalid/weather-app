@@ -33,6 +33,10 @@ a.active span {
   scroll-snap-align: start;
 }
 
+.cityType2 {
+  @apply min-w-[150px] grid-cols-none grid-rows-[50px_1fr_auto]  place-items-center  px-5 !important;
+}
+
 /* Loader */
 .loading {
   background-image: radial-gradient(

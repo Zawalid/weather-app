@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { useLocalStorageState } from '../hooks/useLocalStorageState';
 import SearchInput from '../features/search/SearchInput';
@@ -17,10 +17,15 @@ export default function AppLayout() {
     duration: 400,
   });
   const { enableAnimations } = useSettings();
+  const currentTab = useLocation().pathname.split('/')[2];
+
+  useEffect(() => {
+    setIsAsideOpen(false);
+  }, [currentTab]);
 
   return (
     <>
-      <main className='flex h-full flex-col gap-5 bg-background-primary p-3 pb-[54px]  sm:grid-cols-[80px_1fr] md:grid md:grid-cols-[75px_1fr] md:pb-3 lg:grid-cols-[90px_2fr_1fr] lg:grid-rows-[50px_1fr] lg:p-5'>
+      <main className='flex h-full flex-col gap-5 bg-background-primary p-3 pb-[54px]  sm:grid-cols-[80px_1fr] md:grid md:grid-cols-[80px_1fr] md:pb-3 lg:grid-cols-[90px_2fr_1fr] lg:grid-rows-[50px_1fr] lg:p-5'>
         <SideBar />
         <div className='flex h-fit items-center gap-2'>
           <SearchInput />
@@ -43,6 +48,7 @@ export default function AppLayout() {
               setSeeMore,
               myCities,
               setMyCities,
+              setIsAsideOpen,
             }}
           />
         </div>
@@ -52,7 +58,7 @@ export default function AppLayout() {
           }`}
           ref={enableAnimations ? parent : null}
         >
-          <Aside seeMore={seeMore} />
+          <Aside seeMore={seeMore} setIsAsideOpen={setIsAsideOpen} />
         </div>
       </main>
       <Toaster

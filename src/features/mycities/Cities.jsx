@@ -3,9 +3,10 @@ import { useLocation, useNavigate, useOutletContext, useSearchParams } from 'rea
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import { getTimeBaseOnTimezone } from '../../utils/helpers';
+import { getTimeBaseOnTimezone, isTouchDevice } from '../../utils/helpers';
 import City from './City';
 import { useSettings } from '../../hooks/useSettings';
+import { TouchBackend } from 'react-dnd-touch-backend';
 
 export default function Cities({ type, cities, setCities, isMyCities, onAdd, onRemove }) {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function Cities({ type, cities, setCities, isMyCities, onAdd, onR
   const [parent] = useAutoAnimate({
     duration: 500,
   });
-  const { myCities } = useOutletContext();
+  const { myCities, setIsAsideOpen } = useOutletContext();
   const { is12HourFormat, enableAnimations, addToSearchHistory, enableSearchHistory } =
     useSettings();
 
@@ -31,9 +32,11 @@ export default function Cities({ type, cities, setCities, isMyCities, onAdd, onR
   );
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={isTouchDevice() ? TouchBackend : HTML5Backend}>
       <div
-        className={`gap-3 ${type === 2 ? 'grid grid-cols-[repeat(auto-fit,minmax(170px,auto))]' : 'flex flex-col'}`}
+        className={`gap-3 ${
+          type === 2 ? 'grid grid-cols-[repeat(auto-fit,minmax(170px,auto))]' : 'flex flex-col'
+        }`}
         ref={enableAnimations ? parent : null}
       >
         {cities?.map((city, index) => {
@@ -66,6 +69,7 @@ export default function Cities({ type, cities, setCities, isMyCities, onAdd, onR
                 });
 
                 if (!isMyCities && enableSearchHistory) addToSearchHistory(updatedCity);
+                setIsAsideOpen(true);
               }}
               onClick={(temperature) => (isMyCities ? onRemove(id) : onAdd(city, temperature))}
               moveCity={moveCity}

@@ -38,7 +38,7 @@ export default function Settings() {
       {/* Units */}
       <div className='settings_section space-y-3'>
         <h2 id='units' className='text-lg font-semibold text-text-primary '>
-          Units & Measures
+          Units
         </h2>
         <Units />
       </div>
@@ -88,8 +88,8 @@ export default function Settings() {
 
       {/* Display*/}
       <div className='settings_section space-y-3'>
-        <h2 id='display' className=' text-lg font-semibold text-text-primary '>
-          Display & Theme{' '}
+        <h2 id='appearance' className=' text-lg font-semibold text-text-primary '>
+          Appearance
         </h2>
         <div className=' flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
           <Theme />
