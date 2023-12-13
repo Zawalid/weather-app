@@ -41,7 +41,7 @@ export default function CityWeather() {
       <TodayForecast hours={hourlyForecast} transparent={true} className='bg-transparent' />
       <WeekForecast days={dailyForecast} daysNumber={3} />
       <IconButton
-        className='absolute right-2 top-0 hidden lg:grid'
+        className='absolute right-2 top-0 grid'
         onClick={() =>
           navigate(location.pathname + location.search, { replace: true, state: null })
         }

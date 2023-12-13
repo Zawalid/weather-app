@@ -68,6 +68,8 @@ const isObject = (object) => {
 };
 
 export function confirmDeletion(message, confirmText, onconfirm) {
+  const isMobile = window.innerWidth <= 768;
+
   toast.warning(message, {
     action: {
       label: confirmText,
@@ -92,7 +94,7 @@ export function confirmDeletion(message, confirmText, onconfirm) {
       fontWeight: 'medium',
     },
     duration: Infinity,
-    position: 'top-right',
+    position: isMobile ? 'bottom-center' : 'top-right',
     style: {
       height: 'auto !important',
       padding: '8px 16px',

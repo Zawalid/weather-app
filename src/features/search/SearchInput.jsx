@@ -32,7 +32,7 @@ export default function SearchInput() {
     >
       <input
         type='text'
-        className='w-full rounded-xl  bg-background-secondary p-3 text-sm text-text-primary focus:outline-none'
+        className='w-full rounded-xl bg-background-secondary pl-3 p-2 lg:p-3 text-sm text-text-primary focus:outline-none'
         placeholder='Search for cities'
         value={city}
         onChange={(e) => {

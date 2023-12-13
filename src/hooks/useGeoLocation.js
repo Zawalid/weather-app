@@ -1,55 +1,72 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSettings } from './useSettings';
+import { toast } from 'sonner';
 
+//! : Mixed Content: The page at 'https://weather-app-ten-umber.vercel.app/' was loaded over HTTPS, but requested an insecure resource 'http://ip-api.com/json/'. This request has been blocked; the content must be served over HTTPS.
 // Get the user ip address
-async function getIp() {
-  const res = await fetch('https://api64.ipify.org');
-  const ip = await res.text();
-  return ip;
-}
+// async function getIp() {
+//   const res = await fetch('https://api64.ipify.org');
+//   const ip = await res.text();
+//   return ip;
+// }
 
 // Get the location from the ip address
+// async function getLocationFromIp(setIsLoading, setError, setLocation) {
+//   try {
+//     setIsLoading(true);
+//     const ip = await getIp();
+//     const res = await fetch(`http://ip-api.com/json/${ip}`);
+//     const data = await res.json();
+//     if (!res.ok) throw Error('Error');
+//     const {
+//       country,
+//       countryCode,
+//       regionName,
+//       city,
+//       lat: latitude,
+//       lon: longitude,
+//       timezone,
+//     } = data;
+//     setLocation({ country, countryCode, regionName, city, latitude, longitude, timezone });
+//     setError(null);
+//   } catch (err) {
+//     setError(err);
+//   } finally {
+//     setIsLoading(false);
+//   }
+// }
+
 async function getLocationFromIp(setIsLoading, setError, setLocation) {
   try {
     setIsLoading(true);
-    const ip = await getIp();
-    const res = await fetch(`http://ip-api.com/json/${ip}`);
+    const res = await fetch('https://api.bigdatacloud.net/data/reverse-geocode-client');
     const data = await res.json();
     if (!res.ok) throw Error('Error');
     const {
+      countryName: country,
+      countryCode,
+      principalSubdivision: regionName,
+      city,
+      latitude,
+      longitude,
+      localityInfo: { informative },
+    } = data;
+
+    setLocation({
       country,
       countryCode,
       regionName,
       city,
-      lat: latitude,
-      lon: longitude,
-      timezone,
-    } = data;
-    setLocation({ country, countryCode, regionName, city, latitude, longitude, timezone });
+      latitude,
+      longitude,
+      timezone: informative.find((item) => item.description === 'time zone')?.name,
+    });
     setError(null);
   } catch (err) {
     setError(err);
   } finally {
     setIsLoading(false);
   }
-}
-
-async function getLocationFromBrowser(setIsLoading, setError, setLocation) {
-  if (!navigator.geolocation) setError('Your browser does not support geolocation');
-  setIsLoading(true);
-  navigator.geolocation.getCurrentPosition(
-    (pos) => {
-      setLocation({
-        latitude: pos.coords.latitude,
-        longitude: pos.coords.longitude,
-      });
-      setIsLoading(false);
-    },
-    (error) => {
-      setError(error.message);
-      setIsLoading(false);
-    },
-  );
 }
 
 export function useGeolocation() {
@@ -65,7 +82,7 @@ export function useGeolocation() {
         : !defaultLocation && setError('No access granted');
     } catch (error) {
       console.error(error.message);
-      await getLocationFromBrowser(setIsLoading, setError, setLocation);
+      toast.error('Something went wrong, please try again later');
     }
   }, [isLocationAccess, defaultLocation]);
 
