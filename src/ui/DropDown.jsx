@@ -28,6 +28,11 @@ export default function DropDown({ options, currentOption = '', className, toggl
       trigger='click'
       interactive={true}
       arrow={false}
+      onShown={(instance) => {
+        document
+          .querySelector('[data-tippy-root]')
+          .addEventListener('click', () => instance.hide());
+      }}
       placement='bottom-end'
       className={`rounded-lg bg-background-primary shadow-[-5px_5px_10px_var(--color-shadow)] ${className}`}
     >

@@ -116,3 +116,7 @@ export function throwError(error, type) {
     ? ErrorMessage({ type: 'internetError' })
     : ErrorMessage({ type });
 }
+
+export function normalizeString(str) {
+  return str?.normalize('NFKD').replace(/[^\w]/g, '');
+}

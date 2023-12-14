@@ -22,12 +22,12 @@ export default function SettingsProvider({ children }) {
   const [daysForeCast, setDaysForeCast] = useState(settings.daysForeCast);
   const [hoursForeCast, setHoursForeCast] = useState(settings.hoursForeCast);
   const [enableDeleteConfirmations, setEnableDeleteConfirmations] = useState(
-    st.enableDeleteConfirmations,
+    settings.enableDeleteConfirmations,
   );
-  const [searchResultsCount, setSearchResultsCount] = useState(st.searchResultsCount);
-  const [enableSearchHistory, setEnableSearchHistory] = useState(st.enableSearchHistory);
+  const [searchResultsCount, setSearchResultsCount] = useState(settings.searchResultsCount);
+  const [enableSearchHistory, setEnableSearchHistory] = useState(settings.enableSearchHistory);
   const [searchHistory, setSearchHistory] = useLocalStorageState('history', []);
-  const [sortCriteria,setSortCriteria] = useState(st.sortCriteria)
+  const [sortCriteria, setSortCriteria] = useState(settings.sortCriteria);
 
   const [appearance, setAppearance] = useLocalStorageState('appearance', ap);
   const [theme, setTheme] = useState(appearance.theme);
@@ -61,7 +61,7 @@ export default function SettingsProvider({ children }) {
       enableDeleteConfirmations,
       searchResultsCount,
       enableSearchHistory,
-      sortCriteria
+      sortCriteria,
     });
     queryClient.invalidateQueries();
   }, [
@@ -80,7 +80,7 @@ export default function SettingsProvider({ children }) {
     enableDeleteConfirmations,
     searchResultsCount,
     enableSearchHistory,
-    sortCriteria
+    sortCriteria,
   ]);
 
   // Update appearance
@@ -128,6 +128,10 @@ export default function SettingsProvider({ children }) {
     setDefaultLocation(st.defaultLocation);
     setDaysForeCast(st.daysForeCast);
     setHoursForeCast(st.hoursForeCast);
+    setEnableDeleteConfirmations(st.enableDeleteConfirmations);
+    setSearchResultsCount(st.searchResultsCount);
+    setEnableSearchHistory(st.enableSearchHistory);
+    setSortCriteria(st.sortCriteria);
     setTheme(ap.theme);
     setFontSize(ap.fontSize);
     setEnableAnimations(ap.enableAnimations);

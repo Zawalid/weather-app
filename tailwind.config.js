@@ -14,7 +14,7 @@ export default {
         'text-tertiary': 'var(--color-text-tertiary)',
         'settings-active': 'var(--color-settings-active)',
         'settings-inactive': 'var(--color-settings-inactive)',
-        'border' : 'var(--color-border)',
+        border: 'var(--color-border)',
       },
     },
   },

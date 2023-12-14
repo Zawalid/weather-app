@@ -13,7 +13,7 @@ export default function SideBar() {
           <Button icon='fa-list' text='My Cities' />
         </NavLink>
         <NavLink to='map'>
-          <Button icon='fa-map' text='Map' />
+          <Button icon='fa-map-location-dot' text='Map' />
         </NavLink>
         <NavLink to='settings'>
           <Button icon='fa-sliders' text='Settings' />

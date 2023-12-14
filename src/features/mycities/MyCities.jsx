@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Cities from './Cities';
@@ -14,7 +14,7 @@ export default function MyCities() {
   const [citiesView, setCitiesView] = useLocalStorageState('myCitiesView', 1);
   const { myCities, setMyCities } = useOutletContext();
   const [filteredCities, setFilteredCities] = useState(myCities);
-  const countries = [...new Set(myCities.map((city) => city.country))];
+  const countries = useMemo(() => [...new Set(myCities.map((city) => city.country))], [myCities]);
   const [selectedCountries, setSelectedCountries] = useState(countries);
 
   const navigate = useNavigate();
@@ -28,13 +28,13 @@ export default function MyCities() {
   }, [myCities, navigate]);
 
   useEffect(() => {
-    if (filteredCities.length !== myCities.length)
+    if (filteredCities.length !== myCities.length || countries.length !== selectedCountries.length)
       setFilteredCities(
         selectedCountries
           .map((country) => myCities.filter((city) => city.country === country))
           .flat(),
       );
-  }, [selectedCountries, myCities,filteredCities]);
+  }, [selectedCountries, myCities, filteredCities, countries]);
 
   function toggleCountry(country) {
     selectedCountries.includes(country)
