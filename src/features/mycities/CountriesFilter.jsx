@@ -22,18 +22,18 @@ export default function CountriesFilter({
           ))}
           <div className='flex gap-1'>
             <button
-              className='mt-2 flex items-center justify-center gap-3 rounded-md bg-settings-inactive px-3 py-2 font-medium hover:bg-background-secondary'
+              className='mt-2 flex items-center justify-center gap-3 rounded-md px-3 py-2 font-medium hover:bg-background-secondary text-text-primary'
               onClick={selectAll}
             >
               <i className='fa-solid fa-check-double'></i>
-              Select
+              Check All
             </button>
             <button
-              className='mt-2 flex items-center justify-center gap-3 rounded-md bg-settings-inactive px-3 py-2 font-medium hover:bg-background-secondary'
+              className='mt-2 flex items-center justify-center gap-3 rounded-md px-3 py-2 font-medium hover:bg-background-secondary text-text-primary'
               onClick={unselectAll}
             >
               <i className='fa-solid fa-square-xmark'></i>
-              Unselect
+              Uncheck All
             </button>
           </div>
         </div>

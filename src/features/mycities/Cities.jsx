@@ -15,20 +15,22 @@ export default function Cities({ type, cities, setCities, isMyCities, onAdd, onR
   const [parent] = useAutoAnimate({
     duration: 500,
   });
-  const { myCities, setIsAsideOpen } = useOutletContext();
+  const { myCities, setMyCities, setIsAsideOpen } = useOutletContext();
   const { is12HourFormat, enableAnimations, addToSearchHistory, enableSearchHistory } =
     useSettings();
 
   const moveCity = useCallback(
     (dragIndex, hoverIndex) => {
-      setCities((prevCities) => {
-        const newCities = [...prevCities];
+      const updateCities = (prev) => {
+        const newCities = [...prev];
         const [draggedItem] = newCities.splice(dragIndex, 1);
         newCities.splice(hoverIndex, 0, draggedItem);
         return newCities;
-      });
+      };
+      setCities(updateCities);
+      setMyCities(updateCities);
     },
-    [setCities],
+    [setCities, setMyCities],
   );
 
   return (

@@ -17,7 +17,7 @@ const errorMessages = {
   },
   noSelectedCity: {
     title: "You haven't selected a city yet",
-    description: 'Please select a city to see its weather forecast.',
+    description: 'Select a city to see its weather forecast.',
   },
   generalError: {
     title: 'Oops! Something went wrong.',

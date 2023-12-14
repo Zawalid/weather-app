@@ -7,30 +7,54 @@ export default function Actions({ setMyCities, filteredCities, setFilteredCities
   const [, setSortDir] = useState('a-z');
   const { enableDeleteConfirmations, sortCriteria } = useSettings();
 
+  // function sort(dir) {
+
+  //   switch (sortCriteria) {
+  //     case 'City Name':
+  //       setFilteredCities(
+  //         dir === 'a-z'
+  //           ? filteredCities.toSorted((a, b) => a.name.localeCompare(b.name))
+  //           : filteredCities.toSorted((a, b) => b.name.localeCompare(a.name)),
+  //       );
+  //       break;
+  //     case 'Country Name':
+  //       setFilteredCities(
+  //         dir === 'a-z'
+  //           ? filteredCities.toSorted((a, b) => a.country.localeCompare(b.country))
+  //           : filteredCities.toSorted((a, b) => b.country.localeCompare(a.country)),
+  //       );
+  //       break;
+  //     case 'Temperature':
+  //       setFilteredCities(
+  //         dir === 'a-z'
+  //           ? filteredCities.toSorted((a, b) => a.temperature - b.temperature)
+  //           : filteredCities.toSorted((a, b) => b.temperature - a.temperature),
+  //       );
+  //       break;
+  //   }
+  // }
   function sort(dir) {
+    const sorted = [...filteredCities];
+
     switch (sortCriteria) {
       case 'City Name':
-        setFilteredCities(
-          dir === 'a-z'
-            ? filteredCities.toSorted((a, b) => a.name.localeCompare(b.name))
-            : filteredCities.toSorted((a, b) => b.name.localeCompare(a.name)),
-        );
+        dir === 'a-z'
+          ? sorted.sort((a, b) => a.name.localeCompare(b.name))
+          : sorted.sort((a, b) => b.name.localeCompare(a.name));
         break;
       case 'Country Name':
-        setFilteredCities(
-          dir === 'a-z'
-            ? filteredCities.toSorted((a, b) => a.country.localeCompare(b.country))
-            : filteredCities.toSorted((a, b) => b.country.localeCompare(a.country)),
-        );
+        dir === 'a-z'
+          ? sorted.sort((a, b) => a.country.localeCompare(b.country))
+          : sorted.sort((a, b) => b.country.localeCompare(a.country));
         break;
       case 'Temperature':
-        setFilteredCities(
-          dir === 'a-z'
-            ? filteredCities.toSorted((a, b) => a.temperature - b.temperature)
-            : filteredCities.toSorted((a, b) => b.temperature - a.temperature),
-        );
+        dir === 'a-z'
+          ? sorted.sort((a, b) => a.temperature - b.temperature)
+          : sorted.sort((a, b) => b.temperature - a.temperature);
         break;
     }
+    setMyCities(sorted);
+    setFilteredCities(sorted);
   }
 
   return (

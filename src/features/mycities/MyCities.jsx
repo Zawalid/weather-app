@@ -28,12 +28,13 @@ export default function MyCities() {
   }, [myCities, navigate]);
 
   useEffect(() => {
-    setFilteredCities(
-      selectedCountries
-        .map((country) => myCities.filter((city) => city.country === country))
-        .flat(),
-    );
-  }, [selectedCountries, myCities]);
+    if (filteredCities.length !== myCities.length)
+      setFilteredCities(
+        selectedCountries
+          .map((country) => myCities.filter((city) => city.country === country))
+          .flat(),
+      );
+  }, [selectedCountries, myCities,filteredCities]);
 
   function toggleCountry(country) {
     selectedCountries.includes(country)

@@ -9,7 +9,8 @@ export default function HomePage() {
         <Logo className="w-1/2 mx-auto" />
       </div>
       <div className=" h-full flex-1 text-center gap-4 grid place-content-center justify-items-center">
-        <h1 className="text-text-primary font-bold text-4xl">Breezy</h1>
+        <Logo className="w-32 md:hidden mx-auto" />
+        <h1 className="text-text-primary font-bold text-4xl">Brella</h1>
         <p className="text-text-secondary  text-lg mb-7">
           A weather app for the modern age
         </p>

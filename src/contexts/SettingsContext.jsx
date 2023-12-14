@@ -11,16 +11,16 @@ export default function SettingsProvider({ children }) {
   const [isChanged, setIsChanged] = useState(false);
 
   const [settings, setSettings] = useLocalStorageState('settings', st);
-  const [temperatureUnit, setTemperatureUnit] = useState(st.temperatureUnit);
-  const [windSpeedUnit, setWindSpeedUnit] = useState(st.windSpeedUnit);
-  const [pressureUnit, setPressureUnit] = useState(st.pressureUnit);
-  const [precipitationUnit, setPrecipitationUnit] = useState(st.precipitationUnit);
-  const [distanceUnit, setDistanceUnit] = useState(st.distanceUnit);
-  const [is12HourFormat, setIs12HourFormat] = useState(st.is12HourFormat);
-  const [isLocationAccess, setIsLocationAccess] = useState(st.isLocationAccess);
-  const [defaultLocation, setDefaultLocation] = useState(st.defaultLocation);
-  const [daysForeCast, setDaysForeCast] = useState(st.daysForeCast);
-  const [hoursForeCast, setHoursForeCast] = useState(st.hoursForeCast);
+  const [temperatureUnit, setTemperatureUnit] = useState(settings.temperatureUnit);
+  const [windSpeedUnit, setWindSpeedUnit] = useState(settings.windSpeedUnit);
+  const [pressureUnit, setPressureUnit] = useState(settings.pressureUnit);
+  const [precipitationUnit, setPrecipitationUnit] = useState(settings.precipitationUnit);
+  const [distanceUnit, setDistanceUnit] = useState(settings.distanceUnit);
+  const [is12HourFormat, setIs12HourFormat] = useState(settings.is12HourFormat);
+  const [isLocationAccess, setIsLocationAccess] = useState(settings.isLocationAccess);
+  const [defaultLocation, setDefaultLocation] = useState(settings.defaultLocation);
+  const [daysForeCast, setDaysForeCast] = useState(settings.daysForeCast);
+  const [hoursForeCast, setHoursForeCast] = useState(settings.hoursForeCast);
   const [enableDeleteConfirmations, setEnableDeleteConfirmations] = useState(
     st.enableDeleteConfirmations,
   );
