@@ -55,9 +55,13 @@ export default function Cities({ type, cities, setCities, isMyCities, onAdd, onR
               isSearched={!isMyCities}
               isInMyCities={myCities?.some((city) => city.id === id)}
               onSelect={() => {
+                const cityParam = searchParams.get('city');
                 const url = isMyCities
                   ? `/app/mycities/${name}`
-                  : `/app/search/${name}?city=${searchParams.get('city')}`;
+                  : cityParam
+                    ? `/app/search/${name}?city=${cityParam}`
+                    : `/app/search/${name}`;
+
                 navigate(url, {
                   state: {
                     latitude,

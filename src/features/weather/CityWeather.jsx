@@ -5,6 +5,8 @@ import { useWeather } from '../../hooks/useWeather';
 import { useGetWeatherData } from '../../hooks/useGetWeatherData';
 import WeekForecast from './WeekForecast';
 import IconButton from '../../ui/IconButton';
+import ErrorMessage from '../../ui/ErrorMessage';
+import { throwError } from '../../utils/helpers';
 
 export default function CityWeather({ setIsAsideOpen }) {
   const { city } = useParams();
@@ -18,8 +20,9 @@ export default function CityWeather({ setIsAsideOpen }) {
     3,
   );
 
-  if (isLoading || (!latitude && !longitude && !timezone)) return;
-  if (error) return <div>Something went wrong</div>; // Todo Add a custom error component
+  if (isLoading || (!latitude && !longitude && !timezone))
+    return window.innerWidth < 1024 ? <ErrorMessage type='noSelectedCity' /> : null;
+  if (error) return throwError(error, 'generalError');
 
   return (
     <>

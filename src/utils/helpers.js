@@ -1,5 +1,6 @@
 import { toast } from 'sonner';
 import { weatherData } from './constants';
+import ErrorMessage from '../ui/ErrorMessage';
 
 export function formatDay(dateStr) {
   return new Intl.DateTimeFormat('en', {
@@ -108,4 +109,10 @@ export function isTouchDevice() {
     navigator.maxTouchPoints ||
     window.matchMedia('(pointer: coarse)').matches
   );
+}
+
+export function throwError(error, type) {
+  return String(error)?.includes('Network')
+    ? ErrorMessage({ type: 'internetError' })
+    : ErrorMessage({ type });
 }

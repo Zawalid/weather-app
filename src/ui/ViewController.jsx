@@ -2,7 +2,7 @@ import IconButton from './IconButton';
 
 export default function ViewController({ view, setView, children }) {
   return (
-    <div className='mb-5 flex items-center justify-between'>
+    <div className='flex items-center justify-between'>
       <div className='flex gap-3'>
         <IconButton
           type={1}

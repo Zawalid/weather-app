@@ -11,15 +11,9 @@ export default function SearchInput() {
     setCity(searchParams.get('city') ?? '');
   }, [searchParams]);
 
-  useEffect(() => {
-    if (currentTab === 'search' && !city) navigate('/app');
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   function searchCity(city) {
-    if (!city) return currentTab === 'search' ? navigate('/app') : null;
-    if (city.length > 2) navigate(`search?city=${city}`);
+    if (!city && currentTab === 'search') return navigate('search', { replace: true });
+    if (city.length > 2) navigate(`search?city=${city}`, { replace: true });
   }
 
   return (
@@ -32,14 +26,14 @@ export default function SearchInput() {
     >
       <input
         type='text'
-        className='w-full rounded-xl bg-background-secondary pl-3 p-2 lg:p-3 text-sm text-text-primary focus:outline-none'
+        className='w-full rounded-xl bg-background-secondary p-2 pl-3 text-sm text-text-primary focus:outline-none lg:p-3'
         placeholder='Search for cities'
         value={city}
         onChange={(e) => {
-          const city = e.target.value;
-          setCity(city);
-          searchCity(city);
+          setCity(e.target.value);
+          searchCity(e.target.value);
         }}
+        onFocus={() => currentTab !== 'search' && navigate('search')}
       />
     </form>
   );

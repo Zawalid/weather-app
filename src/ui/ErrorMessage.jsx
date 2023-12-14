@@ -15,6 +15,18 @@ const errorMessages = {
     title: "You don't have any cities in your list.",
     description: 'Add a city to see its weather forecast.',
   },
+  noSelectedCity: {
+    title: "You haven't selected a city yet",
+    description: 'Please select a city to see its weather forecast.',
+  },
+  generalError: {
+    title: 'Oops! Something went wrong.',
+    description: 'Please try again later.',
+  },
+  noHistory: {
+    title: "Let's discover what's brewing.",
+    description: 'Sunny or stormy, we have you covered.',
+  },
 };
 
 export default function ErrorMessage({ type }) {

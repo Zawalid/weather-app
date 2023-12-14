@@ -44,7 +44,7 @@ export default function MyCities() {
   if (!myCities.length) return <ErrorMessage type='noCities' />;
 
   return (
-    <div className='relative h-full' ref={enableAnimations ? parent : null}>
+    <div className='relative h-full space-y-5' ref={enableAnimations ? parent : null}>
       <ViewController view={citiesView} setView={setCitiesView}>
         <div className='flex gap-3'>
           <CountriesFilter

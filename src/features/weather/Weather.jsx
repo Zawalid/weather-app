@@ -6,7 +6,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Loader from '@/ui/Loader';
 import { useWeatherContext } from '../../hooks/useWeatherContext';
 import { useSettings } from '../../hooks/useSettings';
-import ErrorMessage from '../../ui/ErrorMessage';
+import { throwError } from '../../utils/helpers';
 
 export default function Weather() {
   const { seeMore } = useOutletContext();
@@ -25,16 +25,9 @@ export default function Weather() {
     hourlyForecast,
     currentForecast,
   } = useWeatherContext();
-  if (locationError) 
-    return String(locationError)?.includes('Network') ? (
-      <ErrorMessage type='internetError' />
-    ) : (
-      <ErrorMessage type='locationError' />
-    );
-  
 
+  if (locationError) return throwError(locationError, 'locationError');
   if (locationLoading || dataLoading) return <Loader />;
-
   if (!location) return;
 
   return (
