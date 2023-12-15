@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import { useLocalStorageState } from '../hooks/useLocalStorageState';
 import SearchInput from '../features/search/SearchInput';
 import SideBar from './SideBar';
 import Aside from './Aside';
@@ -12,7 +11,6 @@ import { Toaster } from 'sonner';
 export default function AppLayout() {
   const [isAsideOpen, setIsAsideOpen] = useState(false);
   const [seeMore, setSeeMore] = useState(false);
-  const [myCities, setMyCities] = useLocalStorageState('myCities', []);
   const [parent] = useAutoAnimate({
     duration: 400,
   });
@@ -46,8 +44,6 @@ export default function AppLayout() {
             context={{
               seeMore,
               setSeeMore,
-              myCities,
-              setMyCities,
               setIsAsideOpen,
             }}
           />

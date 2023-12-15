@@ -2,10 +2,12 @@ import DropDown from '../../ui/DropDown';
 import { useSettings } from '../../hooks/useSettings';
 import { confirmDeletion } from '../../utils/helpers';
 import { useState } from 'react';
+import { useMyCities } from '../../hooks/useMyCities';
 
-export default function Actions({ setMyCities, filteredCities, setFilteredCities }) {
+export default function Actions({  filteredCities, setFilteredCities }) {
   const [, setSortDir] = useState('a-z');
   const { enableDeleteConfirmations, sortCriteria } = useSettings();
+  const {updateCities}= useMyCities()
 
  
   function sort(dir) {
@@ -28,7 +30,7 @@ export default function Actions({ setMyCities, filteredCities, setFilteredCities
           : sorted.sort((a, b) => b.temperature - a.temperature);
         break;
     }
-    setMyCities(sorted);
+    updateCities(sorted);
     setFilteredCities(sorted);
   }
 
@@ -41,9 +43,9 @@ export default function Actions({ setMyCities, filteredCities, setFilteredCities
           onclick: () =>
             enableDeleteConfirmations
               ? confirmDeletion('Are you sure you want to remove all cities?', 'Remove', () =>
-                  setMyCities([]),
+                  updateCities([]),
                 )
-              : setMyCities([]),
+              : updateCities([]),
         },
         {
           icon: `fa-solid fa-arrow-down-${sortCriteria === 'Temperature' ? '1-9' : 'a-z'}`,

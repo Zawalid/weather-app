@@ -7,30 +7,32 @@ import { getTimeBaseOnTimezone, isTouchDevice } from '../../utils/helpers';
 import City from './City';
 import { useSettings } from '../../hooks/useSettings';
 import { TouchBackend } from 'react-dnd-touch-backend';
+import { useMyCities } from '../../hooks/useMyCities';
 
-export default function Cities({ type, cities, setCities, isMyCities, onAdd, onRemove }) {
+export default function Cities({ type, cities, setCities, source }) {
   const navigate = useNavigate();
   const location = useLocation().state;
   const [searchParams] = useSearchParams();
   const [parent] = useAutoAnimate({
     duration: 500,
   });
-  const { myCities, setMyCities, setIsAsideOpen } = useOutletContext();
+  const { setIsAsideOpen } = useOutletContext() || {};
   const { is12HourFormat, enableAnimations, addToSearchHistory, enableSearchHistory } =
     useSettings();
+  const { updateCities } = useMyCities();
 
   const moveCity = useCallback(
     (dragIndex, hoverIndex) => {
-      const updateCities = (prev) => {
+      const dragCities = (prev) => {
         const newCities = [...prev];
         const [draggedItem] = newCities.splice(dragIndex, 1);
         newCities.splice(hoverIndex, 0, draggedItem);
         return newCities;
       };
-      setCities(updateCities);
-      setMyCities(updateCities);
+      setCities(dragCities);
+      updateCities(dragCities);
     },
-    [setCities, setMyCities],
+    [setCities, updateCities],
   );
 
   return (
@@ -54,15 +56,15 @@ export default function Cities({ type, cities, setCities, isMyCities, onAdd, onR
               city={updatedCity}
               isCurrentCity={+location?.latitude === latitude && +location?.longitude === longitude}
               type={type}
-              isSearched={!isMyCities}
-              isInMyCities={myCities?.some((city) => city.id === id)}
+              source={source}
               onSelect={() => {
                 const cityParam = searchParams.get('city');
-                const url = isMyCities
-                  ? `/app/mycities/${name}`
-                  : cityParam
-                    ? `/app/search/${name}?city=${cityParam}`
-                    : `/app/search/${name}`;
+                const url =
+                  source === 'mycities'
+                    ? `/app/mycities/${name}`
+                    : cityParam
+                      ? `/app/search/${name}?city=${cityParam}`
+                      : `/app/search/${name}`;
 
                 navigate(url, {
                   state: {
@@ -74,10 +76,9 @@ export default function Cities({ type, cities, setCities, isMyCities, onAdd, onR
                   replace: true,
                 });
 
-                if (!isMyCities && enableSearchHistory) addToSearchHistory(updatedCity);
+                if (source === 'search' && enableSearchHistory) addToSearchHistory(updatedCity);
                 setIsAsideOpen(true);
               }}
-              onClick={(temperature) => (isMyCities ? onRemove(id) : onAdd(city, temperature))}
               moveCity={moveCity}
               index={index}
             />

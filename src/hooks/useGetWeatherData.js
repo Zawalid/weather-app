@@ -60,15 +60,15 @@ export function useGetWeatherData(data, daysNumber) {
   });
 
   const currentForecast = {
-    precipitationProbability: precipitation_probability[0],
-    humidity: relative_humidity_2m[0],
+    precipitationProbability: precipitation_probability[0] || 0,
+    humidity: relative_humidity_2m[0] || 0,
     realFeel: `${apparent_temperature[0]} ${temperatureUnit}`,
-    visibility: visibility[0],
-    uvIndex: uv_index[0],
+    visibility: visibility[0] || 0,
+    uvIndex: uv_index[0] || 0,
     pressure: surface_pressure[0],
     temperature: `${temperature_2m} ${temperatureUnit}`,
     windSpeed: `${windSpeed} ${windSpeedUnit}`,
-    windGusts: `${windGusts} ${windSpeedUnit}`,
+    windGusts: `${windGusts} ${windSpeedUnit}` || 0,
     sunrise: sunrise[0],
     sunset: sunset[0],
   };

@@ -1,4 +1,4 @@
-import { useOutletContext, useSearchParams } from 'react-router-dom';
+import {  useSearchParams } from 'react-router-dom';
 import Cities from '../mycities/Cities';
 import { useCity } from '@/hooks/useCity';
 import Loader from '@/ui/Loader';
@@ -10,7 +10,6 @@ import { throwError } from '../../utils/helpers';
 
 export default function Search() {
   const [citiesView, setCitiesView] = useLocalStorageState('searchedCitiesView', 1);
-  const { setMyCities } = useOutletContext();
   const [searchParams] = useSearchParams();
   const cityParam = searchParams.get('city');
   const { isLoading, error, cities } = useCity(cityParam);
@@ -33,10 +32,10 @@ export default function Search() {
         <Cities
           type={citiesView}
           cities={cities}
-          onAdd={(city, temperature) => setMyCities((prev) => [...prev, { ...city, temperature }])}
+          source='search'
         />
       ) : (
-        enableSearchHistory && <Cities cities={searchHistory} type={citiesView} />
+        enableSearchHistory && <Cities cities={searchHistory} source='searchHistory' type={citiesView} />
       )}
     </div>
   );

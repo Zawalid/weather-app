@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Cities from './Cities';
 import { useSettings } from '../../hooks/useSettings';
@@ -7,12 +7,13 @@ import ErrorMessage from '../../ui/ErrorMessage';
 import { confirmDeletion } from '../../utils/helpers';
 import Actions from './Actions';
 import { useLocalStorageState } from '../../hooks/useLocalStorageState';
+import { useMyCities } from '../../hooks/useMyCities';
 import ViewController from '../../ui/ViewController';
 import CountriesFilter from './CountriesFilter';
 
 export default function MyCities() {
   const [citiesView, setCitiesView] = useLocalStorageState('myCitiesView', 1);
-  const { myCities, setMyCities } = useOutletContext();
+  const { myCities, setMyCities } = useMyCities();
   const [filteredCities, setFilteredCities] = useState(myCities);
   const countries = useMemo(() => [...new Set(myCities.map((city) => city.country))], [myCities]);
   const [selectedCountries, setSelectedCountries] = useState(countries);
@@ -28,13 +29,13 @@ export default function MyCities() {
   }, [myCities, navigate]);
 
   useEffect(() => {
-    if (filteredCities.length !== myCities.length || countries.length !== selectedCountries.length)
+    if (countries.length !== selectedCountries.length)
       setFilteredCities(
         selectedCountries
           .map((country) => myCities.filter((city) => city.country === country))
           .flat(),
       );
-  }, [selectedCountries, myCities, filteredCities, countries]);
+  }, [selectedCountries, myCities, countries]);
 
   function toggleCountry(country) {
     selectedCountries.includes(country)
@@ -55,11 +56,7 @@ export default function MyCities() {
             selectAll={() => setSelectedCountries(countries)}
             unselectAll={() => setSelectedCountries([])}
           />
-          <Actions
-            setMyCities={setMyCities}
-            filteredCities={filteredCities}
-            setFilteredCities={setFilteredCities}
-          />
+          <Actions filteredCities={filteredCities} setFilteredCities={setFilteredCities} />
         </div>
       </ViewController>
 
@@ -67,7 +64,7 @@ export default function MyCities() {
         type={citiesView}
         cities={filteredCities}
         setCities={setFilteredCities}
-        isMyCities={true}
+        source='mycities'
         onRemove={(id) =>
           enableDeleteConfirmations
             ? confirmDeletion('Are you sure you want to remove this city?', 'Remove', () =>
