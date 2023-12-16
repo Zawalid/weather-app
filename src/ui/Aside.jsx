@@ -1,26 +1,19 @@
 import { useLocation } from 'react-router-dom';
-import { useMyCities } from '@/hooks/useMyCities';
 import { Aside as SettingsAside } from '../features/settings/Aside';
 import { Aside as WeatherAside } from '../features/weather/Aside';
+import { Aside as MapAside } from '../features/map/Aside';
 import CityWeather from '../features/weather/CityWeather';
-import Cities from '../features/mycities/Cities';
-import ErrorMessage from './ErrorMessage';
 
-export default function Aside({ seeMore, setIsAsideOpen }) {
+export default function Aside() {
   const currentTab = useLocation().pathname.split('/')[2];
-  const { myCities } = useMyCities();
 
   return currentTab === 'weather' ? (
-    <WeatherAside seeMore={seeMore} />
+    <WeatherAside />
   ) : currentTab === 'mycities' || currentTab === 'search' ? (
-    <CityWeather setIsAsideOpen={setIsAsideOpen} />
+    <CityWeather />
   ) : currentTab === 'settings' ? (
-    <SettingsAside setIsAsideOpen={setIsAsideOpen} />
+    <SettingsAside/>
   ) : currentTab === 'map' ? (
-    !myCities.length ? (
-      <ErrorMessage type='noCities' />
-    ) : (
-      <Cities cities={myCities} source='map' type={3} />
-    )
+    <MapAside />
   ) : null;
 }

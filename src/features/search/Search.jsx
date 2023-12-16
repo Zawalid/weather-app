@@ -24,7 +24,7 @@ export default function Search() {
     <div className='space-y-5'>
       <div className='flex items-center justify-between'>
         <h3 className='text-sm font-medium text-text-secondary '>
-          {cityParam ? 'RESULTS' : 'RECENT SEARCHES'}
+          {cityParam ? 'Results' : 'Recent Searches'}
         </h3>
         <ViewController view={citiesView} setView={setCitiesView} />
       </div>

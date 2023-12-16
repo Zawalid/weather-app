@@ -2,10 +2,12 @@ import WeekForecast from './WeekForecast';
 import TodayForecast from './TodayForecast';
 import { useWeatherContext } from '../../hooks/useWeatherContext';
 import { useSettings } from '../../hooks/useSettings';
+import { useMyCities } from '../../hooks/useMyCities';
 
-export function Aside({ seeMore }) {
+export function Aside() {
   const { hourlyForecast, dailyForecast } = useWeatherContext();
   const { daysForeCast, isLocationAccess, defaultLocation } = useSettings();
+  const { seeMore } = useMyCities();
 
   if (!hourlyForecast || !dailyForecast) return;
   return (

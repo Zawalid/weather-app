@@ -1,11 +1,11 @@
 import Button from '@/ui/Button';
 import Condition from './Condition';
-import { useOutletContext } from 'react-router-dom';
 import { formatTime } from '../../utils/helpers';
 import { useSettings } from '@/hooks/useSettings';
+import { useMyCities } from '../../hooks/useMyCities';
 
 export default function OtherConditions({ otherConditions }) {
-  const { seeMore, setSeeMore } = useOutletContext();
+  const { seeMore, setSeeMore } = useMyCities();
   const {
     precipitationProbability,
     humidity,
@@ -111,7 +111,7 @@ export default function OtherConditions({ otherConditions }) {
     <>
       <div className={`rounded-xl ${seeMore ? '' : 'bg-background-secondary p-5'} `}>
         <div className='mb-5 flex items-center justify-between gap-5'>
-          <h3 className='text-sm font-medium text-text-secondary '>OTHER CONDITIONS</h3>
+          <h3 className='text-sm font-medium text-text-secondary '>Other Conditions</h3>
           <Button className='px-3 py-1 text-xs' onClick={() => setSeeMore(!seeMore)}>
             {seeMore ? 'See Less' : 'See More'}
           </Button>

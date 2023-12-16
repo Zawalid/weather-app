@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useLocation, useNavigate, useOutletContext, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
@@ -16,7 +16,7 @@ export default function Cities({ type, cities, setCities, source }) {
   const [parent] = useAutoAnimate({
     duration: 500,
   });
-  const { setIsAsideOpen } = useOutletContext() || {};
+  const { setIsAsideOpen } = useMyCities();
   const { is12HourFormat, enableAnimations, addToSearchHistory, enableSearchHistory } =
     useSettings();
   const { updateCities } = useMyCities();
@@ -62,9 +62,11 @@ export default function Cities({ type, cities, setCities, source }) {
                 const url =
                   source === 'mycities'
                     ? `/app/mycities/${name}`
-                    : cityParam
-                      ? `/app/search/${name}?city=${cityParam}`
-                      : `/app/search/${name}`;
+                    : source === 'map'
+                      ? `/app/map/${name}`
+                      : cityParam
+                        ? `/app/search/${name}?city=${cityParam}`
+                        : `/app/search/${name}`;
 
                 navigate(url, {
                   state: {
@@ -77,7 +79,7 @@ export default function Cities({ type, cities, setCities, source }) {
                 });
 
                 if (source === 'search' && enableSearchHistory) addToSearchHistory(updatedCity);
-                setIsAsideOpen(true);
+                setIsAsideOpen(source !== 'map');
               }}
               moveCity={moveCity}
               index={index}

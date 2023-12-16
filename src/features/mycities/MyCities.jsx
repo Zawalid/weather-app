@@ -28,19 +28,23 @@ export default function MyCities() {
     if (!myCities.length) navigate({ replace: true, state: null });
   }, [myCities, navigate]);
 
-  useEffect(() => {
-    if (countries.length !== selectedCountries.length)
-      setFilteredCities(
-        selectedCountries
-          .map((country) => myCities.filter((city) => city.country === country))
-          .flat(),
-      );
-  }, [selectedCountries, myCities, countries]);
-
   function toggleCountry(country) {
+    const filter = (selected) =>
+      setFilteredCities(
+        selected.map((country) => myCities.filter((city) => city.country === country)).flat(),
+      );
+
     selectedCountries.includes(country)
-      ? setSelectedCountries((prev) => prev.filter((c) => c !== country))
-      : setSelectedCountries((prev) => [...prev, country]);
+      ? setSelectedCountries((prev) => {
+          const countries = prev.filter((c) => c !== country);
+          filter(countries);
+          return countries;
+        })
+      : setSelectedCountries((prev) => {
+          const countries = [...prev, country];
+          filter(countries);
+          return countries;
+        });
   }
 
   if (!myCities.length) return <ErrorMessage type='noCities' />;

@@ -7,12 +7,14 @@ import WeekForecast from './WeekForecast';
 import IconButton from '../../ui/IconButton';
 import ErrorMessage from '../../ui/ErrorMessage';
 import { throwError } from '../../utils/helpers';
+import { useMyCities } from '../../hooks/useMyCities';
 
-export default function CityWeather({ setIsAsideOpen }) {
+export default function CityWeather() {
   const { city } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const { latitude, longitude, timezone } = location.state || {};
+  const { setIsAsideOpen } = useMyCities();
 
   const { isLoading, error, data } = useWeather(latitude, longitude, timezone);
   const { weatherCode, isDay, dailyForecast, hourlyForecast, currentForecast } = useGetWeatherData(

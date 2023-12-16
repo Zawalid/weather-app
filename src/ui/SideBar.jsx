@@ -3,7 +3,7 @@ import Logo from '@/ui/Logo';
 
 export default function SideBar() {
   return (
-    <aside className='md:rounded-2xl fixed bottom-0 left-0 z-10 row-span-2 flex w-full flex-col items-center gap-12 rounded-t-lg p-2 backdrop-blur-md  md:relative  md:bg-background-secondary'>
+    <aside className='md:rounded-2xl fixed bottom-0 left-0 z-[10000] row-span-2 flex w-full flex-col items-center gap-12 rounded-t-lg p-2 backdrop-blur-md  md:relative  md:bg-background-secondary'>
       <Logo className='hidden w-12 md:block' />
       <div className='flex w-full justify-evenly gap-5 md:flex-col md:justify-normal'>
         <NavLink to='weather'>

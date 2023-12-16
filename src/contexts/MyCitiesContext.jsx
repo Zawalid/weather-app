@@ -1,10 +1,12 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 import { useLocalStorageState } from '../hooks/useLocalStorageState';
 
 export const MyCitiesContext = createContext();
 
 export default function MyCitiesProvider({ children }) {
   const [myCities, setMyCities] = useLocalStorageState('myCities', []);
+  const [isAsideOpen, setIsAsideOpen] = useState(false); // I just need these to be global
+  const [seeMore, setSeeMore] = useState(false);
 
   function addCity(city) {
     setMyCities((prev) => [...prev, city]);
@@ -23,11 +25,13 @@ export default function MyCitiesProvider({ children }) {
         addCity,
         removeCity,
         updateCities,
+        isAsideOpen,
+        setIsAsideOpen,
+        seeMore,
+        setSeeMore,
       }}
     >
       {children}
     </MyCitiesContext.Provider>
   );
 }
-
-

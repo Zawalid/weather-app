@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useMyCities } from '../../hooks/useMyCities';
 
 const useGetHeadings = () => {
   const [headings, setHeadings] = useState([]);
@@ -53,9 +54,10 @@ const useIntersectionObserver = (setActiveId) => {
   }, [setActiveId]);
 };
 
-export default function NavigationSidebar({ setIsAsideOpen }) {
+export default function NavigationSidebar() {
   const [activeId, setActiveId] = useState('units');
   const { headings } = useGetHeadings();
+  const { setIsAsideOpen } = useMyCities()
   useIntersectionObserver(setActiveId);
 
   useEffect(() => {

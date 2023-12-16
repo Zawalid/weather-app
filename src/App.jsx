@@ -35,7 +35,9 @@ export default function App() {
                   <Route path='mycities' element={<MyCities />}>
                     <Route path=':city' element={<MyCities />} />
                   </Route>
-                  <Route path='Map' element={<Map />} />
+                  <Route path='Map' element={<Map />}>
+                    <Route path=':city' element={<Map />} />
+                  </Route>
                   <Route path='settings' element={<Settings />} />
                   <Route path='search' element={<Search />}>
                     <Route path=':city' element={<Search />} />

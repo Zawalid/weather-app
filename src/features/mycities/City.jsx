@@ -38,7 +38,7 @@ export default function City({ city, isCurrentCity, type, source, onSelect, move
       className='text-text-secondary'
       onClick={(e) => {
         e.stopPropagation();
-        addCity({ ...city, temperature });
+        addCity({ ...city, temperature,weather_code,is_day });
       }}
     >
       <i className='fa-solid fa-plus text-xs'></i>
@@ -71,7 +71,7 @@ export default function City({ city, isCurrentCity, type, source, onSelect, move
         data-handler-id={handlerId}
         onClick={(e) => {
           e.stopPropagation();
-          source !== 'map' && onSelect(); // Todo : Change the select function in the map
+           onSelect(); // Todo : Change the select function in the map
         }}
       >
         <img

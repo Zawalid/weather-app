@@ -1,15 +1,15 @@
 import OtherConditions from './OtherConditions';
 import TodayForecast from './TodayForecast';
 import CurrentWeather from './CurrentWeather';
-import { useOutletContext } from 'react-router-dom';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Loader from '@/ui/Loader';
 import { useWeatherContext } from '../../hooks/useWeatherContext';
 import { useSettings } from '../../hooks/useSettings';
 import { throwError } from '../../utils/helpers';
+import { useMyCities } from '../../hooks/useMyCities';
 
 export default function Weather() {
-  const { seeMore } = useOutletContext();
+  const { seeMore } = useMyCities();
   const [parent] = useAutoAnimate({
     duration: 400,
   });

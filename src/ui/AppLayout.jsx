@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import SearchInput from '../features/search/SearchInput';
@@ -7,19 +7,19 @@ import Aside from './Aside';
 import IconButton from './IconButton';
 import { useSettings } from '../hooks/useSettings';
 import { Toaster } from 'sonner';
+import { useMyCities } from '../hooks/useMyCities';
 
 export default function AppLayout() {
-  const [isAsideOpen, setIsAsideOpen] = useState(false);
-  const [seeMore, setSeeMore] = useState(false);
   const [parent] = useAutoAnimate({
     duration: 400,
   });
   const { enableAnimations } = useSettings();
+  const { isAsideOpen, setIsAsideOpen } = useMyCities();
   const currentTab = useLocation().pathname.split('/')[2];
 
   useEffect(() => {
     setIsAsideOpen(false);
-  }, [currentTab]);
+  }, [currentTab, setIsAsideOpen]);
 
   return (
     <>
@@ -40,21 +40,15 @@ export default function AppLayout() {
           className='col-start-2  h-[calc(100vh-80px)] overflow-auto pr-3 lg:h-[calc(100vh-96px)]'
           ref={enableAnimations ? parent : null}
         >
-          <Outlet
-            context={{
-              seeMore,
-              setSeeMore,
-              setIsAsideOpen,
-            }}
-          />
+          <Outlet />
         </div>
         <div
-          className={`fixed top-16 flex h-[calc(100%-77px)] w-full flex-col gap-5 overflow-auto bg-background-primary px-3 pb-[50px] transition-[right] duration-500 md:w-[calc(100%-100px)] md:pb-0 lg:relative lg:right-0 lg:top-0 lg:h-full lg:w-full lg:bg-transparent lg:pl-0 ${
+          className={`fixed top-16 z-[9999] flex h-[calc(100%-77px)] w-full flex-col gap-5 overflow-auto bg-background-primary px-3 pb-[50px] transition-[right] duration-500 md:w-[calc(100%-100px)] md:pb-0 lg:relative lg:right-0 lg:top-0 lg:h-full lg:w-full lg:bg-transparent lg:pl-0 ${
             isAsideOpen ? 'right-0' : '-right-full'
           }`}
           ref={enableAnimations ? parent : null}
         >
-          <Aside seeMore={seeMore} setIsAsideOpen={setIsAsideOpen} />
+          <Aside />
         </div>
       </main>
       <Toaster
@@ -64,7 +58,7 @@ export default function AppLayout() {
           <i className='fa-solid fa-spinner animate-spin text-lg text-text-secondary'></i>
         }
         toastOptions={{
-          className: 'sonner-toast',
+          className: 'sonner-toast ',
           duration: 5000,
         }}
       />

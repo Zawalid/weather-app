@@ -2,10 +2,10 @@ import Plan from './Plan';
 import SignUp from './SignUp';
 import NavigationSidebar from './NavigationSidebar';
 
-export function Aside({ setIsAsideOpen }) {
+export function Aside() {
   return (
     <>
-      <NavigationSidebar setIsAsideOpen={setIsAsideOpen} />
+      <NavigationSidebar />
       <Plan />
       <SignUp />
     </>
