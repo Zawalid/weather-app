@@ -15,23 +15,34 @@ import { useMyCities } from '../../hooks/useMyCities';
 import { getWeatherImageAndDescription } from '../../utils/helpers';
 import { toast } from 'sonner';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useWeatherContext } from '../../hooks/useWeatherContext';
+import { useSettings } from '../../hooks/useSettings';
+
+const locationFallback = [51.505, -0.09]; // London
 
 export default function Map() {
   const ref = useRef();
   const navigate = useNavigate();
   const location = useLocation();
   const { myCities, setIsAsideOpen } = useMyCities();
+  const { location: currLoc } = useWeatherContext();
+  const { isLocationAccess, defaultLocation } = useSettings();
+
   const { latitude, longitude } = location.state || {};
+
+  const initialLocation = isLocationAccess
+    ? [currLoc?.latitude, currLoc?.longitude]
+    : defaultLocation
+      ? [defaultLocation?.latitude, defaultLocation?.longitude]
+      : locationFallback;
 
   const positions = myCities.map((city) => [city.latitude, city.longitude]);
 
-  console.log(latitude, longitude);
-
-  if (!location) return <Loader />;
+  if (!initialLocation?.[0]) return <Loader />;
   return (
     <div className='relative h-full overflow-hidden rounded-xl'>
       <MapContainer
-        center={[myCities[0]?.latitude, myCities[0]?.longitude]}
+        center={initialLocation}
         zoom={13}
         scrollWheelZoom={true}
         className='h-full'
@@ -60,7 +71,7 @@ export default function Map() {
                   />
                   <span className='text-xl text-text-primary'>{city.temperature}°C</span>
                   <button
-                    className='mt-2 hover:border-background-secondary  rounded-md border border-border px-2 py-1 text-xs hover:bg-background-secondary'
+                    className='mt-2 rounded-md  border border-border px-2 py-1 text-xs hover:border-background-secondary hover:bg-background-secondary'
                     onClick={() => {
                       navigate(`/app/mycities/${name}`, {
                         state: {
@@ -90,7 +101,7 @@ export default function Map() {
   );
 }
 
-export function ChangeCenter({ position }) {
+function ChangeCenter({ position }) {
   const map = useMap();
   map.flyTo(position, map.getZoom());
   return null;

@@ -15,6 +15,10 @@ const errorMessages = {
     title: "You don't have any cities in your list.",
     description: 'Add a city to see its weather forecast.',
   },
+  noCitiesMap: {
+    title: "You don't have any cities in your list.",
+    description: 'Add a city to see it in the map.',
+  },
   noSelectedCity: {
     title: "You haven't selected a city yet",
     description: 'Select a city to see its weather forecast.',

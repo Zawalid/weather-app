@@ -5,7 +5,7 @@ import Cities from '../mycities/Cities';
 export function Aside() {
   const { myCities } = useMyCities();
   return !myCities.length ? (
-    <ErrorMessage type='noCities' />
+    <ErrorMessage type='noCitiesMap' />
   ) : (
     <Cities cities={myCities} source='map' type={3} />
   );

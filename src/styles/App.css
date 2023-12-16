@@ -202,7 +202,7 @@ a.active span {
 
 /* Map */
 .leaflet-top {
-@apply top-[70%]  right-3 left-auto !important;;
+@apply top-[73%]  right-3 left-auto !important;;
 }
 .leaflet-control-zoom {
   @apply  border-none m-0 !important 
