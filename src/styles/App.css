@@ -37,6 +37,10 @@ a.active span {
   @apply min-w-[150px] grid-cols-none grid-rows-[50px_1fr_auto]  place-items-center  px-5 !important;
 }
 
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 /* Loader */
 .loading {
   background-image: radial-gradient(
@@ -202,17 +206,17 @@ a.active span {
 
 /* Map */
 .leaflet-top {
-@apply top-[73%]  right-3 left-auto !important;;
+  @apply left-auto  right-3 top-[73%] !important;
 }
 .leaflet-control-zoom {
-  @apply  border-none m-0 !important 
+  @apply m-0 border-none !important;
 }
-.leaflet-control-zoom a{
-  @apply rounded-md rounded-t-md hover:bg-background-primary text-text-primary bg-background-secondary !important
+.leaflet-control-zoom a {
+  @apply rounded-md rounded-t-md bg-background-secondary text-text-primary hover:bg-background-primary !important;
 }
 .leaflet-popup-content-wrapper {
-  @apply bg-background-primary text-text-primary text-lg font-semibold
+  @apply bg-background-primary text-lg font-semibold text-text-primary;
 }
 .leaflet-popup-tip {
-  @apply bg-background-primary
+  @apply bg-background-primary;
 }

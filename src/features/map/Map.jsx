@@ -1,22 +1,15 @@
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  useMap,
-  useMapEvents,
-  Polyline,
-} from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import Loader from '@/ui/Loader';
-import { useRef, useState } from 'react';
-import IconButton from '../../ui/IconButton';
+import { useRef } from 'react';
 import { useMyCities } from '../../hooks/useMyCities';
 import { getWeatherImageAndDescription } from '../../utils/helpers';
-import { toast } from 'sonner';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useWeatherContext } from '../../hooks/useWeatherContext';
 import { useSettings } from '../../hooks/useSettings';
+import { LocationMarker } from './LocationMarker';
+import { CitiesConnection } from './CitiesConnection';
+import { MarkerIcon } from './MarkerIcon';
 
 const locationFallback = [51.505, -0.09]; // London
 
@@ -26,7 +19,14 @@ export default function Map() {
   const location = useLocation();
   const { myCities, setIsAsideOpen } = useMyCities();
   const { location: currLoc } = useWeatherContext();
-  const { isLocationAccess, defaultLocation } = useSettings();
+  const {
+    isLocationAccess,
+    defaultLocation,
+    mapZoomLevel,
+    enableTouchZoom,
+    enableScrollZoom,
+    enableDoubleClickZoom,
+  } = useSettings();
 
   const { latitude, longitude } = location.state || {};
 
@@ -43,23 +43,23 @@ export default function Map() {
     <div className='relative h-full overflow-hidden rounded-xl'>
       <MapContainer
         center={initialLocation}
-        zoom={13}
-        scrollWheelZoom={true}
+        zoom={mapZoomLevel}
         className='h-full'
         placeholder={
           <p className='text-xl text-text-primary'>
             <noscript>You need to enable JavaScript to see this map.</noscript>
           </p>
         }
-        touchZoom={true}
-        doubleClickZoom={true}
+        touchZoom={enableTouchZoom}
+        scrollWheelZoom={enableScrollZoom}
+        doubleClickZoom={enableDoubleClickZoom}
         ref={ref}
       >
         <TileLayer url='https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png' />
         {myCities.map((city) => {
           const { name, country, weather_code, is_day, timezone, latitude, longitude, id } = city;
           return (
-            <Marker key={id} position={[latitude, longitude]}>
+            <Marker key={id} position={[latitude, longitude]} icon={MarkerIcon()}>
               <Popup aut>
                 <div className='flex flex-col items-center'>
                   <span className='text-lg font-semibold text-text-primary'>{name}</span>
@@ -105,56 +105,4 @@ function ChangeCenter({ position }) {
   const map = useMap();
   map.flyTo(position, map.getZoom());
   return null;
-}
-
-function LocationMarker() {
-  const [position, setPosition] = useState(null);
-
-  const handleButtonClick = () => {
-    map.locate();
-  };
-
-  const map = useMapEvents({
-    locationfound(e) {
-      setPosition(e.latlng);
-      map.flyTo(e.latlng, map.getZoom());
-    },
-    locationerror() {
-      toast.error('Location access denied. Please enable location access in your browser.');
-    },
-  });
-
-  return (
-    <>
-      <IconButton
-        type={1}
-        className=' w-[30px] border-border bg-background-primary text-text-primary '
-        onClick={handleButtonClick}
-      >
-        <i className='fa-solid fa-location-arrow '></i>
-      </IconButton>
-      {position === null ? null : (
-        <Marker position={position}>
-          <Popup>You are here</Popup>
-        </Marker>
-      )}
-    </>
-  );
-}
-
-function CitiesConnection({ positions }) {
-  const [showPolyline, setShowPolyline] = useState();
-
-  return (
-    <>
-      <IconButton
-        type={1}
-        className=' w-[30px] border-border bg-background-primary text-text-primary '
-        onClick={() => setShowPolyline(!showPolyline)}
-      >
-        <i className='fa-solid fa-map-signs '></i>
-      </IconButton>
-      {showPolyline && <Polyline positions={positions} />}
-    </>
-  );
 }

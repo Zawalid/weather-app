@@ -28,6 +28,12 @@ export default function SettingsProvider({ children }) {
   const [enableSearchHistory, setEnableSearchHistory] = useState(settings.enableSearchHistory);
   const [searchHistory, setSearchHistory] = useLocalStorageState('history', []);
   const [sortCriteria, setSortCriteria] = useState(settings.sortCriteria);
+  const [mapZoomLevel, setMapZoomLevel] = useState(settings.mapZoomLevel);
+  const [enableTouchZoom, setEnableTouchZoom] = useState(settings.enableTouchZoom);
+  const [enableScrollZoom, setEnableScrollZoom] = useState(settings.enableScrollZoom);
+  const [enableDoubleClickZoom, setEnableDoubleClickZoom] = useState(
+    settings.enableDoubleClickZoom,
+  );
 
   const [appearance, setAppearance] = useLocalStorageState('appearance', ap);
   const [theme, setTheme] = useState(appearance.theme);
@@ -62,6 +68,10 @@ export default function SettingsProvider({ children }) {
       searchResultsCount,
       enableSearchHistory,
       sortCriteria,
+      mapZoomLevel,
+      enableTouchZoom,
+      enableScrollZoom,
+      enableDoubleClickZoom,
     });
     queryClient.invalidateQueries();
   }, [
@@ -81,6 +91,10 @@ export default function SettingsProvider({ children }) {
     searchResultsCount,
     enableSearchHistory,
     sortCriteria,
+    mapZoomLevel,
+    enableTouchZoom,
+    enableScrollZoom,
+    enableDoubleClickZoom,
   ]);
 
   // Update appearance
@@ -132,6 +146,11 @@ export default function SettingsProvider({ children }) {
     setSearchResultsCount(st.searchResultsCount);
     setEnableSearchHistory(st.enableSearchHistory);
     setSortCriteria(st.sortCriteria);
+    setMapZoomLevel(st.mapZoomLevel);
+    setEnableTouchZoom(st.enableTouchZoom);
+    setEnableScrollZoom(st.enableScrollZoom);
+    setEnableDoubleClickZoom(st.enableDoubleClickZoom);
+
     setTheme(ap.theme);
     setFontSize(ap.fontSize);
     setEnableAnimations(ap.enableAnimations);
@@ -181,6 +200,14 @@ export default function SettingsProvider({ children }) {
         setEnableSearchHistory,
         sortCriteria,
         setSortCriteria,
+        mapZoomLevel,
+        setMapZoomLevel,
+        enableTouchZoom,
+        setEnableTouchZoom,
+        enableScrollZoom,
+        setEnableScrollZoom,
+        enableDoubleClickZoom,
+        setEnableDoubleClickZoom,
         // -------------------
         theme,
         setTheme,

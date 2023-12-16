@@ -11,6 +11,9 @@ import Button from '@/ui/Button';
 import { toast } from 'sonner';
 import SortCriteria from './settings-components/SortCriteria';
 import SearchResultsCount from './settings-components/SearchResultsCount';
+import Input from '@/ui/Input';
+import { isTouchDevice } from '../../utils/helpers';
+
 export default function Settings() {
   const {
     is12HourFormat,
@@ -31,6 +34,14 @@ export default function Settings() {
     clearSearchHistory,
     enableDeleteConfirmations,
     setEnableDeleteConfirmations,
+    mapZoomLevel,
+    setMapZoomLevel,
+    enableTouchZoom,
+    setEnableTouchZoom,
+    enableScrollZoom,
+    setEnableScrollZoom,
+    enableDoubleClickZoom,
+    setEnableDoubleClickZoom,
   } = useSettings();
 
   return (
@@ -83,6 +94,53 @@ export default function Settings() {
             </div>
             <CitiesDropDown currentCity={defaultLocation} onChange={setDefaultLocation} />
           </div>
+        </div>
+      </div>
+
+      {/* Map */}
+      <div className='settings_section space-y-3'>
+        <h2 id='map' className=' text-lg font-semibold text-text-primary '>
+          Map
+        </h2>
+        <div className='flex flex-col gap-5 rounded-2xl bg-background-secondary p-5'>
+          <div className='flex items-center justify-between gap-5 '>
+            <div>
+              <h4 className='mb-1 text-sm font-medium text-text-tertiary'>Map Zoom Level</h4>
+              <p className='text-xs text-text-secondary'>Map zoom level between 0 and 28</p>
+            </div>
+            <Input
+              type='number'
+              min='0'
+              max='28'
+              value={mapZoomLevel}
+              onChange={(e) => {
+                const level = +e.target.value;
+                setMapZoomLevel(level > 28 || level < 0 ? 0 : level);
+              }}
+              className='text-center'
+            />
+          </div>
+          {isTouchDevice() ? (
+            <SwitchSetting
+              title='Enable Touch Zoom'
+              checked={enableTouchZoom}
+              onChange={() => setEnableTouchZoom(!enableTouchZoom)}
+              description='Enable zooming in and out using touch'
+            />
+          ) : (
+            <SwitchSetting
+              title='Enable Scroll Wheel Zoom'
+              checked={enableScrollZoom}
+              onChange={() => setEnableScrollZoom(!enableScrollZoom)}
+              description='Enable zooming in and out using the scroll wheel'
+            />
+          )}
+          <SwitchSetting
+            title='Enable Double Click Zoom'
+            checked={enableDoubleClickZoom}
+            onChange={() => setEnableDoubleClickZoom(!enableDoubleClickZoom)}
+            description='Enable zooming in and out using double click'
+          />
         </div>
       </div>
 
@@ -172,5 +230,3 @@ export default function Settings() {
     </div>
   );
 }
-
-

@@ -389,10 +389,14 @@ export const DEFAULT_SETTINGS = {
     defaultLocation: null,
     daysForeCast: '7 Days',
     hoursForeCast: '12 Hours',
-    enableDeleteConfirmations : false,
+    enableDeleteConfirmations: false,
     searchResultsCount: 5,
     enableSearchHistory: true,
-    sortCriteria : 'City Name'
+    sortCriteria: 'City Name',
+    mapZoomLevel: 10,
+    enableTouchZoom: true,
+    enableScrollZoom: true,
+    enableDoubleClickZoom: true,
   },
   appearance: {
     theme: 'System',
