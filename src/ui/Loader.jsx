@@ -1,8 +1,19 @@
+import '@/styles/loader.css';
 export default function Loader() {
   return (
-    <div className='grid h-full'>
-      <span className='loading mb-20px relative m-auto block h-[140px] w-[180px] bg-no-repeat after:absolute after:left-[2px] after:top-[65px] after:h-[6px] after:w-[2px] after:text-white '></span>
-      
-    </div>
+<div className='grid h-full'>
+      <div className='loader'>
+        <div className='cloud front'>
+          <span className='left-front'></span>
+          <span className='right-front'></span>
+        </div>
+        <span className='sun sunshine'></span>
+        <span className='sun'></span>
+        <div className='cloud back'>
+          <span className='left-back'></span>
+          <span className='right-back'></span>
+        </div>
+      </div>
+</div>
   );
 }
