@@ -393,7 +393,7 @@ export const DEFAULT_SETTINGS = {
     searchResultsCount: 5,
     enableSearchHistory: true,
     sortCriteria: 'City Name',
-    mapZoomLevel: 10,
+    mapZoomLevel: 5,
     enableTouchZoom: true,
     enableScrollZoom: true,
     enableDoubleClickZoom: true,

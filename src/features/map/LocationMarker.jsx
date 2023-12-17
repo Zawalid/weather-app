@@ -14,7 +14,7 @@ export function LocationMarker() {
   const map = useMapEvents({
     locationfound(e) {
       setPosition(e.latlng);
-      map.flyTo(e.latlng, map.getZoom());
+      map.flyTo(e.latlng, 13);
     },
     locationerror() {
       toast.error('Location access denied. Please enable location access in your browser.');
@@ -23,16 +23,15 @@ export function LocationMarker() {
 
   return (
     <>
-      <IconButton
-        type={1}
-        className=' w-[30px] border-border bg-background-primary text-text-primary '
-        onClick={handleButtonClick}
-      >
+      <IconButton type={3} onClick={handleButtonClick}>
         <i className='fa-solid fa-location-arrow '></i>
       </IconButton>
       {position === null ? null : (
-        <Marker position={position} icon={MarkerIcon()}>
-          <Popup>
+        <Marker position={position} icon={MarkerIcon()}
+        >
+          <Popup
+          closeButton={false}
+          >
             <span className='text-center text-base text-text-primary'>Here you are !</span>
           </Popup>
         </Marker>

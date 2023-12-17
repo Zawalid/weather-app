@@ -133,7 +133,7 @@ input[type='number']::-webkit-inner-spin-button {
   @apply left-auto  right-3 top-[73%] !important;
 }
 .leaflet-control-zoom {
-  @apply m-0 border-none !important;
+  @apply m-0 border-none hidden !important;
 }
 .leaflet-control-zoom a {
   @apply rounded-md rounded-t-md bg-background-secondary text-text-primary hover:bg-background-primary !important;

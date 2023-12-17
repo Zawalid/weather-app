@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation,  useParams } from 'react-router-dom';
 import CurrentWeather from './CurrentWeather';
 import TodayForecast from './TodayForecast';
 import { useWeather } from '../../hooks/useWeather';
@@ -8,10 +8,11 @@ import IconButton from '../../ui/IconButton';
 import ErrorMessage from '../../ui/ErrorMessage';
 import { throwError } from '../../utils/helpers';
 import { useMyCities } from '../../hooks/useMyCities';
+import { useCustomNavigate } from '../../hooks/useCustomNavigate';
 
 export default function CityWeather() {
   const { city } = useParams();
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const location = useLocation();
   const { latitude, longitude, timezone } = location.state || {};
   const { setIsAsideOpen } = useMyCities();
@@ -42,7 +43,8 @@ export default function CityWeather() {
       <IconButton
         className='absolute right-2 top-0 grid'
         onClick={() => {
-          navigate(location.pathname + location.search, { replace: true, state: null });
+          const path = location.pathname;
+          navigate(`/${path.split('/')[1]}/${path.split('/')[2]}${location.search}`);
           setIsAsideOpen(false);
         }}
       >

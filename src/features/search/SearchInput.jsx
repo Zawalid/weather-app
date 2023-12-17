@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { useCustomNavigate } from '../../hooks/useCustomNavigate';
 
 export default function SearchInput() {
   const [searchParams] = useSearchParams();
   const [city, setCity] = useState(searchParams.get('city') || '');
   const currentTab = useLocation().pathname.split('/')[2];
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
 
   useEffect(() => {
     setCity(searchParams.get('city') ?? '');
   }, [searchParams]);
 
   function searchCity(city) {
-    if (!city && currentTab === 'search') return navigate('search', { replace: true });
-    if (city.length > 2) navigate(`search?city=${city}`, { replace: true });
+    if (!city && currentTab === 'search') return navigate('search');
+    if (city.length > 2) navigate(`search?city=${city}`);
   }
 
   return (

@@ -85,7 +85,6 @@ export function confirmDeletion(message, confirmText, onconfirm) {
     },
     cancel: {
       label: 'Cancel',
-      onClick: () => console.log('Cancel'),
     },
     cancelButtonStyle: {
       backgroundColor: 'var(--color-background-secondary)',

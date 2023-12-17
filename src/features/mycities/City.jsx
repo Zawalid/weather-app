@@ -7,7 +7,7 @@ import { useDragAndDrop } from '../../hooks/useDragAndDrop';
 
 export default function City({ city, isCurrentCity, type, source, onSelect, moveCity, index }) {
   const { name, country, country_code, time, latitude, longitude, timezone, id } = city;
-  const { data = {} } = useWeather(latitude, longitude, timezone, 3);
+  const { data = {} } = useWeather(latitude, longitude, timezone);
   const { location } = useWeatherContext();
   const { myCities, addCity, removeCity } = useMyCities();
   const isInMyCities = myCities?.some((city) => city.id === id);
@@ -38,7 +38,7 @@ export default function City({ city, isCurrentCity, type, source, onSelect, move
       className='text-text-secondary'
       onClick={(e) => {
         e.stopPropagation();
-        addCity({ ...city, temperature,weather_code,is_day });
+        addCity({ ...city, temperature });
       }}
     >
       <i className='fa-solid fa-plus text-xs'></i>

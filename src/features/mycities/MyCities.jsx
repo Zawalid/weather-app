@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Cities from './Cities';
 import { useSettings } from '../../hooks/useSettings';
@@ -10,6 +9,7 @@ import { useLocalStorageState } from '../../hooks/useLocalStorageState';
 import { useMyCities } from '../../hooks/useMyCities';
 import ViewController from '../../ui/ViewController';
 import CountriesFilter from './CountriesFilter';
+import { useCustomNavigate } from '../../hooks/useCustomNavigate';
 
 export default function MyCities() {
   const [citiesView, setCitiesView] = useLocalStorageState('myCitiesView', 1);
@@ -18,14 +18,14 @@ export default function MyCities() {
   const countries = useMemo(() => [...new Set(myCities.map((city) => city.country))], [myCities]);
   const [selectedCountries, setSelectedCountries] = useState(countries);
 
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const [parent] = useAutoAnimate({
     duration: 400,
   });
   const { enableAnimations, enableDeleteConfirmations } = useSettings();
 
   useEffect(() => {
-    if (!myCities.length) navigate({ replace: true, state: null });
+    if (!myCities.length) navigate();
   }, [myCities, navigate]);
 
   function toggleCountry(country) {

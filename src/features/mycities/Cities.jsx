@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
@@ -8,9 +8,10 @@ import City from './City';
 import { useSettings } from '../../hooks/useSettings';
 import { TouchBackend } from 'react-dnd-touch-backend';
 import { useMyCities } from '../../hooks/useMyCities';
+import { useCustomNavigate } from '../../hooks/useCustomNavigate';
 
 export default function Cities({ type, cities, setCities, source }) {
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const location = useLocation().state;
   const [searchParams] = useSearchParams();
   const [parent] = useAutoAnimate({
@@ -59,7 +60,7 @@ export default function Cities({ type, cities, setCities, source }) {
               source={source}
               onSelect={() => {
                 const cityParam = searchParams.get('city');
-                const url =
+                const path =
                   source === 'mycities'
                     ? `/app/mycities/${name}`
                     : source === 'map'
@@ -68,15 +69,7 @@ export default function Cities({ type, cities, setCities, source }) {
                         ? `/app/search/${name}?city=${cityParam}`
                         : `/app/search/${name}`;
 
-                navigate(url, {
-                  state: {
-                    latitude,
-                    longitude,
-                    timezone,
-                    city: searchParams.get('city'),
-                  },
-                  replace: true,
-                });
+                navigate(path, { latitude, longitude, timezone });
 
                 if (source === 'search' && enableSearchHistory) addToSearchHistory(updatedCity);
                 setIsAsideOpen(source !== 'map');
