@@ -20,7 +20,7 @@ export default function Cities({ type, cities, setCities, source }) {
   const { setIsAsideOpen } = useMyCities();
   const { is12HourFormat, enableAnimations, addToSearchHistory, enableSearchHistory } =
     useSettings();
-  const { updateCities } = useMyCities();
+  const { setMyCities } = useMyCities();
 
   const moveCity = useCallback(
     (dragIndex, hoverIndex) => {
@@ -31,9 +31,9 @@ export default function Cities({ type, cities, setCities, source }) {
         return newCities;
       };
       setCities(dragCities);
-      updateCities(dragCities);
+      setMyCities(dragCities);
     },
-    [setCities, updateCities],
+    [setCities, setMyCities],
   );
 
   return (

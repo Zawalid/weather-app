@@ -55,7 +55,6 @@ export default function Map() {
         ref={ref}
       >
         <TileLayer url='https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png' />
-
         {myCities.map((city) => {
           return (
             <CustomMarker

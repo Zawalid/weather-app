@@ -7,7 +7,7 @@ import { useMyCities } from '../../hooks/useMyCities';
 export default function Actions({  filteredCities, setFilteredCities }) {
   const [, setSortDir] = useState('a-z');
   const { enableDeleteConfirmations, sortCriteria } = useSettings();
-  const {updateCities}= useMyCities()
+  const {setMyCities}= useMyCities()
 
  
   function sort(dir) {
@@ -30,7 +30,7 @@ export default function Actions({  filteredCities, setFilteredCities }) {
           : sorted.sort((a, b) => b.temperature - a.temperature);
         break;
     }
-    updateCities(sorted);
+    setMyCities(sorted);
     setFilteredCities(sorted);
   }
 
@@ -43,9 +43,9 @@ export default function Actions({  filteredCities, setFilteredCities }) {
           onclick: () =>
             enableDeleteConfirmations
               ? confirmDeletion('Are you sure you want to remove all cities?', 'Remove', () =>
-                  updateCities([]),
+                  setMyCities([]),
                 )
-              : updateCities([]),
+              : setMyCities([]),
         },
         {
           icon: `fa-solid fa-arrow-down-${sortCriteria === 'Temperature' ? '1-9' : 'a-z'}`,

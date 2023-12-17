@@ -3,6 +3,8 @@ import { useState } from 'react';
 import IconButton from '../../ui/IconButton';
 import { toast } from 'sonner';
 import { MarkerIcon } from './MarkerIcon';
+import MarkerImg from '@/assets/home-marker.png';
+
 
 export function LocationMarker() {
   const [position, setPosition] = useState(null);
@@ -27,7 +29,7 @@ export function LocationMarker() {
         <i className='fa-solid fa-location-arrow '></i>
       </IconButton>
       {position === null ? null : (
-        <Marker position={position} icon={MarkerIcon()}
+        <Marker position={position} icon={MarkerIcon(MarkerImg)}
         >
           <Popup
           closeButton={false}

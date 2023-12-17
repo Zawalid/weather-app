@@ -4,12 +4,13 @@ import IconButton from '../../ui/IconButton';
 import { getWeatherImageAndDescription, isTouchDevice, normalizeString } from '../../utils/helpers';
 import { useMyCities } from '../../hooks/useMyCities';
 import { useDragAndDrop } from '../../hooks/useDragAndDrop';
+import { useEffect } from 'react';
 
 export default function City({ city, isCurrentCity, type, source, onSelect, moveCity, index }) {
   const { name, country, country_code, time, latitude, longitude, timezone, id } = city;
   const { data = {} } = useWeather(latitude, longitude, timezone);
   const { location } = useWeatherContext();
-  const { myCities, addCity, removeCity } = useMyCities();
+  const { myCities, setMyCities, addCity, removeCity } = useMyCities();
   const isInMyCities = myCities?.some((city) => city.id === id);
 
   const {
@@ -18,6 +19,19 @@ export default function City({ city, isCurrentCity, type, source, onSelect, move
   } = data;
 
   const { dragRef, previewRef, opacity, handlerId } = useDragAndDrop(id, index, moveCity);
+
+  useEffect(() => {
+    if (source === 'mycities') {
+      setMyCities((prev) =>
+        prev.map((city) => {
+          if (city.id === id) {
+            return { ...city, temperature };
+          }
+          return city;
+        }),
+      );
+    }
+  }, [temperature, id, source, setMyCities]);
 
   const actionButton = isInMyCities ? (
     source.includes('search') ? (
@@ -71,7 +85,7 @@ export default function City({ city, isCurrentCity, type, source, onSelect, move
         data-handler-id={handlerId}
         onClick={(e) => {
           e.stopPropagation();
-           onSelect(); // Todo : Change the select function in the map
+          onSelect(); // Todo : Change the select function in the map
         }}
       >
         <img

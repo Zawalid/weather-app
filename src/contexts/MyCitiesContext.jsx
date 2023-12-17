@@ -14,9 +14,7 @@ export default function MyCitiesProvider({ children }) {
   function removeCity(id) {
     setMyCities((prev) => prev.filter((c) => c.id !== id));
   }
-  function updateCities(cities) {
-    setMyCities(cities);
-  }
+ 
 
   return (
     <MyCitiesContext.Provider
@@ -24,7 +22,7 @@ export default function MyCitiesProvider({ children }) {
         myCities,
         addCity,
         removeCity,
-        updateCities,
+        setMyCities,
         isAsideOpen,
         setIsAsideOpen,
         seeMore,
