@@ -41,21 +41,6 @@ input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-
-/* Tippy */
-
-.tippy-box[data-theme~='custom'][data-placement^='top'] > .tippy-arrow::before {
-  border-top-color: var(--color-settings-active);
-}
-.tippy-box[data-theme~='custom'][data-placement^='bottom'] > .tippy-arrow::before {
-  border-bottom-color: var(--color-settings-active);
-}
-.tippy-box[data-theme~='custom'][data-placement^='left'] > .tippy-arrow::before {
-  border-left-color: var(--color-settings-active);
-}
-.tippy-box[data-theme~='custom'][data-placement^='right'] > .tippy-arrow::before {
-  border-right-color: var(--color-settings-active);
-}
 .tippy-box[data-theme~='custom'] .tippy-content {
   padding: 0;
 }
@@ -70,24 +55,11 @@ input[type='number']::-webkit-inner-spin-button {
   --normal-border: var(--color-border) !important;
   --normal-text: var(--color-text-primary) !important;
   --success-bg: var(--color-primary) !important;
-  --success-border: hsl(147, 100%, 12%) !important;
-  --success-text: hsl(150, 86%, 65%) !important;
-  --info-bg: hsl(215, 100%, 6%) !important;
-  --info-border: hsl(223, 100%, 12%) !important;
-  --info-text: hsl(216, 87%, 65%) !important;
-  --warning-bg: hsl(64, 100%, 6%) !important;
-  --warning-border: hsl(60, 100%, 12%) !important;
-  --warning-text: hsl(46, 87%, 65%) !important;
-  --error-bg: hsl(358, 76%, 10%) !important;
-  --error-border: hsl(357, 89%, 16%) !important;
-  --error-text: hsl(358, 100%, 81%) !important;
 }
 
 .sonner-toast[data-type='warning'] {
   height: auto !important;
   padding: 8px 16px;
-}
-.sonner-toast [data-content] {
 }
 .sonner-toast:not([data-type='loading']) [data-content] {
   margin-left: 40px;
@@ -133,7 +105,7 @@ input[type='number']::-webkit-inner-spin-button {
   @apply left-auto  right-3 top-[73%] !important;
 }
 .leaflet-control-zoom {
-  @apply m-0 border-none hidden !important;
+  @apply m-0 hidden border-none !important;
 }
 .leaflet-control-zoom a {
   @apply rounded-md rounded-t-md bg-background-secondary text-text-primary hover:bg-background-primary !important;

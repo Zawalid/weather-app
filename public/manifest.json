@@ -1,7 +1,7 @@
 {
   "name": "Breezy",
   "short_name": "Breezy",
-  "start_url": "/app",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#0b131e",
   "theme_color": "#0b131e",
@@ -22,7 +22,7 @@
   "shortcuts": [
     {
       "name": "Map",
-      "url": "/app/map",
+      "url": "/map",
       "description": "View the map",
       "icons": [
         {
@@ -33,7 +33,7 @@
     },
     {
       "name": "My Cities",
-      "url": "/app/mycities",
+      "url": "/mycities",
       "description": "View your cities",
       "icons": [
         {
@@ -44,7 +44,7 @@
     },
     {
       "name": "Settings",
-      "url": "/app/settings",
+      "url": "/settings",
       "description": "Change settings",
       "icons": [
         {

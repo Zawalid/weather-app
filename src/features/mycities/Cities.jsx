@@ -62,12 +62,12 @@ export default function Cities({ type, cities, setCities, source }) {
                 const cityParam = searchParams.get('city');
                 const path =
                   source === 'mycities'
-                    ? `/app/mycities/${name}`
+                    ? `/mycities/${name}`
                     : source === 'map'
-                      ? `/app/map/${name}`
+                      ? `/map/${name}`
                       : cityParam
-                        ? `/app/search/${name}?city=${cityParam}`
-                        : `/app/search/${name}`;
+                        ? `/search/${name}?city=${cityParam}`
+                        : `/search/${name}`;
 
                 navigate(path, { latitude, longitude, timezone });
 

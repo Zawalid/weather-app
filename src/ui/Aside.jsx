@@ -5,14 +5,14 @@ import { Aside as MapAside } from '../features/map/Aside';
 import CityWeather from '../features/weather/CityWeather';
 
 export default function Aside() {
-  const currentTab = useLocation().pathname.split('/')[2];
+  const currentTab = useLocation().pathname.split('/')[1];
 
   return currentTab === 'weather' ? (
     <WeatherAside />
   ) : currentTab === 'mycities' || currentTab === 'search' ? (
     <CityWeather />
   ) : currentTab === 'settings' ? (
-    <SettingsAside/>
+    <SettingsAside />
   ) : currentTab === 'map' ? (
     <MapAside />
   ) : null;

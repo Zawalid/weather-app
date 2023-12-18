@@ -26,7 +26,7 @@ export function CustomPopup({ reference, city }) {
         <button
           className='mt-2 rounded-md  border border-border px-2 py-1 text-xs hover:border-background-secondary hover:bg-background-secondary'
           onClick={() => {
-            navigate(`/app/mycities/${name}`, {
+            navigate(`/mycities/${name}`, {
               latitude,
               longitude,
               timezone,

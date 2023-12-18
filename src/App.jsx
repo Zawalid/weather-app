@@ -3,8 +3,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import SettingsProvider from './contexts/SettingsContext';
 import WeatherProvider from './contexts/WeatherContext';
+import MyCitiesProvider from './contexts/MyCitiesContext';
 
-import HomePage from './pages/HomePage';
 import AppLayout from './ui/AppLayout';
 import Weather from './features/weather/Weather';
 import MyCities from './features/mycities/MyCities';
@@ -14,7 +14,6 @@ import Search from './features/search/Search';
 import PageNotFound from './pages/PageNotFound';
 
 import '@/styles/App.css';
-import MyCitiesProvider from './contexts/MyCitiesContext';
 
 const client = new QueryClient();
 
@@ -26,8 +25,7 @@ export default function App() {
           <WeatherProvider>
             <BrowserRouter>
               <Routes>
-                <Route path='/' element={<HomePage />} />
-                <Route path='app' element={<AppLayout />}>
+                <Route path='/' element={<AppLayout />}>
                   <Route index element={<Navigate to='weather' />} />
                   <Route path='weather' element={<Weather />} />
                   <Route path='mycities' element={<MyCities />}>
@@ -50,3 +48,4 @@ export default function App() {
     </QueryClientProvider>
   );
 }
+

@@ -14,7 +14,7 @@ export default function PageNotFound() {
       </h1>
 
       <Link
-        to='/app'
+        to='/'
         className='mx-auto mt-5 w-fit rounded-lg bg-primary px-3 py-2 text-sm font-bold text-text-primary'
       >
         Find your way back

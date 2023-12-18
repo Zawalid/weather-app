@@ -30,7 +30,7 @@ export default function CustomMarker({ isActive, position, city, map }) {
             longitude: city.longitude,
           });
         },
-        popupclose: () => window.location.pathname.includes('map') && navigate('/app/map'),
+        popupclose: () => window.location.pathname.includes('map') && navigate('/map'),
       }}
     >
       <CustomPopup

@@ -6,14 +6,14 @@ import SideBar from './SideBar';
 import Aside from './Aside';
 import IconButton from './IconButton';
 import { useSettings } from '../hooks/useSettings';
-import { Toaster } from 'sonner';
+import { Toaster} from 'sonner';
 import { useMyCities } from '../hooks/useMyCities';
 
 export default function AppLayout() {
   const [parent] = useAutoAnimate({
     duration: 400,
   });
-  const { enableAnimations } = useSettings();
+  const { enableAnimations ,theme} = useSettings();
   const { isAsideOpen, setIsAsideOpen } = useMyCities();
   const currentTab = useLocation().pathname.split('/')[2];
 
@@ -52,14 +52,15 @@ export default function AppLayout() {
         </div>
       </main>
       <Toaster
+      theme={theme.toLowerCase()}
         position='top-right'
-        theme='dark'
         loadingIcon={
           <i className='fa-solid fa-spinner animate-spin text-lg text-text-secondary'></i>
         }
         toastOptions={{
           className: 'sonner-toast ',
           duration: 5000,
+          
         }}
       />
     </>
