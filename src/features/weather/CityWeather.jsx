@@ -31,8 +31,8 @@ export default function CityWeather() {
     <>
       <CurrentWeather
         location={{ city }}
-        temperature={currentForecast.temperature}
-        precipitationProbability={currentForecast.precipitationProbability}
+        temperature={currentForecast?.temperature}
+        precipitationProbability={currentForecast?.precipitationProbability}
         weatherCode={weatherCode}
         isDay={isDay}
         transparent={true}

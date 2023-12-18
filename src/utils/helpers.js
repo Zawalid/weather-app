@@ -1,5 +1,5 @@
 import { toast } from 'sonner';
-import { weatherData } from './constants';
+import { WEATHER_DESCRIPTIONS } from './constants';
 import ErrorMessage from '../ui/ErrorMessage';
 
 export function formatDay(dateStr) {
@@ -41,9 +41,9 @@ export function getTimeBaseOnTimezone(timezone, hour12) {
 }
 
 export function getWeatherImageAndDescription(wmoCode, isDay) {
-  const weather = weatherData.get(wmoCode);
-  if (weather === undefined) return;
-  return isDay ? weather.day : weather.night;
+  const description = WEATHER_DESCRIPTIONS[wmoCode];
+  const image = `/src/assets/icons/${wmoCode}-${isDay ? 'day' : 'night'}.png`;
+  return { description, image };
 }
 
 export function isDeepEqual(object1, object2) {

@@ -38,7 +38,7 @@ export default function Weather() {
         weatherCode={weatherCode}
         isDay={isDay}
         transparent={true}
-        imageClass='w-28 sm:w-48'
+        imageClass='w-28 sm:w-40'
       />
       {!seeMore && <TodayForecast hours={hourlyForecast} />}
       <OtherConditions otherConditions={currentForecast} />
