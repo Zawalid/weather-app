@@ -1,5 +1,4 @@
-import LogoImage from "@/assets/Logo.svg";
 
 export default function Logo({ className }) {
-  return <img src={LogoImage} alt="Logo" className={className} />;
+  return <img src='/Logo.svg' alt="Logo" className={className} />;
 }

@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import SettingsProvider from './contexts/SettingsContext';
 import WeatherProvider from './contexts/WeatherContext';
@@ -22,7 +21,6 @@ const client = new QueryClient();
 export default function App() {
   return (
     <QueryClientProvider client={client}>
-      <ReactQueryDevtools initialIsOpen={false} />
       <SettingsProvider>
         <MyCitiesProvider>
           <WeatherProvider>

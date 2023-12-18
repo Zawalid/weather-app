@@ -3,7 +3,6 @@ import { Marker } from 'react-leaflet';
 import { MarkerIcon } from './MarkerIcon';
 import { useCustomNavigate } from '../../hooks/useCustomNavigate';
 import { CustomPopup } from './CustomPopup';
-import MarkerImg from '@/assets/marker.png';
 
 
 export default function CustomMarker({ isActive, position, city, map }) {
@@ -21,7 +20,7 @@ export default function CustomMarker({ isActive, position, city, map }) {
   return (
     <Marker
       position={position}
-      icon={MarkerIcon(MarkerImg)}
+      icon={MarkerIcon('/marker.png')}
       keyboard={true}
       title={city.name}
       eventHandlers={{
