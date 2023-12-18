@@ -57,8 +57,14 @@ export default function MyCities() {
             countries={countries}
             selectedCountries={selectedCountries}
             onToggle={toggleCountry}
-            selectAll={() => setSelectedCountries(countries)}
-            unselectAll={() => setSelectedCountries([])}
+            selectAll={() => {
+              setSelectedCountries(countries);
+              setFilteredCities(myCities);
+            }}
+            unselectAll={() => {
+              setSelectedCountries([]);
+              setFilteredCities([]);
+            }}
           />
           <Actions filteredCities={filteredCities} setFilteredCities={setFilteredCities} />
         </div>
