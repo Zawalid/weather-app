@@ -4,7 +4,7 @@
   "start_url": "/app",
   "display": "standalone",
   "background_color": "#0b131e",
-  "theme_color": "#0072e6",
+  "theme_color": "#0b131e",
   "description": "A weather app for modern age",
   "version": "1.0.0",
   "icons": [
@@ -22,34 +22,34 @@
   "shortcuts": [
     {
       "name": "Map",
-      "url": "/map",
+      "url": "/app/map",
       "description": "View the map",
       "icons": [
         {
           "src": "map.png",
-          "sizes": "128x128"
+          "sizes": "100x100"
         }
       ]
     },
     {
       "name": "My Cities",
-      "url": "/mycities",
+      "url": "/app/mycities",
       "description": "View your cities",
       "icons": [
         {
           "src": "list.png",
-          "sizes": "128x128"
+          "sizes": "100x100"
         }
       ]
     },
     {
       "name": "Settings",
-      "url": "/settings",
+      "url": "/app/settings",
       "description": "Change settings",
       "icons": [
         {
           "src": "settings.png",
-          "sizes": "128x128"
+          "sizes": "100x100"
         }
       ]
     }
