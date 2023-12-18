@@ -1,6 +1,5 @@
 import { useSettings } from '@/hooks/useSettings';
 import Theme from './settings-components/Theme';
-import Language from './settings-components/Language';
 import Units from './Units';
 import FontSize from './settings-components/FontSize';
 import SwitchSetting from './settings-components/SwitchSetting';
@@ -179,7 +178,6 @@ export default function Settings() {
             checked={autoDayNightMode}
             onChange={() => setAutoDayNightMode(!autoDayNightMode)}
           />
-          <Language />
         </div>
       </div>
 

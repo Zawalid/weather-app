@@ -42,7 +42,7 @@ export function getTimeBaseOnTimezone(timezone, hour12) {
 
 export function getWeatherImageAndDescription(wmoCode, isDay) {
   const description = WEATHER_DESCRIPTIONS[wmoCode];
-  const image = `/src/assets/icons/${wmoCode}-${isDay ? 'day' : 'night'}.png`;
+  const image = `/icons/${wmoCode}-${isDay ? 'day' : 'night'}.png`;
   return { description, image };
 }
 
